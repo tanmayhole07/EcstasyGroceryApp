@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        style="@style/loginHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Register"
+        android:textSize="24sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputName"
+        style="@style/parent"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:id="@+id/registerNameEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="@string/login_name_hint"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputMobile"
+        style="@style/parent"
+
+        android:layout_marginTop="@dimen/loginViewsMargin">
+
+        <EditText
+            android:id="@+id/registerPhoneEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="@string/login_mobile_number_hint"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputEmail"
+        style="@style/parent"
+        android:layout_marginTop="@dimen/loginViewsMargin">
+
+        <EditText
+            android:id="@+id/registerEmailEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="@string/login_email_hint"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputPassword"
+        style="@style/parent"
+        android:layout_marginTop="@dimen/loginViewsMargin"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/registerPasswordEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="@string/login_password_hint"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/registerButton"
+        style="@style/loginButton"
+        android:layout_gravity="right"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/poppins_light"
+        android:text="Signup"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/haveAccountTv"
+        style="@style/parent"
+        android:layout_marginTop="@dimen/loginViewsMargin"
+        android:fontFamily="@font/poppins_light"
+        android:text="Already Have Account? SingIn?"
+        android:textAlignment="textEnd"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="8sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

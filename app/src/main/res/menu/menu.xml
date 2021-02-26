@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/userAccount"
+            android:icon="@drawable/ic_person_white"
+            android:title="Your account" />
+
+        <item
+            android:id="@+id/shopsNearby"
+            android:icon="@drawable/ic_shops_nearby_white"
+            android:title="Shops Nearby" />
+        <item
+            android:id="@+id/userOrders"
+            android:icon="@drawable/ic_orders_white"
+            android:title="Your Orders" />
+
+        <item
+            android:id="@+id/buyAgainActivity"
+            android:icon="@drawable/ic_buy_again_white"
+            android:title="Buy Again" />
+
+        <item
+            android:id="@+id/sellOnEcstasy"
+            android:icon="@drawable/ic_sell_white"
+            android:title="Sell on Ecstasy" />
+
+    </group>
+    <item android:title="">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/aboutUs"
+                    android:icon="@drawable/ic_about_us_white"
+                    android:title="About Us" />
+                <item
+                    android:id="@+id/logout"
+                    android:icon="@drawable/ic_logout_white"
+                    android:title="Logout" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

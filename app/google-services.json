@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "55826908460",
+    "project_id": "ecstasy-grocery-app",
+    "storage_bucket": "ecstasy-grocery-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55826908460:android:7a695a5d852ee79cfc9889",
+        "android_client_info": {
+          "package_name": "com.example.ecstasygroceryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55826908460-bq803a0od9sqoio8vce6pedvaehrfnbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyErIwBlkL4j_CKuRsfxGxzn19vTjBGEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55826908460-bq803a0od9sqoio8vce6pedvaehrfnbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
