@@ -53,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String accountTye = ""+snapshot.child("accountTye").getValue();
                         if (accountTye.equals("Seller")){
-                            //startActivity(new Intent(SplashActivity.this, DashboardSellerActivity.class));
+                            startActivity(new Intent(SplashActivity.this, DashboardSellerActivity.class));
                         }
                         else {
                             startActivity(new Intent(SplashActivity.this, DashboardUserActivity.class));

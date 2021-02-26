@@ -1,0 +1,561 @@
+package com.example.ecstasygroceryapp;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+
+public class SellOnEcstasyActivity extends AppCompatActivity {
+
+    ImageView profileIv;
+    EditText nameEt, emailEt, passwordEt, phoneEt, shopNameEt, deliveryFeeEt, countryEt, stateEt, cityEt, addressEt;
+    Button registerBtn;
+    TextView gpsTv;
+
+    FirebaseAuth firebaseAuth;
+    String mUID = "uid";
+    private ProgressDialog pd;
+
+    private Uri image_uri;
+
+    //permission constants
+    private static final int CAMERA_REQUEST_CODE = 100;
+    private static final int STORAGE_REQUEST_CODE = 200;
+    private static final int IMAGE_PICK_GALLERY_CODE = 300;
+    private static final int IMAGE_PICK_CAMERA_CODE = 400;
+
+    //permission arrays
+    String cameraPermission[];
+    String storagePermissions[];
+
+    FusedLocationProviderClient fusedLocationProviderClient;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sell_on_ecstasy);
+
+        profileIv = findViewById(R.id.profileIv);
+        nameEt = findViewById(R.id.nameEt);
+        emailEt = findViewById(R.id.emailEt);
+        phoneEt = findViewById(R.id.phoneEt);
+        shopNameEt = findViewById(R.id.shopNameEt);
+        deliveryFeeEt = findViewById(R.id.deliveryFeeEt);
+        passwordEt = findViewById(R.id.passwordEt);
+        countryEt = findViewById(R.id.countryEt);
+        stateEt = findViewById(R.id.stateEt);
+        cityEt = findViewById(R.id.cityEt);
+        addressEt = findViewById(R.id.addressEt);
+        registerBtn = findViewById(R.id.registerBtn);
+        gpsTv = findViewById(R.id.gpsTv);
+
+
+        pd = new ProgressDialog(this);
+        pd.setTitle("Please Title");
+        pd.setCanceledOnTouchOutside(false);
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        profileIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showImagePicDialog();
+            }
+        });
+
+        gpsTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                turnOnnLocation();
+            }
+        });
+
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inputData();
+            }
+        });
+
+        checkUserStatus();
+        loadUserData();
+    }
+
+    private String fullName, shopName, phoneNumber, deliveryFee, country, state, city, address, email, password;
+    private void inputData() {
+
+        fullName = nameEt.getText().toString();
+        shopName = shopNameEt.getText().toString();
+        phoneNumber = phoneEt.getText().toString();
+        deliveryFee = deliveryFeeEt.getText().toString();
+        country = countryEt.getText().toString();
+        state = stateEt.getText().toString();
+        city = cityEt.getText().toString();
+        address = addressEt.getText().toString();
+        email = emailEt.getText().toString();
+        password = passwordEt.getText().toString();
+
+        if (TextUtils.isEmpty(fullName)){
+            Toast.makeText(this, "Enter Name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(shopName)){
+            Toast.makeText(this, "Enter shop name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(phoneNumber)){
+            Toast.makeText(this, "Enter phone Number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(deliveryFee)){
+            Toast.makeText(this, "Enter Delivery fee", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (latitude==0.0 || longitude ==0.0){
+            Toast.makeText(this, "Gps turn on plz...", Toast.LENGTH_SHORT).show();
+
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (password.length()<6){
+            Toast.makeText(this, "Password must be at least 6 characters long...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        createAccount();
+
+    }
+
+    private void createAccount() {
+        pd.setMessage("Creating Account");
+        pd.show();
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        saveFirebaseData();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(SellOnEcstasyActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void saveFirebaseData() {
+        pd.setMessage("Saving Account Info");
+        final String timeStamp = ""+System.currentTimeMillis();
+
+        if (image_uri == null){
+
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("uid",""+firebaseAuth.getUid());
+            hashMap.put("email", ""+email);
+            hashMap.put("name", ""+fullName);
+            hashMap.put("shopName", ""+shopName);
+            hashMap.put("phone", ""+phoneNumber);
+            hashMap.put("deliveryFee", ""+deliveryFee);
+            hashMap.put("country", ""+country);
+            hashMap.put("state", ""+state);
+            hashMap.put("city", ""+city);
+            hashMap.put("address", ""+address);
+            hashMap.put("latitude", ""+latitude);
+            hashMap.put("longitude", ""+longitude);
+            hashMap.put("timeStamp", timeStamp);
+            hashMap.put("accountTye", "Seller");
+            hashMap.put("online", "true");
+            hashMap.put("shopOpen", "true");
+            hashMap.put("profileImage", "");
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(firebaseAuth.getUid()).setValue(hashMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            pd.dismiss();
+                            startActivity(new Intent(SellOnEcstasyActivity.this, DashboardSellerActivity.class));
+                            finish();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            pd.dismiss();
+                            startActivity(new Intent(SellOnEcstasyActivity.this, DashboardSellerActivity.class));
+                            finish();
+                        }
+                    });
+
+        }else {
+
+            String filePathAndName = "profile_image"+""+firebaseAuth.getUid();
+
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
+            storageReference.putFile(image_uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!uriTask.isSuccessful());
+                            Uri downloadImageUri = uriTask.getResult();
+
+                            if (uriTask.isSuccessful()){
+
+                                HashMap<String, Object> hashMap = new HashMap<>();
+                                hashMap.put("uid",""+firebaseAuth.getUid());
+                                hashMap.put("email", ""+email);
+                                hashMap.put("name", ""+fullName);
+                                hashMap.put("shopName", ""+shopName);
+                                hashMap.put("phone", ""+phoneNumber);
+                                hashMap.put("deliveryFee", ""+deliveryFee);
+                                hashMap.put("country", ""+country);
+                                hashMap.put("state", ""+state);
+                                hashMap.put("city", ""+city);
+                                hashMap.put("address", ""+address);
+                                hashMap.put("latitude", ""+latitude);
+                                hashMap.put("longitude", ""+longitude);
+                                hashMap.put("timeStamp", timeStamp);
+                                hashMap.put("accountTye", "Seller");
+                                hashMap.put("online", "true");
+                                hashMap.put("shopOpen", "true");
+                                hashMap.put("profileImage", ""+downloadImageUri);
+
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                ref.child(firebaseAuth.getUid()).setValue(hashMap)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                pd.dismiss();
+                                                startActivity(new Intent(SellOnEcstasyActivity.this, DashboardSellerActivity.class));
+                                                finish();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                pd.dismiss();
+                                                startActivity(new Intent(SellOnEcstasyActivity.this, DashboardSellerActivity.class));
+                                                finish();
+                                            }
+                                        });
+
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            pd.dismiss();
+                            Toast.makeText(SellOnEcstasyActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void turnOnnLocation() {
+        pd.setMessage("Accessing location");
+        pd.show();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getLocationUser();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+        }
+    }
+
+    private double latitude, longitude;
+
+    private void getLocationUser() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+                if (location != null) {
+
+                    try {
+                        Geocoder geocoder = new Geocoder(SellOnEcstasyActivity.this, Locale.getDefault());
+
+                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
+                        latitude = addresses.get(0).getLatitude();
+                        longitude = addresses.get(0).getLongitude();
+
+                        cityEt.setText(addresses.get(0).getLocality());
+                        stateEt.setText(addresses.get(0).getSubLocality());
+                        countryEt.setText(addresses.get(0).getCountryName());
+
+                        addressEt.setText(addresses.get(0).getAddressLine(0));
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                pd.dismiss();
+                            }
+                        }, 2000);
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void loadUserData() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String name = "" + ds.child("name").getValue();
+                            //String email = "" + ds.child("email").getValue();
+                            String phone = "" + ds.child("phone").getValue();
+                            String profileImage = "" + ds.child("image").getValue();
+
+                            nameEt.setText(name);
+                            //emailEt.setText(email);
+                            phoneEt.setText(phone);
+
+                            try {
+                                Picasso.get().load(profileImage).placeholder(R.drawable.logo1).into(profileIv);
+                            } catch (Exception e) {
+                                profileIv.setImageResource(R.drawable.logo1);
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    private void checkUserStatus() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            mUID = user.getUid();
+
+        } else {
+            startActivity(new Intent(SellOnEcstasyActivity.this, LoginActivity.class));
+            finish();
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Camera & Storage permissions, requests and setting Data//
+
+    private void showImagePicDialog() {
+
+        String[] options = {"Camera", "Gallery"};
+        android.app.AlertDialog.Builder builder = new AlertDialog.Builder(SellOnEcstasyActivity.this);
+        builder.setTitle("Pick Image")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (i == 0) {
+                            //camera clicked
+                            if (checkCameraPermission()) {
+                                pickFromCamera();
+                            } else {
+                                requestCameraPermission();
+                            }
+                        } else {
+                            //gallery clicked
+                            if (checkStoragePermission()) {
+                                pickFromGallery();
+                            } else {
+                                requestStoragePermission();
+                            }
+                        }
+                    }
+                }).show();
+
+    }
+
+    private void pickFromCamera() {
+        ContentValues cv = new ContentValues();
+        cv.put(MediaStore.Images.Media.TITLE, "Temp_Image Title");
+        cv.put(MediaStore.Images.Media.DESCRIPTION, "Temp_Image Description");
+
+        image_uri = this.getApplicationContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        startActivityForResult(intent, IMAGE_PICK_CAMERA_CODE);
+    }
+
+    private void pickFromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(Intent.createChooser(galleryIntent, "Select Picture"), IMAGE_PICK_GALLERY_CODE);
+    }
+
+    private boolean checkStoragePermission() {
+        boolean result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        return result;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestStoragePermission() {
+        requestPermissions(storagePermissions, STORAGE_REQUEST_CODE);
+    }
+
+    private boolean checkCameraPermission() {
+        boolean result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
+
+        boolean result1 = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
+        return result && result1;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestCameraPermission() {
+        requestPermissions(cameraPermission, CAMERA_REQUEST_CODE);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Permission request and Activity result//
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+
+
+            case CAMERA_REQUEST_CODE: {
+                if (grantResults.length > 0) {
+                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    if (cameraAccepted && storageAccepted) {
+                        pickFromCamera();
+                    } else {
+                        Toast.makeText(this, "Camera permission is required...", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            break;
+
+            case STORAGE_REQUEST_CODE: {
+                if (grantResults.length > 0) {
+                    boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (storageAccepted) {
+                        pickFromGallery();
+                    } else {
+                        Toast.makeText(this, "Storage permission is required...", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            break;
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+                image_uri = data.getData();
+                profileIv.setImageURI(image_uri);
+            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+                profileIv.setImageURI(image_uri);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+}

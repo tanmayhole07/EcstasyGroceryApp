@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.example.ecstasygroceryapp.Fragments.AboutUsFragment;
 import com.example.ecstasygroceryapp.Fragments.BuyAgainActivityFragment;
-import com.example.ecstasygroceryapp.Fragments.SellOnEcstasyFragment;
 import com.example.ecstasygroceryapp.Fragments.ShopsNearbyFragment;
 import com.example.ecstasygroceryapp.Fragments.UserAccountkFragment;
 import com.example.ecstasygroceryapp.Fragments.UserOrdersFragment;
@@ -59,6 +58,7 @@ public class DashboardUserActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
         pd.setTitle("Please Title");
         pd.setCanceledOnTouchOutside(false);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,7 +69,7 @@ public class DashboardUserActivity extends AppCompatActivity {
 
         drawer = findViewById(R.id.drawer_layout);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -103,8 +103,7 @@ public class DashboardUserActivity extends AppCompatActivity {
                         loadFragment(fragment);
                         break;
                     case R.id.sellOnEcstasy:
-                        fragment=new SellOnEcstasyFragment();
-                        loadFragment(fragment);
+                        startActivity(new Intent(DashboardUserActivity.this, SellOnEcstasyActivity.class));
                         break;
 
                     case R.id.aboutUs:

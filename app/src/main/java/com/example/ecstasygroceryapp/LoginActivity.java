@@ -1,6 +1,7 @@
 package com.example.ecstasygroceryapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -46,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText loginName, loginPassword;
     Button loginButton;
     TextView dontHaveAccountTv, forgotPassTv;
+
+    String mUID = "uid";
 
     private ConstraintLayout loginRl;
     private ConstraintLayout registerRl;
@@ -120,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         showLoginUi();
-
+        checkUserType();
 
     }
 
@@ -221,7 +225,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             pd.dismiss();
                             makeMeOnline();
-                            startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
+                            //startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
                             finish();
 
                         } else {
@@ -389,31 +393,49 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkUserType() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds : snapshot.getChildren()){
-                            String accountTye = ""+ds.child("accountTye").getValue();
-                            if (accountTye.equals("Seller")){
-                                pd.dismiss();
-                                //startActivity(new Intent(LoginActivity.this, MainSellerActivity.class));
-                                finish();
-                            }
-                            else {
-                                pd.dismiss();
-                                //startActivity(new Intent(LoginActivity.this, MainUserActivity.class));
-                                finish();
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            mUID = user.getUid();
+
+        }else {
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
+                    .addValueEventListener(new ValueEventListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                String accountTye = "" + ds.child("accountTye").getValue();
+                                if (accountTye.equals("Seller")) {
+                                    pd.dismiss();
+                                    startActivity(new Intent(LoginActivity.this, DashboardSellerActivity.class));
+                                    finishAndRemoveTask();
+                                    //finish();
+                                } else {
+                                    pd.dismiss();
+                                    startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
+                                    finishAndRemoveTask();
+                                    //finish();
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                        }
+                    });
+            //finish();
+        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onBackPressed() {
+        finishAndRemoveTask();
+        finish();
+        super.onBackPressed();
+    }
 }
