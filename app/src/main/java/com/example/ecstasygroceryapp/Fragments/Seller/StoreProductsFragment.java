@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Fragments;
+package com.example.ecstasygroceryapp.Fragments.Seller;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.example.ecstasygroceryapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link UserAccountkFragment#newInstance} factory method to
+ * Use the {@link StoreProductsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserAccountkFragment extends Fragment {
+public class StoreProductsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class UserAccountkFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public UserAccountkFragment() {
+    public StoreProductsFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class UserAccountkFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment UserAccountkFragment.
+     * @return A new instance of fragment storeProductsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static UserAccountkFragment newInstance(String param1, String param2) {
-        UserAccountkFragment fragment = new UserAccountkFragment();
+    public static StoreProductsFragment newInstance(String param1, String param2) {
+        StoreProductsFragment fragment = new StoreProductsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class UserAccountkFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_accountk, container, false);
+        return inflater.inflate(R.layout.fragment_store_products, container, false);
     }
 }

@@ -25,10 +25,10 @@ import android.widget.Toast;
 import com.example.ecstasygroceryapp.Activities.LoginActivity;
 import com.example.ecstasygroceryapp.Activities.SellOnEcstasyActivity;
 import com.example.ecstasygroceryapp.Fragments.AboutUsFragment;
-import com.example.ecstasygroceryapp.Fragments.BuyAgainActivityFragment;
-import com.example.ecstasygroceryapp.Fragments.ShopsNearbyFragment;
-import com.example.ecstasygroceryapp.Fragments.UserAccountkFragment;
-import com.example.ecstasygroceryapp.Fragments.UserOrdersFragment;
+import com.example.ecstasygroceryapp.Fragments.User.BuyAgainActivityFragment;
+import com.example.ecstasygroceryapp.Fragments.User.ShopsNearbyFragment;
+import com.example.ecstasygroceryapp.Fragments.User.UserAccountkFragment;
+import com.example.ecstasygroceryapp.Fragments.User.UserOrdersFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -148,7 +148,7 @@ public class DashboardUserActivity extends AppCompatActivity {
                             String name = "" + ds.child("name").getValue();
                             String email = "" + ds.child("email").getValue();
                             String phone = "" + ds.child("phone").getValue();
-                            String profileImage = "" + ds.child("image").getValue();
+                            String profileImage = "" + ds.child("profileImage").getValue();
                             String accountTye = "" + ds.child("accountTye").getValue();
                             String city = "" + ds.child("city").getValue();
 

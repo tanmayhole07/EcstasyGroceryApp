@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Fragments;
+package com.example.ecstasygroceryapp.Fragments.User;
 
 import android.os.Bundle;
 

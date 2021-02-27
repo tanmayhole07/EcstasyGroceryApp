@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/sellerAccount"
+            android:icon="@drawable/ic_person_white"
+            android:title="Your account" />
+
+        <item
+            android:id="@+id/storeProducts"
+            android:icon="@drawable/ic_shops_nearby_white"
+            android:title="Products" />
+        <item
+            android:id="@+id/sellerOrders"
+            android:icon="@drawable/ic_orders_white"
+            android:title="Orders" />
+
+        <item
+            android:id="@+id/addProduct"
+            android:icon="@drawable/ic_buy_again_white"
+            android:title="Add Product" />
+
+        <item
+            android:id="@+id/loginUser"
+            android:icon="@drawable/ic_sell_white"
+            android:title="Login as User" />
+
+    </group>
+    <item android:title="">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/aboutUs"
+                    android:icon="@drawable/ic_about_us_white"
+                    android:title="About Us" />
+                <item
+                    android:id="@+id/logout"
+                    android:icon="@drawable/ic_logout_white"
+                    android:title="Logout" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

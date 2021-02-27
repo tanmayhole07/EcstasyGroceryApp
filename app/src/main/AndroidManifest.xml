@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EcstasyGroceryApp">
-        <activity android:name=".DashboardSellerActivity"></activity>
+        <activity
+            android:name=".DashboardSellerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.SellOnEcstasyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
