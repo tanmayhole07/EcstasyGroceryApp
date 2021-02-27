@@ -1,10 +1,10 @@
-package com.example.ecstasygroceryapp;
+package com.example.ecstasygroceryapp.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -32,13 +32,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ecstasygroceryapp.DashboardSellerActivity;
+import com.example.ecstasygroceryapp.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,8 +63,10 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
 
     ImageView profileIv;
     EditText nameEt, emailEt, passwordEt, phoneEt, shopNameEt, deliveryFeeEt, countryEt, stateEt, cityEt, addressEt;
-    Button registerBtn;
+    Button registerSellerButton;
     TextView gpsTv;
+
+    ConstraintLayout layout_register_seller_1, layout_register_seller_2, layout_register_seller_3;
 
     FirebaseAuth firebaseAuth;
     String mUID = "uid";
@@ -80,6 +84,8 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
     String cameraPermission[];
     String storagePermissions[];
 
+    FloatingActionButton fabStep1Complete, fabStep2Complete, fabStep2Prev, fabStep3Prev;
+
     FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
@@ -87,19 +93,28 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell_on_ecstasy);
 
-        profileIv = findViewById(R.id.profileIv);
-        nameEt = findViewById(R.id.nameEt);
-        emailEt = findViewById(R.id.emailEt);
-        phoneEt = findViewById(R.id.phoneEt);
-        shopNameEt = findViewById(R.id.shopNameEt);
-        deliveryFeeEt = findViewById(R.id.deliveryFeeEt);
-        passwordEt = findViewById(R.id.passwordEt);
-        countryEt = findViewById(R.id.countryEt);
-        stateEt = findViewById(R.id.stateEt);
-        cityEt = findViewById(R.id.cityEt);
-        addressEt = findViewById(R.id.addressEt);
-        registerBtn = findViewById(R.id.registerBtn);
-        gpsTv = findViewById(R.id.gpsTv);
+        profileIv = findViewById(R.id.profileIv);//
+        nameEt = findViewById(R.id.nameEt);//
+        emailEt = findViewById(R.id.emailEt);//
+        phoneEt = findViewById(R.id.phoneEt);//
+        shopNameEt = findViewById(R.id.shopNameEt);//
+        deliveryFeeEt = findViewById(R.id.deliveryFeeEt);//
+        passwordEt = findViewById(R.id.passwordEt);//
+        countryEt = findViewById(R.id.countryEt);//
+        stateEt = findViewById(R.id.stateEt);//
+        cityEt = findViewById(R.id.cityEt);//
+        addressEt = findViewById(R.id.addressEt);//
+        registerSellerButton = findViewById(R.id.registerSellerButton);//
+        gpsTv = findViewById(R.id.gpsTv);//
+
+        fabStep1Complete = findViewById(R.id.fabStep1Complete);
+        fabStep2Complete = findViewById(R.id.fabStep2Complete);
+        fabStep2Prev = findViewById(R.id.fabStep2Prev);
+        fabStep3Prev = findViewById(R.id.fabStep3Prev);
+
+        layout_register_seller_1 = findViewById(R.id.layout_register_seller_1);
+        layout_register_seller_2 = findViewById(R.id.layout_register_seller_2);
+        layout_register_seller_3 = findViewById(R.id.layout_register_seller_3);
 
 
         pd = new ProgressDialog(this);
@@ -126,43 +141,77 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
             }
         });
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
+        registerSellerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 inputData();
             }
         });
 
+        fabStep1Complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inputDataStep1();
+
+            }
+        });
+
+        fabStep2Complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inputDataStep2();
+
+            }
+        });
+
+        fabStep2Prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout1();
+            }
+        });
+
+        fabStep3Prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout2();
+            }
+        });
+
+        layout1();
         checkUserStatus();
         loadUserData();
     }
 
+
+
+
+    private void layout1() {
+        layout_register_seller_1.setVisibility(View.VISIBLE);
+        layout_register_seller_2.setVisibility(View.GONE);
+        layout_register_seller_3.setVisibility(View.GONE);
+    }
+
+    private void layout2() {
+        layout_register_seller_2.setVisibility(View.VISIBLE);
+        layout_register_seller_1.setVisibility(View.GONE);
+        layout_register_seller_3.setVisibility(View.GONE);
+    }
+
+    private void layout3() {
+        layout_register_seller_3.setVisibility(View.VISIBLE);
+        layout_register_seller_2.setVisibility(View.GONE);
+        layout_register_seller_1.setVisibility(View.GONE);
+    }
+
     private String fullName, shopName, phoneNumber, deliveryFee, country, state, city, address, email, password;
-    private void inputData() {
 
-        fullName = nameEt.getText().toString();
+    private void inputDataStep1() {
         shopName = shopNameEt.getText().toString();
-        phoneNumber = phoneEt.getText().toString();
         deliveryFee = deliveryFeeEt.getText().toString();
-        country = countryEt.getText().toString();
-        state = stateEt.getText().toString();
-        city = cityEt.getText().toString();
-        address = addressEt.getText().toString();
-        email = emailEt.getText().toString();
-        password = passwordEt.getText().toString();
-
-        if (TextUtils.isEmpty(fullName)){
-            Toast.makeText(this, "Enter Name", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         if (TextUtils.isEmpty(shopName)){
             Toast.makeText(this, "Enter shop name", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (TextUtils.isEmpty(phoneNumber)){
-            Toast.makeText(this, "Enter phone Number", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -171,10 +220,48 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
             return;
         }
 
+        layout2();
+    }
+
+    private void inputDataStep2() {
+
+        country = countryEt.getText().toString();
+        state = stateEt.getText().toString();
+        city = cityEt.getText().toString();
+        address = addressEt.getText().toString();
+
         if (latitude==0.0 || longitude ==0.0){
             Toast.makeText(this, "Gps turn on plz...", Toast.LENGTH_SHORT).show();
 
         }
+
+        layout3();
+    }
+
+    private void inputData() {
+
+        fullName = nameEt.getText().toString();
+
+        phoneNumber = phoneEt.getText().toString();
+
+
+        email = emailEt.getText().toString();
+        password = passwordEt.getText().toString();
+
+        if (TextUtils.isEmpty(fullName)){
+            Toast.makeText(this, "Enter Name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        if (TextUtils.isEmpty(phoneNumber)){
+            Toast.makeText(this, "Enter phone Number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
+
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show();
@@ -363,7 +450,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
                         longitude = addresses.get(0).getLongitude();
 
                         cityEt.setText(addresses.get(0).getLocality());
-                        stateEt.setText(addresses.get(0).getSubLocality());
+                        stateEt.setText(addresses.get(0).getPostalCode());
                         countryEt.setText(addresses.get(0).getCountryName());
 
                         addressEt.setText(addresses.get(0).getAddressLine(0));

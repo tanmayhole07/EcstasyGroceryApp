@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp;
+package com.example.ecstasygroceryapp.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,9 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.ecstasygroceryapp.DashboardSellerActivity;
+import com.example.ecstasygroceryapp.DashboardUserActivity;
+import com.example.ecstasygroceryapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

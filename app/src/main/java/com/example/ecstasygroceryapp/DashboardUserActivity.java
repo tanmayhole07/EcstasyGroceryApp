@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ecstasygroceryapp.Activities.LoginActivity;
+import com.example.ecstasygroceryapp.Activities.SellOnEcstasyActivity;
 import com.example.ecstasygroceryapp.Fragments.AboutUsFragment;
 import com.example.ecstasygroceryapp.Fragments.BuyAgainActivityFragment;
 import com.example.ecstasygroceryapp.Fragments.ShopsNearbyFragment;

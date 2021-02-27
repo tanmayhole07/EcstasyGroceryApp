@@ -1,12 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginStart="24dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="24dp"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/bg_sell2"
+    android:background="@drawable/bg_sell1"
     android:orientation="vertical"
     android:padding="10dp"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -18,99 +19,129 @@
         style="@style/loginHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:alpha=".8"
         android:fontFamily="@font/poppins_medium"
-        android:gravity="center"
-        android:text="Sell On Ecstasy"
-        android:textColor="@color/colorAccent"
+        android:text="Ecstasy Business"
         android:textSize="20sp" />
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputEmail"
+        android:id="@+id/textInputName"
         style="@style/parent"
         android:layout_marginTop="50dp"
-        android:alpha=".6">
-
-        <EditText
-            android:id="@+id/emailEt"
-            style="@style/modifiedEditText"
-            android:fontFamily="@font/poppins_light"
-            android:hint="Enter Email"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:textSize="12sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputPhone"
-        style="@style/parent"
-        android:alpha=".6">
-
-        <EditText
-            android:id="@+id/passwordEt"
-            style="@style/modifiedEditText"
-            android:fontFamily="@font/poppins_light"
-            android:hint="Enter Password"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:textSize="12sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputShopName"
-        style="@style/parent"
-        android:alpha=".6">
-
-        <EditText
-            android:id="@+id/confirmPasswordEt"
-            style="@style/modifiedEditText"
-            android:fontFamily="@font/poppins_light"
-            android:hint="Confirm Password"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textSize="12sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputDeliveryFee"
-        style="@style/parent"
         android:alpha=".6">
 
         <EditText
             android:id="@+id/addressEt"
             style="@style/modifiedEditText"
             android:fontFamily="@font/poppins_light"
-            android:hint="Enter Address"
-            android:inputType="number"
+            android:hint="Complete Address"
+            android:inputType="textPostalAddress|textMultiLine"
             android:maxLines="1"
             android:textSize="12sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/registerBtnFinal"
-        style="@style/registerButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/addressL1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addressEt"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="right"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/colorOrange"
-        android:minWidth="120dp"
-        android:text="Next" />
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputCountry"
+            style="@style/parent"
+            android:layout_weight="1"
+            android:alpha=".6">
+
+            <EditText
+                android:id="@+id/countryEt"
+                style="@style/modifiedEditText"
+                android:fontFamily="@font/poppins_light"
+                android:hint="Country"
+                android:inputType="textPostalAddress"
+                android:maxLines="1"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputState"
+            style="@style/parent"
+            android:layout_weight="1"
+            android:alpha=".6">
+
+            <EditText
+                android:id="@+id/stateEt"
+                style="@style/modifiedEditText"
+                android:fontFamily="@font/poppins_light"
+                android:hint="City"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputCity"
+            style="@style/parent"
+            android:layout_weight="1"
+            android:alpha=".6">
+
+            <EditText
+                android:id="@+id/cityEt"
+                style="@style/modifiedEditText"
+                android:fontFamily="@font/poppins_light"
+                android:hint="Postal Code"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/gpsTv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/registerBtn"
-        android:layout_marginBottom="10dp"
+        style="@style/parent"
+        android:textStyle="bold"
+        android:textSize="10sp"
         android:fontFamily="@font/poppins_light"
-        android:gravity="center"
-        android:text="CLICK TO ENABLE GPS"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="10sp" />
+        android:id="@+id/gpsTv"
+        android:textColor="@color/primaryTextColor"
+        android:layout_marginTop="50dp"
+        android:text="Click to Enable GPS"
+        android:gravity="center" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabStep2Complete"
+            style="@style/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/purple_200"
+            android:src="@drawable/ic_next_orange" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabStep2Prev"
+            style="@style/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/purple_200"
+            android:src="@drawable/ic_previous_orange" />
+
+    </RelativeLayout>
+
+
+
+
+
 
 </LinearLayout>
