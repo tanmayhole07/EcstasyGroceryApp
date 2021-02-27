@@ -1,6 +1,7 @@
 package com.example.ecstasygroceryapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,14 +64,12 @@ public class DashboardUserActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TextView textView = (TextView)toolbar.findViewById(R.id.toolbarTextView);
+        TextView textView = (TextView) toolbar.findViewById(R.id.toolbarTextView);
         textView.setText("Ecstasy");
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         drawer = findViewById(R.id.drawer_layout);
-
-
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -78,28 +78,27 @@ public class DashboardUserActivity extends AppCompatActivity {
         toggle.syncState();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShopsNearbyFragment()).commit();
-        navigationView=findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id=menuItem.getItemId();
-                Fragment fragment=null;
-                switch (id)
-                {
+                int id = menuItem.getItemId();
+                Fragment fragment = null;
+                switch (id) {
                     case R.id.userAccount:
-                        fragment=new UserAccountkFragment();
+                        fragment = new UserAccountkFragment();
                         loadFragment(fragment);
                         break;
                     case R.id.shopsNearby:
-                        fragment=new ShopsNearbyFragment();
+                        fragment = new ShopsNearbyFragment();
                         loadFragment(fragment);
                         break;
                     case R.id.userOrders:
-                        fragment=new UserOrdersFragment();
+                        fragment = new UserOrdersFragment();
                         loadFragment(fragment);
                         break;
                     case R.id.buyAgainActivity:
-                        fragment=new BuyAgainActivityFragment();
+                        fragment = new BuyAgainActivityFragment();
                         loadFragment(fragment);
                         break;
                     case R.id.sellOnEcstasy:
@@ -107,12 +106,14 @@ public class DashboardUserActivity extends AppCompatActivity {
                         break;
 
                     case R.id.aboutUs:
-                        fragment=new AboutUsFragment();
+                        fragment = new AboutUsFragment();
                         loadFragment(fragment);
                         break;
 
                     case R.id.logout:
+                        firebaseAuth.signOut();
                         makeMeOffline();
+                        //finish();
                     default:
                         return true;
                 }
@@ -127,9 +128,9 @@ public class DashboardUserActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment) {
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container,fragment).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
         drawer.closeDrawer(GravityCompat.START);
         fragmentTransaction.addToBackStack(null);
     }
@@ -157,7 +158,7 @@ public class DashboardUserActivity extends AppCompatActivity {
 
                             try {
                                 Picasso.get().load(profileImage).placeholder(R.drawable.logo1).into(navProfileImage);
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 navProfileImage.setImageResource(R.drawable.logo1);
                             }
 
@@ -188,30 +189,43 @@ public class DashboardUserActivity extends AppCompatActivity {
         hashMap.put("online", "false");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseAuth.getUid()).updateChildren(hashMap)
+        ref.child(firebaseAuth.getUid()+"").updateChildren(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        firebaseAuth.signOut();
                         checkUserStatus();
-
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         pd.dismiss();
-                        Toast.makeText(DashboardUserActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DashboardUserActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
     }
 
     @Override
+    protected void onResume() {
+        checkUserStatus();
+        super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        checkUserStatus();
+        super.onStart();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            finishAndRemoveTask();
             super.onBackPressed();
         }
     }

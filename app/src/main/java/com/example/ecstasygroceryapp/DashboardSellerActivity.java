@@ -50,7 +50,20 @@ public class DashboardSellerActivity extends AppCompatActivity {
 
         } else {
             startActivity(new Intent(DashboardSellerActivity.this, LoginActivity.class));
-            //finish();
+            finish();
         }
     }
+
+    @Override
+    protected void onResume() {
+        checkUserStatus();
+        super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        checkUserStatus();
+        super.onStart();
+    }
+
 }

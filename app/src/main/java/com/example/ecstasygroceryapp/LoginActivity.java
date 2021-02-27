@@ -124,8 +124,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         showLoginUi();
-        checkUserType();
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEt.setMinEms(16);
 
         linearLayout.addView(emailEt);
-        linearLayout.setPadding(10,10,10,10);
+        linearLayout.setPadding(10, 10, 10, 10);
 
         builder.setView(linearLayout);
 
@@ -173,10 +171,9 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         pd.dismiss();
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -184,7 +181,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(LoginActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -193,17 +190,18 @@ public class LoginActivity extends AppCompatActivity {
     //                  Login User               //
 
     private String emailLogin, passwordLogin;
+
     private void loginUser() {
         emailLogin = loginName.getText().toString().trim();
         passwordLogin = loginPassword.getText().toString().trim();
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(emailLogin).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailLogin).matches()) {
             Toast.makeText(this, "Invalid Email Address", Toast.LENGTH_SHORT).show();
             loginName.setFocusable(true);
             return;
         }
 
-        if (TextUtils.isEmpty(passwordLogin)){
+        if (TextUtils.isEmpty(passwordLogin)) {
             Toast.makeText(this, "Enter Password", Toast.LENGTH_SHORT).show();
             loginPassword.setFocusable(true);
             return;
@@ -219,21 +217,10 @@ public class LoginActivity extends AppCompatActivity {
         pd.show();
 
         firebaseAuth.signInWithEmailAndPassword(emailLogin, passwordLogin)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            pd.dismiss();
-                            makeMeOnline();
-                            //startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
-                            finish();
-
-                        } else {
-                            pd.dismiss();
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
+                    public void onSuccess(AuthResult authResult) {
+                        makeMeOnline();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -244,7 +231,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -271,7 +257,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "Invalid Email Address", Toast.LENGTH_SHORT).show();
             registerEmailEt.setFocusable(true);
             return;
@@ -317,13 +303,13 @@ public class LoginActivity extends AppCompatActivity {
     private void saveFirebaseData() {
 
         pd.setMessage("Saving Account Info");
-        final String timeStamp = ""+System.currentTimeMillis();
+        final String timeStamp = "" + System.currentTimeMillis();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("uid",""+firebaseAuth.getUid());
-        hashMap.put("email", ""+email);
-        hashMap.put("name", ""+fullName);
-        hashMap.put("phone", ""+phoneNumber);
+        hashMap.put("uid", "" + firebaseAuth.getUid());
+        hashMap.put("email", "" + email);
+        hashMap.put("name", "" + fullName);
+        hashMap.put("phone", "" + phoneNumber);
         hashMap.put("accountTye", "User");
         hashMap.put("timeStamp", timeStamp);
         hashMap.put("country", "");
@@ -387,54 +373,45 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         pd.dismiss();
-                        Toast.makeText(LoginActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     private void checkUserType() {
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            mUID = user.getUid();
-
-        }else {
-
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-            ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
-                    .addValueEventListener(new ValueEventListener() {
-                        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot ds : snapshot.getChildren()) {
-                                String accountTye = "" + ds.child("accountTye").getValue();
-                                if (accountTye.equals("Seller")) {
-                                    pd.dismiss();
-                                    startActivity(new Intent(LoginActivity.this, DashboardSellerActivity.class));
-                                    finishAndRemoveTask();
-                                    //finish();
-                                } else {
-                                    pd.dismiss();
-                                    startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
-                                    finishAndRemoveTask();
-                                    //finish();
-                                }
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()){
+                            String accountTye = ""+ds.child("accountTye").getValue();
+                            if (accountTye.equals("Seller")){
+                                pd.dismiss();
+                                startActivity(new Intent(LoginActivity.this, DashboardSellerActivity.class));
+                                finish();
+                            }
+                            else {
+                                pd.dismiss();
+                                startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
+                                finish();
                             }
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-            //finish();
-        }
+                    }
+                });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed() {
-        finishAndRemoveTask();
+        //finishAndRemoveTask();
         finish();
         super.onBackPressed();
     }
