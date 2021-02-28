@@ -113,8 +113,9 @@ public class DashboardUserActivity extends AppCompatActivity {
                         break;
 
                     case R.id.logout:
-                        firebaseAuth.signOut();
+
                         makeMeOffline();
+                        firebaseAuth.signOut();
                         //finish();
                     default:
                         return true;
@@ -125,7 +126,7 @@ public class DashboardUserActivity extends AppCompatActivity {
 
 
         checkUserStatus();
-        loadUserName();
+
 
     }
 
@@ -137,7 +138,7 @@ public class DashboardUserActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
     }
 
-    private void loadUserName() {
+    private void loadUserData() {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
@@ -178,6 +179,7 @@ public class DashboardUserActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
             mUID = user.getUid();
+            loadUserData();
 
         } else {
             startActivity(new Intent(DashboardUserActivity.this, LoginActivity.class));
@@ -187,11 +189,12 @@ public class DashboardUserActivity extends AppCompatActivity {
 
     private void makeMeOffline() {
         pd.setMessage("Logging Out");
+        pd.show();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("online", "false");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseAuth.getUid()+"").updateChildren(hashMap)
+        ref.child(firebaseAuth.getUid()).updateChildren(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -206,6 +209,7 @@ public class DashboardUserActivity extends AppCompatActivity {
                         Toast.makeText(DashboardUserActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
 
     }
 

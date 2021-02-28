@@ -61,6 +61,8 @@ public class SellerAccountkFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_seller_accountk, container, false);
+        View view = inflater.inflate(R.layout.fragment_seller_accountk, container, false);
+
+        return (view);
     }
 }

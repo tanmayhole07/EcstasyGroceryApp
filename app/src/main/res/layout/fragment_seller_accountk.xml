@@ -6,9 +6,25 @@
     tools:context=".Fragments.Seller.SellerAccountkFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:alpha=".9"
+        android:background="@drawable/drawer_gradient_header">
+
+    </RelativeLayout>
+
+    <com.example.ecstasygroceryapp.SlantView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="200dp"
+        android:id="@+id/slantView"/>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="250dp"
+        android:background="@color/white">
 
+    </RelativeLayout>
 </FrameLayout>

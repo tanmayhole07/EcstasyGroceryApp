@@ -112,8 +112,8 @@ public class DashboardSellerActivity extends AppCompatActivity {
                         break;
 
                     case R.id.logout:
-                        firebaseAuth.signOut();
                         makeMeOffline();
+                        firebaseAuth.signOut();
 
                     default:
                         return true;
@@ -184,31 +184,26 @@ public class DashboardSellerActivity extends AppCompatActivity {
 
     private void makeMeOffline() {
         pd.setMessage("Logging Out");
+        pd.show();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("online", "false");
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseAuth.getUid()+"").child("online").setValue("false");
-        checkUserStatus();
-                
-                
-//                updateChildren(hashMap)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        checkUserStatus();
-//                        finish();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        pd.dismiss();
-//                        Toast.makeText(DashboardSellerActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+        ref.child(firebaseAuth.getUid()).updateChildren(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        checkUserStatus();
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(DashboardSellerActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 

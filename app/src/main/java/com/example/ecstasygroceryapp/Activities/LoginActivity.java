@@ -312,7 +312,7 @@ public class LoginActivity extends AppCompatActivity {
         hashMap.put("accountTye", "User");
         hashMap.put("timeStamp", timeStamp);
         hashMap.put("country", "");
-        hashMap.put("state", "");
+        hashMap.put("postalCode", "");
         hashMap.put("city", "");
         hashMap.put("address", "");
         hashMap.put("latitude", "");

@@ -62,7 +62,7 @@ import java.util.Locale;
 public class SellOnEcstasyActivity extends AppCompatActivity {
 
     ImageView profileIv;
-    EditText nameEt, emailEt, passwordEt, phoneEt, shopNameEt, deliveryFeeEt, countryEt, stateEt, cityEt, addressEt;
+    EditText nameEt, emailEt, passwordEt, phoneEt, shopNameEt, deliveryFeeEt, countryEt, postalCodeEt, cityEt, addressEt;
     Button registerSellerButton;
     TextView gpsTv;
 
@@ -101,7 +101,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
         deliveryFeeEt = findViewById(R.id.deliveryFeeEt);//
         passwordEt = findViewById(R.id.passwordEt);//
         countryEt = findViewById(R.id.countryEt);//
-        stateEt = findViewById(R.id.stateEt);//
+        postalCodeEt = findViewById(R.id.postalCodeEt);//
         cityEt = findViewById(R.id.cityEt);//
         addressEt = findViewById(R.id.addressEt);//
         registerSellerButton = findViewById(R.id.registerSellerButton);//
@@ -204,7 +204,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
         layout_register_seller_1.setVisibility(View.GONE);
     }
 
-    private String fullName, shopName, phoneNumber, deliveryFee, country, state, city, address, email, password;
+    private String fullName, shopName, phoneNumber, deliveryFee, country, postalCode, city, address, email, password;
 
     private void inputDataStep1() {
         shopName = shopNameEt.getText().toString();
@@ -226,7 +226,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
     private void inputDataStep2() {
 
         country = countryEt.getText().toString();
-        state = stateEt.getText().toString();
+        postalCode = postalCodeEt.getText().toString();
         city = cityEt.getText().toString();
         address = addressEt.getText().toString();
 
@@ -311,7 +311,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
             hashMap.put("phone", ""+phoneNumber);
             hashMap.put("deliveryFee", ""+deliveryFee);
             hashMap.put("country", ""+country);
-            hashMap.put("state", ""+state);
+            hashMap.put("postalCode", ""+postalCode);
             hashMap.put("city", ""+city);
             hashMap.put("address", ""+address);
             hashMap.put("latitude", ""+latitude);
@@ -343,7 +343,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
 
         }else {
 
-            String filePathAndName = "profile_image"+""+firebaseAuth.getUid();
+            String filePathAndName = "profile_images/"+""+firebaseAuth.getUid();
 
             StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
             storageReference.putFile(image_uri)
@@ -364,7 +364,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
                                 hashMap.put("phone", ""+phoneNumber);
                                 hashMap.put("deliveryFee", ""+deliveryFee);
                                 hashMap.put("country", ""+country);
-                                hashMap.put("state", ""+state);
+                                hashMap.put("postalCode", ""+postalCode);
                                 hashMap.put("city", ""+city);
                                 hashMap.put("address", ""+address);
                                 hashMap.put("latitude", ""+latitude);
@@ -450,7 +450,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
                         longitude = addresses.get(0).getLongitude();
 
                         cityEt.setText(addresses.get(0).getLocality());
-                        stateEt.setText(addresses.get(0).getPostalCode());
+                        postalCodeEt.setText(addresses.get(0).getPostalCode());
                         countryEt.setText(addresses.get(0).getCountryName());
 
                         addressEt.setText(addresses.get(0).getAddressLine(0));
@@ -485,16 +485,16 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
                             String name = "" + ds.child("name").getValue();
                             //String email = "" + ds.child("email").getValue();
                             String phone = "" + ds.child("phone").getValue();
-                            String profileImage = "" + ds.child("image").getValue();
+                            String profileImage = "" + ds.child("profileImage").getValue();
 
                             nameEt.setText(name);
                             //emailEt.setText(email);
                             phoneEt.setText(phone);
 
                             try {
-                                Picasso.get().load(profileImage).placeholder(R.drawable.logo1).into(profileIv);
+                                Picasso.get().load(profileImage).placeholder(R.drawable.ic_person_white).into(profileIv);
                             } catch (Exception e) {
-                                profileIv.setImageResource(R.drawable.logo1);
+                                profileIv.setImageResource(R.drawable.ic_person_white);
                             }
 
                         }
