@@ -1,88 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="1dp"
     app:cardElevation="3dp"
     app:contentPadding="5dp">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/productIconIv"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="5dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            />
+        android:layout_height="150dp"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:orientation="vertical"
-            android:layout_toEndOf="@+id/productIconIv">
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/discountNoteTv"
-                android:padding="5dp"
-                android:text="10% off" />
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/titleTv"
-                android:text="Title"
-                android:textColor="@color/colorBlack" />
+                <TextView
+                    android:id="@+id/titleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Shinchan"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/quantityTv"
-                android:text="1 Kg"
-                android:textColor="@color/colorBlack" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/discountPriceTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="20$"
+                        android:textColor="@color/colorGrey02"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/originalPriceTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/discountPriceTv"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="20$"
+                        android:textColor="@color/colorGrey02"
+                        android:textSize="10sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/quantityText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Quantity : "
+                        android:textColor="@color/colorGrey02"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/quantityTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/quantityText"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="1 kg"
+                        android:textColor="@color/colorGrey02"
+                        android:textSize="10sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/discountNoteText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Discount Note : "
+                        android:textColor="@color/colorGrey02"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/discountNoteTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/discountNoteText"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="1 kg"
+                        android:textColor="@color/colorGrey02"
+                        android:textSize="10sp" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_weight="2">
+
+                <ImageView
+                    android:id="@+id/productIconIv"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/textview_shape"
+                    android:padding="5dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_person_grey" />
 
                 <TextView
+                    android:id="@+id/nextIv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/discountPriceTv"
-                    android:text="$10"
-                    android:layout_marginEnd="10dp"
-                    android:textColor="@color/colorGrey02" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/originalPriceTv"
-                    android:text="$20"
-                    android:layout_toEndOf="@+id/discountPriceTv"
-                    android:textColor="@color/colorGrey02" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/textview_shape"
+                    android:fontFamily="@font/poppins_light"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="EDIT"
+                    android:textSize="10sp" />
 
             </RelativeLayout>
-        </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nextIv"
-            android:layout_alignParentEnd="true"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="5dp"/>
+        </LinearLayout>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

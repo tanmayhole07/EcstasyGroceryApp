@@ -74,14 +74,17 @@ public class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSel
         holder.discountNoteTv.setText(discountNote);
         holder.originalPriceTv.setText("$"+originalPrice);
         holder.discountPriceTv.setText("$"+discountPrice);
+        holder.discountNoteText.setText("Discount Note :");
 
         if (discountAvailable.equals("true")){
             holder.discountPriceTv.setVisibility(View.VISIBLE);
             holder.discountNoteTv.setVisibility(View.VISIBLE);
+            holder.discountNoteText.setVisibility(View.VISIBLE);
             holder.originalPriceTv.setPaintFlags(holder.originalPriceTv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }else {
             holder.discountPriceTv.setVisibility(View.GONE);
             holder.discountNoteTv.setVisibility(View.GONE);
+            holder.discountNoteText.setVisibility(View.GONE);
             holder.originalPriceTv.setPaintFlags(0);
         }
 
@@ -117,7 +120,7 @@ public class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSel
     class HolderProductSeller extends RecyclerView.ViewHolder{
 
         private ImageView productIconIv;
-        private TextView discountNoteTv, titleTv, quantityTv, discountPriceTv, originalPriceTv;
+        private TextView discountNoteTv, titleTv, quantityTv, discountPriceTv, originalPriceTv, discountNoteText;
 
         public HolderProductSeller(@NonNull View itemView) {
             super(itemView);
@@ -128,6 +131,7 @@ public class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSel
             quantityTv = itemView.findViewById(R.id.quantityTv);
             discountPriceTv = itemView.findViewById(R.id.discountPriceTv);
             originalPriceTv = itemView.findViewById(R.id.originalPriceTv);
+            discountNoteText = itemView.findViewById(R.id.discountNoteText);
 
         }
     }
@@ -231,21 +235,21 @@ public class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSel
 //
 //    }
 
-    private void deleteProduct(String id) {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseAuth.getUid()).child("Products").child(id).removeValue()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(context, "Product Deleted", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
+//    private void deleteProduct(String id) {
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+//        ref.child(firebaseAuth.getUid()).child("Products").child(id).removeValue()
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(context, "Product Deleted", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
 }

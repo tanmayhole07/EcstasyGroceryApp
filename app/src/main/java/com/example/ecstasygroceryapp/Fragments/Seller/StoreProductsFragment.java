@@ -1,6 +1,8 @@
 package com.example.ecstasygroceryapp.Fragments.Seller;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,12 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.ecstasygroceryapp.Activities.LoginActivity;
 import com.example.ecstasygroceryapp.Adapter.AdapterProductSeller;
+import com.example.ecstasygroceryapp.Fragments.Constants;
 import com.example.ecstasygroceryapp.Models.ModelProduct;
 import com.example.ecstasygroceryapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -83,6 +91,10 @@ public class StoreProductsFragment extends Fragment {
     String mUID = "uid";
 
     private RecyclerView productRv, ordersRv;
+    private EditText searchProductEt;
+    private TextView filteredProductTv;
+    private ImageButton filterProductBtn;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,12 +103,55 @@ public class StoreProductsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_store_products, container, false);
 
         productRv = view.findViewById(R.id.productRv);
+        filterProductBtn = view.findViewById(R.id.filterProductBtn);
+        searchProductEt = view.findViewById(R.id.searchProductEt);
+        filteredProductTv = view.findViewById(R.id.filteredProductTv);
 
         firebaseAuth = FirebaseAuth.getInstance();
         pd = new ProgressDialog(getActivity());
         pd.setTitle("Please Title");
         pd.setCanceledOnTouchOutside(false);
 
+        searchProductEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                try {
+                    adapterProductSeller.getFilter().filter(s);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        filterProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Choose Category")
+                        .setItems(Constants.productCategories1, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String selected = Constants.productCategories1[i];
+                                filteredProductTv.setText(selected);
+                                if (selected.equals("All")){
+                                    loadAllProducts();
+                                }else {
+                                    loadFilteredProducts(selected);
+                                }
+                            }
+                        }).show();
+            }
+        });
 
         checkUserStatus();
         return view;
@@ -124,6 +179,38 @@ public class StoreProductsFragment extends Fragment {
 
                     }
                 });
+    }
+
+    private void loadFilteredProducts(final String selected) {
+
+        productList = new ArrayList<>();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("Products")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        productList.clear();
+                        for (DataSnapshot ds:snapshot.getChildren()){
+
+                            String productCategory = ""+ds.child("productCategory").getValue();
+
+                            if (selected.equals(productCategory)){
+                                ModelProduct modelProduct = ds.getValue(ModelProduct.class);
+                                productList.add(modelProduct);
+                            }
+
+                        }
+                        adapterProductSeller = new AdapterProductSeller(getActivity(), productList);
+                        productRv.setAdapter(adapterProductSeller);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
     }
 
     private void checkUserStatus() {
