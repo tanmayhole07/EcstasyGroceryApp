@@ -67,7 +67,7 @@ public class DashboardSellerActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView textView = (TextView) toolbar.findViewById(R.id.toolbarTextView);
-        textView.setText("Ecstasy");
+        textView.setText("Ecstasy Business");
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -78,7 +78,7 @@ public class DashboardSellerActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShopsNearbyFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreProductsFragment()).commit();
         navigationView = findViewById(R.id.nav_view_seller);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -86,7 +86,7 @@ public class DashboardSellerActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 Fragment fragment = null;
                 switch (id) {
-                    case R.id.userAccount:
+                    case R.id.sellerAccount:
                         fragment = new SellerAccountkFragment();
                         loadFragment(fragment);
                         break;

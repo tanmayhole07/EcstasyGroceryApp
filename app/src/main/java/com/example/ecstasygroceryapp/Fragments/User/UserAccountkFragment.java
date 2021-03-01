@@ -222,6 +222,59 @@ public class UserAccountkFragment extends Fragment {
     }
 
     private void showEditDeliveryAddressDialog() {
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+        builder.setTitle("Update Delivery Address");
+
+        LinearLayout linearLayout = new LinearLayout(getActivity());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setPadding(10, 10, 10, 10);
+
+        final EditText editText = new EditText(getActivity());
+        editText.setHint("Enter Delivery Address");
+        linearLayout.addView(editText);
+
+        builder.setView(linearLayout);
+
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String value = editText.getText().toString().trim();
+                if (!TextUtils.isEmpty(value)) {
+                    pd.show();
+                    HashMap<String, Object> result = new HashMap<>();
+                    result.put("address", value);
+
+                    databaseReference.child(user.getUid()).updateChildren(result)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    pd.dismiss();
+                                    Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    pd.dismiss();
+                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
+                } else {
+                    Toast.makeText(getActivity(), "Please enter Delivery Address" , Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -540,7 +593,9 @@ public class UserAccountkFragment extends Fragment {
         }
     }
 
-    private double latitude, longitude;
+    private double latitude;
+    private double longitude;
+    private String deliveryAddress, country,  city, postalCode;
 
     private void getLocationUser() {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -568,8 +623,36 @@ public class UserAccountkFragment extends Fragment {
                         latitude = addresses.get(0).getLatitude();
                         longitude = addresses.get(0).getLongitude();
 
+                        city = addresses.get(0).getLocality();
+                        postalCode = addresses.get(0).getPostalCode();
+                        country = addresses.get(0).getCountryName();
+                        deliveryAddress = addresses.get(0).getAddressLine(0);
 
-                        //deliveryAddressTv.setText(addresses.get(0).getAddressLine(0));
+                        deliveryAddressTv.setText(deliveryAddress);
+
+                        HashMap<String, Object> result = new HashMap<>();
+                        result.put("address", deliveryAddress);
+                        result.put("latitude", latitude);
+                        result.put("longitude", longitude);
+                        result.put("city", city);
+                        result.put("postalCode", postalCode);
+                        result.put("country", country);
+
+                        databaseReference.child(user.getUid()).updateChildren(result)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        pd.dismiss();
+                                        Toast.makeText(getActivity(), "Delivery Address Updated", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        pd.dismiss();
+                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
 
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
@@ -600,11 +683,13 @@ public class UserAccountkFragment extends Fragment {
                             String name = "" + ds.child("name").getValue();
                             String email = "" + ds.child("email").getValue();
                             String phone = "" + ds.child("phone").getValue();
+                            String deliveryAddress = "" + ds.child("address").getValue();
                             String profileImage = "" + ds.child("profileImage").getValue();
 
                             nameTv.setText(name);
                             emailTv.setText(email);
                             phoneTv.setText(phone);
+                            deliveryAddressTv.setText(deliveryAddress);
 
                             try {
                                 Picasso.get().load(profileImage).placeholder(R.drawable.logo1).into(profileIv);

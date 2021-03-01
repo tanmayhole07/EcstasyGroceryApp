@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/product_bg"
+    android:orientation="vertical"
+    android:padding="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/productIconIv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/add_product_image"
+        app:civ_border_color="@color/colorRed"
+        app:civ_border_width="2dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputProductName"
+        style="@style/parent"
+        android:layout_marginTop="50dp"
+        android:alpha=".6">
+
+        <EditText
+            android:id="@+id/titleEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="Enter Product Name"
+            android:inputType="textPersonName|textCapWords"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputProductDescriptionEt"
+        style="@style/parent"
+        android:alpha=".6">
+
+        <EditText
+            android:id="@+id/descriptionEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="Enter Product Description"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputCategoryEt"
+        style="@style/parent"
+        android:alpha=".6">
+
+        <EditText
+            android:id="@+id/categoryTv"
+            style="@style/modifiedEditText"
+            android:drawableEnd="@drawable/ic_down_black"
+            android:fontFamily="@font/poppins_light"
+            android:hint="Choose Category"
+            android:editable="false"
+            android:inputType="none"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabStep1Complete"
+        style="@style/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/purple_200"
+        android:src="@drawable/ic_next_orange" />
+
+
+</LinearLayout>

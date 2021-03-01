@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/product_bg"
+    android:orientation="vertical"
+    android:padding="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputQuantityEt"
+        style="@style/parent"
+        android:layout_marginTop="50dp"
+        android:alpha=".6">
+
+        <EditText
+            android:id="@+id/quantityEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="Enter Quantity e.g. kg, g, etc."
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputPriceEt"
+        style="@style/parent"
+        android:alpha=".6">
+
+        <EditText
+            android:id="@+id/priceEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="Enter Price"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/discountSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/priceEt"
+        android:layout_margin="5dp"
+        android:text="Discount" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputDiscountPriceEt"
+        style="@style/parent"
+        android:alpha=".6">
+
+        <EditText
+            android:id="@+id/discountPriceEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="Enter Discount Price"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputDiscountNoteEt"
+        style="@style/parent"
+        android:alpha=".6"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/discountNoteEt"
+            style="@style/modifiedEditText"
+            android:fontFamily="@font/poppins_light"
+            android:hint="Enter Discount Note e.g. 10% off"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/addProductBtn"
+            style="@style/loginButton"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/poppins_light"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="5dp"
+            android:text="Add Product"
+            android:textSize="14sp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabStep2Prev"
+            style="@style/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/purple_200"
+            android:src="@drawable/ic_previous_orange" />
+
+    </RelativeLayout>
+
+</LinearLayout>
