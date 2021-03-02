@@ -81,8 +81,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputDiscountNoteEt"
         style="@style/parent"
-        android:alpha=".6"
-        app:passwordToggleEnabled="true">
+        android:alpha=".6">
 
         <EditText
             android:id="@+id/discountNoteEt"
