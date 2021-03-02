@@ -59,7 +59,7 @@ public class AdapterShop extends RecyclerView.Adapter<AdapterShop.HolderShop>{
         final String uid = modelShop.getUid();
         String timeStamp = modelShop.getTimeStamp();
         String shopOpen = modelShop.getShopOpen();
-        String state = modelShop.getState();
+        String postalCode = modelShop.getPostalCode();
         String profileImage = modelShop.getProfileImage();
         String shopName = modelShop.getShopName();
 
@@ -67,14 +67,15 @@ public class AdapterShop extends RecyclerView.Adapter<AdapterShop.HolderShop>{
 
         holder.shopNameTv.setText(shopName);
         holder.phoneTv.setText(phone);
-        holder.addressTv.setText(address);
+        holder.cityTv.setText(city);
+        holder.postalCodeTv.setText(postalCode);
 
-        if (online.equals("true")){
-            holder.onlineIv.setVisibility(View.VISIBLE);
-        }else {
-            holder.onlineIv.setVisibility(View.GONE);
-
-        }
+//        if (online.equals("true")){
+//            holder.onlineIv.setVisibility(View.VISIBLE);
+//        }else {
+//            holder.onlineIv.setVisibility(View.GONE);
+//
+//        }
 
 
         if (shopOpen.equals("true")){
@@ -140,17 +141,18 @@ public class AdapterShop extends RecyclerView.Adapter<AdapterShop.HolderShop>{
     class HolderShop extends RecyclerView.ViewHolder{
 
         private ImageView shopIv, onlineIv;
-        private TextView shopClosedTv, shopNameTv, phoneTv, addressTv;
+        private TextView shopClosedTv, shopNameTv, phoneTv, cityTv, postalCodeTv;
         private RatingBar ratingBar;
 
         public HolderShop(@NonNull View itemView) {
             super(itemView);
 
             shopIv = itemView.findViewById(R.id.shopIv);
-            onlineIv = itemView.findViewById(R.id.onlineIv);
+//            onlineIv = itemView.findViewById(R.id.onlineIv);
             shopClosedTv = itemView.findViewById(R.id.shopClosedTv);
             shopNameTv = itemView.findViewById(R.id.shopNameTv);
-            addressTv = itemView.findViewById(R.id.addressTv);
+            cityTv = itemView.findViewById(R.id.cityTv);
+            postalCodeTv = itemView.findViewById(R.id.postalCodeTv);
             phoneTv = itemView.findViewById(R.id.phoneTv);
             ratingBar = itemView.findViewById(R.id.ratingBar);
 
