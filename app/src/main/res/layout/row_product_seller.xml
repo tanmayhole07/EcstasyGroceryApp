@@ -136,7 +136,7 @@
                     android:src="@drawable/ic_person_grey" />
 
                 <TextView
-                    android:id="@+id/nextIv"
+                    android:id="@+id/viewProductTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -145,7 +145,7 @@
                     android:fontFamily="@font/poppins_light"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="EDIT"
+                    android:text="VIEW"
                     android:textSize="10sp" />
 
             </RelativeLayout>

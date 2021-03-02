@@ -3,7 +3,7 @@ package com.example.ecstasygroceryapp;
 import android.widget.Filter;
 
 
-import com.example.ecstasygroceryapp.Adapter.AdapterProductSeller;
+import com.example.ecstasygroceryapp.Seller.AdapterProductSeller;
 import com.example.ecstasygroceryapp.Models.ModelProduct;
 
 import java.util.ArrayList;

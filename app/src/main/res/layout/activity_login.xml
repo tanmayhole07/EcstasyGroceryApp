@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_bk"
     android:focusableInTouchMode="true"
-    tools:context=".Activities.LoginActivity">
+    tools:context=".CommonActivities.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintBottom_toBottomOf="parent"

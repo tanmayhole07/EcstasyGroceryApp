@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Fragments.Seller;
+package com.example.ecstasygroceryapp.Seller;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -32,7 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ecstasygroceryapp.Activities.LoginActivity;
+import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
 import com.example.ecstasygroceryapp.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

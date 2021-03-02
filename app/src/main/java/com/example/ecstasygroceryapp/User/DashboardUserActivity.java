@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp;
+package com.example.ecstasygroceryapp.User;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -22,13 +22,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ecstasygroceryapp.Activities.LoginActivity;
-import com.example.ecstasygroceryapp.Activities.SellOnEcstasyActivity;
-import com.example.ecstasygroceryapp.Fragments.AboutUsFragment;
-import com.example.ecstasygroceryapp.Fragments.User.BuyAgainActivityFragment;
-import com.example.ecstasygroceryapp.Fragments.User.ShopsNearbyFragment;
-import com.example.ecstasygroceryapp.Fragments.User.UserAccountkFragment;
-import com.example.ecstasygroceryapp.Fragments.User.UserOrdersFragment;
+import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
+import com.example.ecstasygroceryapp.CommonActivities.AboutUsFragment;
+import com.example.ecstasygroceryapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;

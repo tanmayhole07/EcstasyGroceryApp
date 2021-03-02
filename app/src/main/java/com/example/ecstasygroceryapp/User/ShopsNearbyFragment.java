@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Fragments.User;
+package com.example.ecstasygroceryapp.User;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.example.ecstasygroceryapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link UserOrdersFragment#newInstance} factory method to
+ * Use the {@link ShopsNearbyFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserOrdersFragment extends Fragment {
+public class ShopsNearbyFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class UserOrdersFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public UserOrdersFragment() {
+    public ShopsNearbyFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class UserOrdersFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment UserOrdersFragment.
+     * @return A new instance of fragment ShopsNearbyFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static UserOrdersFragment newInstance(String param1, String param2) {
-        UserOrdersFragment fragment = new UserOrdersFragment();
+    public static ShopsNearbyFragment newInstance(String param1, String param2) {
+        ShopsNearbyFragment fragment = new ShopsNearbyFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class UserOrdersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_orders, container, false);
+        return inflater.inflate(R.layout.fragment_shops_nearby, container, false);
     }
 }

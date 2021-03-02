@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Activities;
+package com.example.ecstasygroceryapp.User;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,7 +32,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ecstasygroceryapp.DashboardSellerActivity;
+import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
+import com.example.ecstasygroceryapp.Seller.DashboardSellerActivity;
 import com.example.ecstasygroceryapp.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

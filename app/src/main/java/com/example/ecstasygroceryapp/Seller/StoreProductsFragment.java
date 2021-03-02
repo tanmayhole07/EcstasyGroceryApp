@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Fragments.Seller;
+package com.example.ecstasygroceryapp.Seller;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,9 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.ecstasygroceryapp.Activities.LoginActivity;
-import com.example.ecstasygroceryapp.Adapter.AdapterProductSeller;
-import com.example.ecstasygroceryapp.Fragments.Constants;
+import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
+import com.example.ecstasygroceryapp.Constants;
 import com.example.ecstasygroceryapp.Models.ModelProduct;
 import com.example.ecstasygroceryapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -224,4 +224,6 @@ public class StoreProductsFragment extends Fragment {
             getActivity().finish();
         }
     }
+
+
 }

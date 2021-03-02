@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Fragments;
+package com.example.ecstasygroceryapp;
 
 public class Constants {
 

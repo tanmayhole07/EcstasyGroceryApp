@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Activities;
+package com.example.ecstasygroceryapp.CommonActivities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -21,9 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ecstasygroceryapp.DashboardSellerActivity;
-import com.example.ecstasygroceryapp.DashboardUserActivity;
 import com.example.ecstasygroceryapp.R;
+import com.example.ecstasygroceryapp.Seller.DashboardSellerActivity;
+import com.example.ecstasygroceryapp.User.DashboardUserActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

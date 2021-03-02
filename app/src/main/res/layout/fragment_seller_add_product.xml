@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.Seller.SellerAddProductFragment">
+    tools:context=".Seller.SellerAddProductFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,10 +12,9 @@
         android:layout_height="match_parent"
         android:id="@+id/layout_add_product_1"
         android:background="@drawable/product_bg"
-        android:visibility="gone"
         android:focusableInTouchMode="true">
 
-        <include layout="@layout/layout_add_product_1" />
+        <include layout="@layout/layout_add_edit_product_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -27,7 +26,7 @@
         android:background="@drawable/product_bg"
         android:focusableInTouchMode="true">
 
-        <include layout="@layout/layout_add_product_2" />
+        <include layout="@layout/layout_add_edit_product_2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

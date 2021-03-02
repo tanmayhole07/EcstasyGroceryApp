@@ -16,19 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcstasyGroceryApp">
         <activity
-            android:name=".DashboardSellerActivity"
+            android:name=".Seller.EditProductActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.SellOnEcstasyActivity"
+            android:name=".Seller.DashboardSellerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DashboardUserActivity"
+            android:name=".User.SellOnEcstasyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".User.DashboardUserActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.SplashActivity"
+            android:name=".CommonActivities.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CommonActivities.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
