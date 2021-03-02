@@ -692,12 +692,12 @@ public class SellerAccountkFragment extends Fragment {
                         storeAddressTv.setText(deliveryAddress);
 
                         HashMap<String, Object> result = new HashMap<>();
-                        result.put("address", deliveryAddress);
-                        result.put("latitude", latitude);
-                        result.put("longitude", longitude);
-                        result.put("city", city);
-                        result.put("postalCode", postalCode);
-                        result.put("country", country);
+                        result.put("address", ""+deliveryAddress);
+                        result.put("latitude", ""+latitude);
+                        result.put("longitude", ""+longitude);
+                        result.put("city",""+ city);
+                        result.put("postalCode", ""+postalCode);
+                        result.put("country",""+ country);
 
                         databaseReference.child(user.getUid()).updateChildren(result)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {

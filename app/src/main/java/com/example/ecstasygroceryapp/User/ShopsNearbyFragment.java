@@ -1,14 +1,30 @@
 package com.example.ecstasygroceryapp.User;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
+import com.example.ecstasygroceryapp.Models.ModelShop;
 import com.example.ecstasygroceryapp.R;
+import com.example.ecstasygroceryapp.User.Adapter.AdapterShop;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +73,78 @@ public class ShopsNearbyFragment extends Fragment {
         }
     }
 
+    private RecyclerView shopsRv;
+
+    private ProgressDialog pd;
+
+    String mUID = "uid";
+
+    //Firebase Variables
+    private FirebaseAuth firebaseAuth;
+
+    private ArrayList<ModelShop> shopList;
+    private AdapterShop adapterShop;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shops_nearby, container, false);
+        View view = inflater.inflate(R.layout.fragment_shops_nearby, container, false);
+        shopsRv = view.findViewById(R.id.shopsRv);
+
+
+        //checkUserStatus();
+        loadShops("Mumbai");
+
+        return (view);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void loadShops(final String myCity) {
+
+        shopList = new ArrayList<>();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.orderByChild("accountTye").equalTo("Seller")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        shopList.clear();
+                        for (DataSnapshot ds : snapshot.getChildren()){
+                            ModelShop modelShop = ds.getValue(ModelShop.class);
+                            String shopCity = ""+ds.child("city").getValue();
+//                            if (shopCity.equals(myCity)){
+//                                shopList.add(modelShop);
+//                            }
+                            // If want to display all shops, skip iff statement
+                            shopList.add(modelShop);
+
+                        }
+                        adapterShop = new AdapterShop(getActivity(), shopList);
+                        shopsRv.setAdapter(adapterShop);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void checkUserStatus() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            mUID = user.getUid();
+            loadShops("Mumbai");
+
+        } else {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+        }
     }
 }
