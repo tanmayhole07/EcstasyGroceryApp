@@ -15,7 +15,9 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.EcstasyGroceryApp">
-        <activity android:name=".User.ShopDetailsActivity"></activity>
+        <activity
+            android:name=".User.ShopDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Seller.EditProductActivity"
             android:theme="@style/AppTheme.NoActionBar" />

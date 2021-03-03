@@ -68,6 +68,7 @@ public class AdapterProductUser extends RecyclerView.Adapter<AdapterProductUser.
         holder.discountNoteTv.setText(discountNote);
         holder.originalPriceTv.setText("$"+originalPrice);
         holder.discountPriceTv.setText("$"+discountPrice);
+        holder.quantityTv.setText(productQuantity);
 
         if (discountAvailable.equals("true")){
             holder.discountPriceTv.setVisibility(View.VISIBLE);
@@ -248,7 +249,7 @@ public class AdapterProductUser extends RecyclerView.Adapter<AdapterProductUser.
 
         private ImageView productIconIv;
         private TextView discountNoteTv, titleTv, descriptionTv, addToCartTv,
-                discountPriceTv, originalPriceTv;
+                discountPriceTv, originalPriceTv, quantityTv;
 
         public HolderProductUser(@NonNull View itemView) {
             super(itemView);
@@ -260,6 +261,8 @@ public class AdapterProductUser extends RecyclerView.Adapter<AdapterProductUser.
             addToCartTv = itemView.findViewById(R.id.addToCartTv);
             originalPriceTv = itemView.findViewById(R.id.originalPriceTv);
             discountPriceTv = itemView.findViewById(R.id.discountPriceTv);
+            quantityTv = itemView.findViewById(R.id.quantityTv);
+
         }
     }
 

@@ -6,122 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".User.ShopDetailsActivity">
 
+
     <RelativeLayout
         android:id="@+id/shopRl"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/drawer_gradient_header">
 
-        <ImageView
-            android:id="@+id/shopIv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@color/colorGrey02" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="#79000000" />
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:paddingLeft="10dp">
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="50dp">
 
             <TextView
                 android:id="@+id/shopNameTv"
-                style="@style/TextAppearance.AppCompat.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:text="Shop Name"
-                android:textColor="@color/colorWhite" />
-
-            <TextView
-                android:id="@+id/phoneTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/shopNameTv"
-                android:layout_marginStart="3dp"
-                android:text="Phone"
-                android:textColor="@color/colorWhite" />
-
-            <TextView
-                android:id="@+id/emailTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/phoneTv"
-                android:layout_marginStart="3dp"
-                android:text="Email"
-                android:textColor="@color/colorWhite" />
-
-            <TextView
-                android:id="@+id/addressTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/emailTv"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="10dp"
-                android:text="Address"
-                android:textColor="@color/colorWhite" />
-
-            <TextView
-                android:id="@+id/openClosedTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="3dp"
-                android:padding="5dp"
-                android:text="Open"
-                android:textColor="@color/colorWhite" />
-
-            <TextView
-                android:id="@+id/deliveryFeeTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/openClosedTv"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="3dp"
-                android:text="Delivery Fee"
-                android:textColor="@color/colorWhite" />
-
-            <RatingBar
-                android:id="@+id/ratingBar"
-                style="@style/Widget.AppCompat.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/deliveryFeeTv"
-                android:layout_alignParentEnd="true"
-                android:numStars="5"
-                android:progressBackgroundTint="@color/colorGrey00"
-                android:progressTint="@color/colorWhite" />
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:fontFamily="@font/poppins_semiboldltalic"
+                android:text="Juice Centre"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
-                <ImageButton
-                    android:id="@+id/callBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null" />
+        </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/mapBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:background="@null" />
 
-            </LinearLayout>
-        </RelativeLayout>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/info_bg" />
+
 
     </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/productsRl"
@@ -133,21 +55,27 @@
             android:id="@+id/searchProductEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="18dp"
             android:layout_toStartOf="@+id/filterProductBtn"
             android:background="@drawable/shape_rect02"
             android:drawableStart="@drawable/ic_search_black"
-            android:drawablePadding="10dp"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/poppins_light"
             android:hint="Search"
-            android:padding="10dp" />
+            android:inputType="textShortMessage"
+            android:padding="5dp"
+            android:textSize="12sp" />
 
         <ImageButton
             android:id="@+id/filterProductBtn"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
             android:background="@null"
             android:scaleType="fitXY"
             android:src="@drawable/ic_category_black" />
@@ -157,10 +85,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/searchProductEt"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
+            android:fontFamily="@font/poppins_light"
             android:text="Showing All"
-            android:textColor="@color/colorBlack" />
+            android:textColor="@color/colorBlack"
+            android:textSize="12dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productsRv"
@@ -168,7 +99,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/filteredProductTv"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_product_seller" />
+            tools:listitem="@layout/row_product_user" />
 
     </RelativeLayout>
 
