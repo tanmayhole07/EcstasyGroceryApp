@@ -2,6 +2,10 @@ package com.example.ecstasygroceryapp.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
@@ -393,11 +397,11 @@ public class ShopDetailsActivity extends AppCompatActivity {
                         pd.dismiss();
                         Toast.makeText(ShopDetailsActivity.this, "Order Placed successfully", Toast.LENGTH_SHORT).show();
 
-//                        Intent intent = new Intent(ShopDetailsActivity.this, OrderDetailsUserActivity.class);
-//                        intent.putExtra("orderTo", shopUid);
-//                        intent.putExtra("orderId", timestamp);
+                        Intent intent = new Intent(ShopDetailsActivity.this, OrderDetailsUserActivity.class);
+                        intent.putExtra("orderTo", shopUid);
+                        intent.putExtra("orderId", timestamp);
                         // intent.putExtra("pId", productId);
-//                        startActivity(intent);
+                        startActivity(intent);
 
                     }
                 })
@@ -408,6 +412,13 @@ public class ShopDetailsActivity extends AppCompatActivity {
                         Toast.makeText(ShopDetailsActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
+        fragmentTransaction.addToBackStack(null);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

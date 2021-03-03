@@ -1,14 +1,39 @@
 package com.example.ecstasygroceryapp.User;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
+import com.example.ecstasygroceryapp.Models.ModelOrderUser;
+import com.example.ecstasygroceryapp.Models.ModelOrderedItem;
 import com.example.ecstasygroceryapp.R;
+import com.example.ecstasygroceryapp.User.Adapter.AdapterOrderUser;
+import com.example.ecstasygroceryapp.User.Adapter.AdapterOrderedItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +82,101 @@ public class UserOrdersFragment extends Fragment {
         }
     }
 
+
+    FirebaseAuth firebaseAuth;
+
+    String mUID = "uid";
+    private ProgressDialog pd;
+
+
+    private RecyclerView ordersRv;
+
+
+
+    private ArrayList<ModelOrderUser> ordersList;
+    private AdapterOrderUser adapterOrderUser;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_orders, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_user_orders, container, false);
+
+
+        ordersRv = view.findViewById(R.id.ordersRv);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        pd = new ProgressDialog(getActivity());
+        pd.setTitle("Please Title");
+        pd.setCanceledOnTouchOutside(false);
+
+        checkUserStatus();
+
+        return view;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Show Ordered Details to User//
+
+    private void loadOrders() {
+
+        ordersList = new ArrayList<>();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.addValueEventListener(new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ordersList.clear();
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    String uid = ""+ds.getRef().getKey();
+
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Orders");
+                    ref.orderByChild("orderBy").equalTo(firebaseAuth.getUid())
+                            .addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()){
+                                        for (DataSnapshot ds: snapshot.getChildren()){
+                                            ModelOrderUser modelOrderUser = ds.getValue(ModelOrderUser.class);
+
+                                            ordersList.add(modelOrderUser);
+                                        }
+
+                                        adapterOrderUser = new AdapterOrderUser(getActivity(), ordersList);
+                                        ordersRv.setAdapter(adapterOrderUser);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
+    private void checkUserStatus() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            mUID = user.getUid();
+            loadOrders();
+
+
+        } else {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+        }
     }
 }
