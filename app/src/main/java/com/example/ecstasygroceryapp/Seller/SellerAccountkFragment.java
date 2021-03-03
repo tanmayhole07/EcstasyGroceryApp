@@ -137,8 +137,8 @@ public class SellerAccountkFragment extends Fragment {
     FusedLocationProviderClient fusedLocationProviderClient;
 
     ImageView profileIv;
-    TextView nameTv, shopNameTv, emailTv, phoneTv, deliveryFeeTv, storeAddressTv, gpsTv;
-    FloatingActionButton editSellerInfoFab;
+    TextView nameTv, shopNameTv, emailTv, phoneTv, deliveryFeeTv, storeAddressTv, gpsTv, editSellerInfoTv;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -161,7 +161,7 @@ public class SellerAccountkFragment extends Fragment {
         deliveryFeeTv = view.findViewById(R.id.deliveryFeeTv);
         storeAddressTv = view.findViewById(R.id.storeAddressTv);
         gpsTv = view.findViewById(R.id.gpsTv);
-        editSellerInfoFab = view.findViewById(R.id.editSellerInfoFab);
+        editSellerInfoTv = view.findViewById(R.id.editSellerInfoTv);
 
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -179,7 +179,7 @@ public class SellerAccountkFragment extends Fragment {
             }
         });
 
-        editSellerInfoFab.setOnClickListener(new View.OnClickListener() {
+        editSellerInfoTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showEditProfileDialog();

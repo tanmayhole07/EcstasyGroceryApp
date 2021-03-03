@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".User.ShopsNearbyFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
+        android:id="@+id/shopRl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolBarRl"
-        android:id="@+id/shopRl">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolBarRl">
+
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shopsRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:id="@+id/shopsRv"
-            tools:listitem="@layout/row_shop"/>
+            tools:listitem="@layout/row_shop" />
 
     </RelativeLayout>
 

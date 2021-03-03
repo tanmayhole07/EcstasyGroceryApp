@@ -47,7 +47,7 @@ import java.util.HashMap;
 public class ShopDetailsActivity extends AppCompatActivity {
 
     public String deliveryFee;
-    private ImageView shopIv;
+    private ImageView shopIv, shopInfoIv;
     private TextView shopNameTv, phoneTv, emailTv, openCloseTv,
             deliveryFeeTv, addressTv, filteredProductTv, cartCountTv;
     private ImageButton callBtn, mapBtn, cartBtn, backBtn, filterProductBtn, reviewBtn;
@@ -99,6 +99,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
 //        cartCountTv = findViewById(R.id.cartCountTv);
 //        reviewBtn = findViewById(R.id.reviewBtn);
         ratingBar = findViewById(R.id.ratingBar);
+        shopInfoIv = findViewById(R.id.shopInfoIv);
 
         pd = new ProgressDialog(this);
         pd.setTitle("Please Wait");
@@ -115,12 +116,14 @@ public class ShopDetailsActivity extends AppCompatActivity {
 //        deleteCartData();
 //        cartCount();
 
-//        backBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onBackPressed();
-//            }
-//        });
+        shopInfoIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShopDetailsActivity.this, ShopInfoActivity.class);
+                intent.putExtra("shopUid", shopUid);
+                startActivity(intent);
+            }
+        });
 
 //        cartBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override

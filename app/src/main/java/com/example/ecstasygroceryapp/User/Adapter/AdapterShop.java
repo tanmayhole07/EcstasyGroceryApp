@@ -102,6 +102,8 @@ public class AdapterShop extends RecyclerView.Adapter<AdapterShop.HolderShop>{
 
     }
 
+
+
     private float ratimgSum = 0;
     private void loadReviews(ModelShop modelShop, final HolderShop holder) {
 
