@@ -273,7 +273,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
         sTotalTv = view.findViewById(R.id.sTotalTv);
         dFeeTv = view.findViewById(R.id.dFeeTv);
         allTotalPriceTv = view.findViewById(R.id.totalTv);
-        Button checkoutBtn = view.findViewById(R.id.checkoutBtn);
+        TextView checkoutBtn = view.findViewById(R.id.checkoutBtn);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);

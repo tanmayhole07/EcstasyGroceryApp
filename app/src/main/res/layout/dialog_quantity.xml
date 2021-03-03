@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:alpha=".9"
         android:background="@drawable/drawer_gradient_header"
         android:padding="10dp">
@@ -98,8 +98,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginTop="15dp"
+                    android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
@@ -136,7 +136,6 @@
                 </LinearLayout>
 
 
-
             </LinearLayout>
 
 
@@ -145,11 +144,11 @@
 
     </RelativeLayout>
 
-    <com.example.ecstasygroceryapp.SlantView
-        android:id="@+id/slantView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="150dp" />
+    <!--    <com.example.ecstasygroceryapp.SlantView-->
+    <!--        android:id="@+id/slantView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginTop="150dp" />-->
 
     <LinearLayout
         android:id="@+id/namell"
@@ -329,8 +328,8 @@
             android:id="@+id/continueBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/textview_shape"
             android:fontFamily="@font/poppins_light"
             android:gravity="center_horizontal"

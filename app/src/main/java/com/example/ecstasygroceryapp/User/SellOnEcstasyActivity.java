@@ -131,6 +131,8 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
         profileIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                profileIv.setImageResource(R.drawable.ic_store_grey);
                 showImagePicDialog();
             }
         });
@@ -185,8 +187,6 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
     }
 
 
-
-
     private void layout1() {
         layout_register_seller_1.setVisibility(View.VISIBLE);
         layout_register_seller_2.setVisibility(View.GONE);
@@ -211,12 +211,12 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
         shopName = shopNameEt.getText().toString();
         deliveryFee = deliveryFeeEt.getText().toString();
 
-        if (TextUtils.isEmpty(shopName)){
+        if (TextUtils.isEmpty(shopName)) {
             Toast.makeText(this, "Enter shop name", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(deliveryFee)){
+        if (TextUtils.isEmpty(deliveryFee)) {
             Toast.makeText(this, "Enter Delivery fee", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -231,7 +231,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
         city = cityEt.getText().toString();
         address = addressEt.getText().toString();
 
-        if (latitude==0.0 || longitude ==0.0){
+        if (latitude == 0.0 || longitude == 0.0) {
             Toast.makeText(this, "Gps turn on plz...", Toast.LENGTH_SHORT).show();
 
         }
@@ -249,27 +249,24 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
         email = emailEt.getText().toString();
         password = passwordEt.getText().toString();
 
-        if (TextUtils.isEmpty(fullName)){
+        if (TextUtils.isEmpty(fullName)) {
             Toast.makeText(this, "Enter Name", Toast.LENGTH_SHORT).show();
             return;
         }
 
 
-        if (TextUtils.isEmpty(phoneNumber)){
+        if (TextUtils.isEmpty(phoneNumber)) {
             Toast.makeText(this, "Enter phone Number", Toast.LENGTH_SHORT).show();
             return;
         }
 
 
-
-
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (password.length()<6){
+        if (password.length() < 6) {
             Toast.makeText(this, "Password must be at least 6 characters long...", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -293,30 +290,30 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         pd.dismiss();
-                        Toast.makeText(SellOnEcstasyActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SellOnEcstasyActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     private void saveFirebaseData() {
         pd.setMessage("Saving Account Info");
-        final String timeStamp = ""+System.currentTimeMillis();
+        final String timeStamp = "" + System.currentTimeMillis();
 
-        if (image_uri == null){
+        if (image_uri == null) {
 
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("uid",""+firebaseAuth.getUid());
-            hashMap.put("email", ""+email);
-            hashMap.put("name", ""+fullName);
-            hashMap.put("shopName", ""+shopName);
-            hashMap.put("phone", ""+phoneNumber);
-            hashMap.put("deliveryFee", ""+deliveryFee);
-            hashMap.put("country", ""+country);
-            hashMap.put("postalCode", ""+postalCode);
-            hashMap.put("city", ""+city);
-            hashMap.put("address", ""+address);
-            hashMap.put("latitude", ""+latitude);
-            hashMap.put("longitude", ""+longitude);
+            hashMap.put("uid", "" + firebaseAuth.getUid());
+            hashMap.put("email", "" + email);
+            hashMap.put("name", "" + fullName);
+            hashMap.put("shopName", "" + shopName);
+            hashMap.put("phone", "" + phoneNumber);
+            hashMap.put("deliveryFee", "" + deliveryFee);
+            hashMap.put("country", "" + country);
+            hashMap.put("postalCode", "" + postalCode);
+            hashMap.put("city", "" + city);
+            hashMap.put("address", "" + address);
+            hashMap.put("latitude", "" + latitude);
+            hashMap.put("longitude", "" + longitude);
             hashMap.put("timeStamp", timeStamp);
             hashMap.put("accountTye", "Seller");
             hashMap.put("online", "true");
@@ -342,9 +339,9 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
                         }
                     });
 
-        }else {
+        } else {
 
-            String filePathAndName = "profile_images/"+""+firebaseAuth.getUid();
+            String filePathAndName = "profile_images/" + "" + firebaseAuth.getUid();
 
             StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
             storageReference.putFile(image_uri)
@@ -352,29 +349,29 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                            while (!uriTask.isSuccessful());
+                            while (!uriTask.isSuccessful()) ;
                             Uri downloadImageUri = uriTask.getResult();
 
-                            if (uriTask.isSuccessful()){
+                            if (uriTask.isSuccessful()) {
 
                                 HashMap<String, Object> hashMap = new HashMap<>();
-                                hashMap.put("uid",""+firebaseAuth.getUid());
-                                hashMap.put("email", ""+email);
-                                hashMap.put("name", ""+fullName);
-                                hashMap.put("shopName", ""+shopName);
-                                hashMap.put("phone", ""+phoneNumber);
-                                hashMap.put("deliveryFee", ""+deliveryFee);
-                                hashMap.put("country", ""+country);
-                                hashMap.put("postalCode", ""+postalCode);
-                                hashMap.put("city", ""+city);
-                                hashMap.put("address", ""+address);
-                                hashMap.put("latitude", ""+latitude);
-                                hashMap.put("longitude", ""+longitude);
+                                hashMap.put("uid", "" + firebaseAuth.getUid());
+                                hashMap.put("email", "" + email);
+                                hashMap.put("name", "" + fullName);
+                                hashMap.put("shopName", "" + shopName);
+                                hashMap.put("phone", "" + phoneNumber);
+                                hashMap.put("deliveryFee", "" + deliveryFee);
+                                hashMap.put("country", "" + country);
+                                hashMap.put("postalCode", "" + postalCode);
+                                hashMap.put("city", "" + city);
+                                hashMap.put("address", "" + address);
+                                hashMap.put("latitude", "" + latitude);
+                                hashMap.put("longitude", "" + longitude);
                                 hashMap.put("timeStamp", timeStamp);
                                 hashMap.put("accountTye", "Seller");
                                 hashMap.put("online", "true");
                                 hashMap.put("shopOpen", "true");
-                                hashMap.put("profileImage", ""+downloadImageUri);
+                                hashMap.put("profileImage", "" + downloadImageUri);
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
                                 ref.child(firebaseAuth.getUid()).setValue(hashMap)
@@ -402,7 +399,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             pd.dismiss();
-                            Toast.makeText(SellOnEcstasyActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SellOnEcstasyActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -492,11 +489,9 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
                             //emailEt.setText(email);
                             phoneEt.setText(phone);
 
-                            try {
-                                Picasso.get().load(profileImage).placeholder(R.drawable.ic_person_white).into(profileIv);
-                            } catch (Exception e) {
-                                profileIv.setImageResource(R.drawable.ic_person_white);
-                            }
+
+                            profileIv.setImageResource(R.drawable.ic_store_grey);
+
 
                         }
                     }
