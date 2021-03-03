@@ -44,6 +44,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import p32929.androideasysql_library.Column;
+import p32929.androideasysql_library.EasyDB;
+
 public class ShopDetailsActivity extends AppCompatActivity {
 
     public String deliveryFee;
@@ -74,7 +77,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
 
     private ProgressDialog pd;
 
-//    private EasyDB easyDB;
+    private EasyDB easyDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +94,12 @@ public class ShopDetailsActivity extends AppCompatActivity {
         filteredProductTv = findViewById(R.id.filteredProductTv);
 //        callBtn = findViewById(R.id.callBtn);
 //        mapBtn = findViewById(R.id.mapBtn);
-//        cartBtn = findViewById(R.id.cartBtn);
+        cartBtn = findViewById(R.id.cartBtn);
 //        backBtn = findViewById(R.id.backBtn);
         filterProductBtn = findViewById(R.id.filterProductBtn);
         searchProductEt = findViewById(R.id.searchProductEt);
         productsRv = findViewById(R.id.productsRv);
-//        cartCountTv = findViewById(R.id.cartCountTv);
+        cartCountTv = findViewById(R.id.cartCountTv);
 //        reviewBtn = findViewById(R.id.reviewBtn);
         ratingBar = findViewById(R.id.ratingBar);
         shopInfoIv = findViewById(R.id.shopInfoIv);
@@ -113,8 +116,20 @@ public class ShopDetailsActivity extends AppCompatActivity {
         loadShopProducts();
         loadReviews();
 
-//        deleteCartData();
-//        cartCount();
+
+        easyDB = EasyDB.init(this, "ITEMS_DB")
+                .setTableName("ITEMS_TABLE")
+                .addColumn(new Column("Item_Id", new String[]{"text","unique"}))
+                .addColumn(new Column("Item_PID", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Name", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Price_Each", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Price", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Quantity", new String[]{"text","not null"}))
+                .doneTableColumn();
+
+        deleteCartData();
+        cartCount();
+
 
         shopInfoIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,12 +140,12 @@ public class ShopDetailsActivity extends AppCompatActivity {
             }
         });
 
-//        cartBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                showCartDailog();
-//            }
-//        });
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCartDailog();
+            }
+        });
 
 //        callBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -231,108 +246,108 @@ public class ShopDetailsActivity extends AppCompatActivity {
                 });
     }
 
-//    private void deleteCartData() {
-//
-//        easyDB.deleteAllDataFromTable();
-//    }
+    private void deleteCartData() {
 
-//    public void cartCount(){
-//        int count = easyDB.getAllData().getCount();
-//        if (count<=0){
-//            cartCountTv.setVisibility(View.GONE);
-//        }else {
-//            cartCountTv.setVisibility(View.VISIBLE);
-//            cartCountTv.setText(""+count);
-//        }
-//    }
+        easyDB.deleteAllDataFromTable();
+    }
+
+    public void cartCount(){
+        int count = easyDB.getAllData().getCount();
+        if (count<=0){
+            cartCountTv.setVisibility(View.GONE);
+        }else {
+            cartCountTv.setVisibility(View.VISIBLE);
+            cartCountTv.setText(""+count);
+        }
+    }
 
     public double allTotalPrice = 0.00;
     public TextView sTotalTv, dFeeTv, allTotalPriceTv;
-//    private void showCartDailog() {
-//
-//        cartItems = new ArrayList<>();
-//
-//        View view = LayoutInflater.from(this).inflate(R.layout.dialog_cart, null);
-//        TextView shopNameTv = view.findViewById(R.id.shopNameTv);
-//        RecyclerView cartItemsRv = view.findViewById(R.id.cartItemsRv);
-//        sTotalTv = view.findViewById(R.id.sTotalTv);
-//        dFeeTv = view.findViewById(R.id.dFeeTv);
-//        allTotalPriceTv = view.findViewById(R.id.totalTv);
-//        Button checkoutBtn = view.findViewById(R.id.checkoutBtn);
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setView(view);
-//
-//        shopNameTv.setText(shopName);
-//
-//        EasyDB easyDB = EasyDB.init(this, "ITEMS_DB")
-//                .setTableName("ITEMS_TABLE")
-//                .addColumn(new Column("Item_Id", new String[]{"text","unique"}))
-//                .addColumn(new Column("Item_PID", new String[]{"text","not null"}))
-//                .addColumn(new Column("Item_Name", new String[]{"text","not null"}))
-//                .addColumn(new Column("Item_Price_Each", new String[]{"text","not null"}))
-//                .addColumn(new Column("Item_Price", new String[]{"text","not null"}))
-//                .addColumn(new Column("Item_Quantity", new String[]{"text","not null"}))
-//                .doneTableColumn();
-//
-//        Cursor res = easyDB.getAllData();
-//        while (res.moveToNext()){
-//            String id = res.getString(1);
-//            String pId = res.getString(2);
-//            String name = res.getString(3);
-//            String price = res.getString(4);
-//            String cost = res.getString(5);
-//            String quantity = res.getString(6);
-//
-//            allTotalPrice = allTotalPrice + Double.parseDouble(cost);
-//
-//            ModelCartItem modelCartItem = new ModelCartItem(""+id, ""+pId, ""+name, ""+price, ""+cost,""+quantity);
-//
-//            cartItems.add(modelCartItem);
-//        }
-//
-//        adapterCartItem = new AdapterCartItem(this, cartItems);
-//
-//        cartItemsRv.setAdapter(adapterCartItem);
-//
-//        dFeeTv.setText("$"+deliveryFee);
-//        sTotalTv.setText("$"+String.format("%.2f", allTotalPrice));
-//        allTotalPriceTv.setText("$"+(allTotalPrice + Double.parseDouble(deliveryFee.replace("$",""))));
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//
-//        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//            @Override
-//            public void onCancel(DialogInterface dialogInterface) {
-//                allTotalPrice = 0.00;
-//            }
-//        });
-//
-//
-//        checkoutBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (myLatitude.equals("") || myLatitude.equals("null") || myLongitude.equals("") || myLongitude.equals("null")){
-//                    Toast.makeText(ShopDetailsActivity.this, "Please Enter your address in your profile before placing order...", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (myPhone.equals("") || myPhone.equals("null") ){
-//                    Toast.makeText(ShopDetailsActivity.this, "Please Enter your address in your profile before placing order...", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (cartItems.size()==0){
-//                    Toast.makeText(ShopDetailsActivity.this, "No item in cart", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                submtOrder();
-//            }
-//        });
-//
-//    }
+    private void showCartDailog() {
+
+        cartItems = new ArrayList<>();
+
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_cart, null);
+        TextView shopNameTv = view.findViewById(R.id.shopNameTv);
+        RecyclerView cartItemsRv = view.findViewById(R.id.cartItemsRv);
+        sTotalTv = view.findViewById(R.id.sTotalTv);
+        dFeeTv = view.findViewById(R.id.dFeeTv);
+        allTotalPriceTv = view.findViewById(R.id.totalTv);
+        Button checkoutBtn = view.findViewById(R.id.checkoutBtn);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(view);
+
+        shopNameTv.setText(shopName);
+
+        EasyDB easyDB = EasyDB.init(this, "ITEMS_DB")
+                .setTableName("ITEMS_TABLE")
+                .addColumn(new Column("Item_Id", new String[]{"text","unique"}))
+                .addColumn(new Column("Item_PID", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Name", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Price_Each", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Price", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Quantity", new String[]{"text","not null"}))
+                .doneTableColumn();
+
+        Cursor res = easyDB.getAllData();
+        while (res.moveToNext()){
+            String id = res.getString(1);
+            String pId = res.getString(2);
+            String name = res.getString(3);
+            String price = res.getString(4);
+            String cost = res.getString(5);
+            String quantity = res.getString(6);
+
+            allTotalPrice = allTotalPrice + Double.parseDouble(cost);
+
+            ModelCartItem modelCartItem = new ModelCartItem(""+id, ""+pId, ""+name, ""+price, ""+cost,""+quantity);
+
+            cartItems.add(modelCartItem);
+        }
+
+        adapterCartItem = new AdapterCartItem(this, cartItems);
+
+        cartItemsRv.setAdapter(adapterCartItem);
+
+        dFeeTv.setText("$"+deliveryFee);
+        sTotalTv.setText("$"+String.format("%.2f", allTotalPrice));
+        allTotalPriceTv.setText("$"+(allTotalPrice + Double.parseDouble(deliveryFee.replace("$",""))));
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                allTotalPrice = 0.00;
+            }
+        });
+
+
+        checkoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (myLatitude.equals("") || myLatitude.equals("null") || myLongitude.equals("") || myLongitude.equals("null")){
+                    Toast.makeText(ShopDetailsActivity.this, "Please Enter your address in your profile before placing order...", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (myPhone.equals("") || myPhone.equals("null") ){
+                    Toast.makeText(ShopDetailsActivity.this, "Please Enter your address in your profile before placing order...", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (cartItems.size()==0){
+                    Toast.makeText(ShopDetailsActivity.this, "No item in cart", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                submtOrder();
+            }
+        });
+
+    }
 
     private void submtOrder() {
         pd.setMessage("Placing order");

@@ -14,7 +14,7 @@
         android:background="@drawable/drawer_gradient_header">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:orientation="horizontal"
@@ -23,24 +23,55 @@
 
             <TextView
                 android:id="@+id/shopNameTv"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semiboldltalic"
                 android:text="Juice Centre"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
+            <ImageView
+                android:id="@+id/shopInfoIv"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/info_bg" />
+
         </LinearLayout>
 
 
-        <ImageView
-            android:layout_width="30dp"
-            android:id="@+id/shopInfoIv"
-            android:layout_height="30dp"
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="49dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/info_bg" />
+            android:layout_marginEnd="10dp">
+
+            <ImageButton
+                android:id="@+id/cartBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:background="@null"
+                android:src="@drawable/ic_cart_black" />
+
+            <TextView
+                android:id="@+id/cartCountTv"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/shape_circle03"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/colorWhite"
+                android:textSize="8sp" />
+
+        </RelativeLayout>
+
 
 
     </RelativeLayout>
