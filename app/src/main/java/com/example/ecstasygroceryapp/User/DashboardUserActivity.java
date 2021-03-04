@@ -60,20 +60,33 @@ public class DashboardUserActivity extends AppCompatActivity {
         pd.setCanceledOnTouchOutside(false);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        TextView textView = (TextView) toolbar.findViewById(R.id.toolbarTextView);
-        textView.setText("Ecstasy");
+        try {
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            TextView textView = (TextView) toolbar.findViewById(R.id.toolbarTextView);
+            textView.setText("Ecstasy");
 
-        drawer = findViewById(R.id.drawer_layout);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+            drawer = findViewById(R.id.drawer_layout);
 
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                    R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+
+        }catch (Exception e){
+
+            Toast.makeText(this, ""+ e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Intent intent = getIntent();
+//            finish();
+//            startActivity(intent);
+
+        }
+
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShopsNearbyFragment()).commit();
         navigationView = findViewById(R.id.nav_view);

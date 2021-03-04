@@ -414,12 +414,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
                 });
     }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
-        fragmentTransaction.addToBackStack(null);
-    }
+
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Load Map and Phone //

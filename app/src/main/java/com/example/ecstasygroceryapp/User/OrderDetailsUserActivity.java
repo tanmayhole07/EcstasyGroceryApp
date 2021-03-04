@@ -2,6 +2,7 @@ package com.example.ecstasygroceryapp.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
@@ -58,6 +59,13 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
         amountTv = findViewById(R.id.amountTv);
         addressTv = findViewById(R.id.addressTv);
         itemsRv = findViewById(R.id.itemsRv);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        TextView textView = (TextView) toolbar.findViewById(R.id.toolbarTextView);
+        textView.setText("Order Details");
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Intent intent = getIntent();
         orderTo = intent.getStringExtra("orderTo");
@@ -168,7 +176,7 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
                             orderedItemArrayList.add(modelOrderedItem);
                         }
 
-                        adapterOrderedItem = new AdapterOrderedItem(OrderDetailsUserActivity.this, orderedItemArrayList);
+                        adapterOrderedItem = new AdapterOrderedItem(OrderDetailsUserActivity.this, orderedItemArrayList, orderTo);
                         itemsRv.setAdapter(adapterOrderedItem);
 
                         totalItemsTv.setText(""+snapshot.getChildrenCount());

@@ -6,6 +6,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,9 +54,9 @@ public class AdapterOrderUser extends RecyclerView.Adapter<AdapterOrderUser.Hold
         final String orderTime = modelOrderUser.getOrderTime();
         final String orderTo = modelOrderUser.getOrderTo();
 
-        holder.amountTv.setText("Amount: $" + orderCost);
+        holder.amountTv.setText(orderCost);
         holder.statusTv.setText(orderStatus);
-        holder.orderIdTv.setText("OrderId:"+orderId);
+        //holder.orderIdTv.setText("OrderId:"+orderId);
 
         loadShopInfo(modelOrderUser, holder);
 
@@ -95,6 +97,14 @@ public class AdapterOrderUser extends RecyclerView.Adapter<AdapterOrderUser.Hold
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String shopName = ""+ snapshot.child("shopName").getValue();
                         holder.shopNameTv.setText(shopName);
+
+                        String shopImage = ""+snapshot.child("profileImage").getValue();
+
+                        try {
+                            Picasso.get().load(shopImage).placeholder(R.drawable.add_product_image).into(holder.shopIv);
+                        }catch (Exception e){
+                            holder.shopIv.setImageResource(R.drawable.add_product_image);
+                        }
                     }
 
                     @Override
@@ -113,6 +123,7 @@ public class AdapterOrderUser extends RecyclerView.Adapter<AdapterOrderUser.Hold
     class HolderOrderUser extends RecyclerView.ViewHolder{
 
         private TextView orderIdTv, dateTv, shopNameTv, amountTv, statusTv;
+        ImageView shopIv;
 
 
         public HolderOrderUser(@NonNull View itemView) {
@@ -123,6 +134,7 @@ public class AdapterOrderUser extends RecyclerView.Adapter<AdapterOrderUser.Hold
             shopNameTv = itemView.findViewById(R.id.shopNameTv);
             amountTv = itemView.findViewById(R.id.amountTv);
             statusTv = itemView.findViewById(R.id.statusTv);
+            shopIv =  itemView.findViewById(R.id.shopIv);
 
         }
     }
