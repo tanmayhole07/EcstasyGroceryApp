@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ecstasygroceryapp.Models.ModelCartItem;
 import com.example.ecstasygroceryapp.R;
 import com.example.ecstasygroceryapp.User.ShopDetailsActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -24,10 +31,12 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.Holder
 
     private Context context;
     private ArrayList<ModelCartItem> cartItems;
+    private String ShopUid ;
 
-    public AdapterCartItem(Context context, ArrayList<ModelCartItem> cartItems) {
+    public AdapterCartItem(Context context, ArrayList<ModelCartItem> cartItems, String shopUid) {
         this.context = context;
         this.cartItems = cartItems;
+        this.ShopUid = shopUid;
     }
 
     @NonNull
@@ -51,9 +60,9 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.Holder
         String quantity = modelCartItem.getQuantity();
 
         holder.itemTitleTv.setText(""+title);
-        holder.itemPriceTv.setText(""+cost);
-        holder.itemQuantityTv.setText("["+quantity+"]");
-        holder.itemPriceEachTv.setText(""+price);
+        holder.itemPriceTv.setText("Total Price : $"+cost);
+        holder.itemQuantityTv.setText("Quantity : "+quantity);
+        holder.itemPriceEachTv.setText("$"+price);
 
         holder.itemRemoveTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +98,34 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.Holder
             }
         });
 
+        loadProductInfo(getpId, holder);
+
     }
+
+    private void loadProductInfo(String getpId, HolderCartItem holder) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(ShopUid).child("Products");
+        ref.child(getpId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String productImage = ""+snapshot.child("productIcon").getValue();
+
+
+                try {
+                    Picasso.get().load(productImage).into(holder.productIv);
+                }catch (Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     @Override
     public int getItemCount() {
@@ -100,6 +136,7 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.Holder
     class HolderCartItem extends RecyclerView.ViewHolder{
 
         private TextView itemTitleTv, itemPriceTv, itemPriceEachTv, itemQuantityTv, itemRemoveTv;
+        ImageView productIv;
         public HolderCartItem(@NonNull View itemView) {
             super(itemView);
 
@@ -108,6 +145,8 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.Holder
             itemPriceEachTv = itemView.findViewById(R.id.itemPriceEachTv);
             itemQuantityTv = itemView.findViewById(R.id.itemQuantityTv);
             itemRemoveTv = itemView.findViewById(R.id.itemRemoveTv);
+            productIv = itemView.findViewById(R.id.productIv);
+
 
         }
     }

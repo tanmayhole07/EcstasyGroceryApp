@@ -310,7 +310,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
             cartItems.add(modelCartItem);
         }
 
-        adapterCartItem = new AdapterCartItem(this, cartItems);
+        adapterCartItem = new AdapterCartItem(this, cartItems, shopUid);
 
         cartItemsRv.setAdapter(adapterCartItem);
 
