@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
@@ -20,10 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ecstasygroceryapp.FilterProductUser;
 import com.example.ecstasygroceryapp.Models.ModelProduct;
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.User.ShopDetailsActivity;
+import com.example.ecstasygroceryapp.User.Activities.ShopDetailsActivity;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

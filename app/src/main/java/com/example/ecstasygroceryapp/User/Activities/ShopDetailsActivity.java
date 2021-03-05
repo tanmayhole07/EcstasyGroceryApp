@@ -1,11 +1,7 @@
-package com.example.ecstasygroceryapp.User;
+package com.example.ecstasygroceryapp.User.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
@@ -19,7 +15,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,6 +30,7 @@ import com.example.ecstasygroceryapp.R;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterCartItem;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterProductUser;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterReview;
+import com.example.ecstasygroceryapp.User.OrderDetailsUserActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

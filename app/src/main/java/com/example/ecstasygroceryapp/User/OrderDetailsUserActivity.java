@@ -2,7 +2,6 @@ package com.example.ecstasygroceryapp.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
@@ -11,12 +10,14 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.widget.ImageButton;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
 import com.example.ecstasygroceryapp.Models.ModelOrderedItem;
 import com.example.ecstasygroceryapp.R;
+import com.example.ecstasygroceryapp.User.Activities.WriteReviewActivity;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterOrderedItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,9 +36,9 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
 
     private String orderTo, orderId, pId;
 
-    private ImageButton backBtn, writeReviewBtn;
-    private TextView orderIdTv, dateTv, orderStatusTv, shopNameTv, totalItemsTv, amountTv, addressTv;
+    private TextView orderIdTv, dateTv, orderStatusTv, shopNameTv, totalItemsTv, amountTv, addressTv, writeReviewBtn ;
     private RecyclerView itemsRv;
+    ImageView backBtn;
 
     private FirebaseAuth firebaseAuth;
     String mUID = "uid";
@@ -59,13 +60,8 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
         amountTv = findViewById(R.id.amountTv);
         addressTv = findViewById(R.id.addressTv);
         itemsRv = findViewById(R.id.itemsRv);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        TextView textView = (TextView) toolbar.findViewById(R.id.toolbarTextView);
-        textView.setText("Order Details");
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        writeReviewBtn = findViewById(R.id.writeReviewBtn);
+        backBtn = findViewById(R.id.backBtn);
 
         Intent intent = getIntent();
         orderTo = intent.getStringExtra("orderTo");
@@ -73,6 +69,21 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
         pId = intent.getStringExtra("pId");
 
         firebaseAuth = FirebaseAuth.getInstance();
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        writeReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(OrderDetailsUserActivity.this, WriteReviewActivity.class);
+                intent1.putExtra("shopUid", orderTo);
+                startActivity(intent1);
+            }
+        });
 
         checkUserStatus();
 

@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.User;
+package com.example.ecstasygroceryapp.User.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,13 +15,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
-import com.example.ecstasygroceryapp.Models.ModelCartItem;
-import com.example.ecstasygroceryapp.Models.ModelProduct;
-import com.example.ecstasygroceryapp.Models.ModelReview;
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.User.Adapter.AdapterCartItem;
-import com.example.ecstasygroceryapp.User.Adapter.AdapterProductUser;
-import com.example.ecstasygroceryapp.User.Adapter.AdapterReview;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,8 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 public class ShopInfoActivity extends AppCompatActivity {
 

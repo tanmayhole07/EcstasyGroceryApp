@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.example.ecstasygroceryapp.R;
 import com.example.ecstasygroceryapp.Seller.DashboardSellerActivity;
-import com.example.ecstasygroceryapp.User.DashboardUserActivity;
+import com.example.ecstasygroceryapp.User.Activities.DashboardUserActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

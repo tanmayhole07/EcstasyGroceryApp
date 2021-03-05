@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecstasygroceryapp.Models.ModelCartItem;
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.User.ShopDetailsActivity;
+import com.example.ecstasygroceryapp.User.Activities.ShopDetailsActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -15,13 +15,17 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.EcstasyGroceryApp">
-        <activity android:name=".User.OrderDetailsUserActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".User.ShopInfoActivity"
+            android:name=".User.Activities.WriteReviewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".User.ShopDetailsActivity"
+            android:name=".User.OrderDetailsUserActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".User.Activities.ShopInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".User.Activities.ShopDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Seller.EditProductActivity"
@@ -30,10 +34,10 @@
             android:name=".Seller.DashboardSellerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".User.SellOnEcstasyActivity"
+            android:name=".User.Activities.SellOnEcstasyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".User.DashboardUserActivity"
+            android:name=".User.Activities.DashboardUserActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CommonActivities.LoginActivity"
