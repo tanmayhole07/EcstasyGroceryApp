@@ -30,7 +30,6 @@ import com.example.ecstasygroceryapp.R;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterCartItem;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterProductUser;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterReview;
-import com.example.ecstasygroceryapp.User.OrderDetailsUserActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

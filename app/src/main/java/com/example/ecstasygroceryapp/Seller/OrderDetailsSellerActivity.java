@@ -1,26 +1,29 @@
-package com.example.ecstasygroceryapp.User;
+package com.example.ecstasygroceryapp.Seller;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
 import com.example.ecstasygroceryapp.Models.ModelOrderedItem;
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.User.Activities.WriteReviewActivity;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterOrderedItem;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,20 +32,22 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class OrderDetailsUserActivity extends AppCompatActivity {
+public class OrderDetailsSellerActivity extends AppCompatActivity {
 
-    private String orderTo, orderId, pId;
-
-    private TextView orderIdTv, dateTv, orderStatusTv, shopNameTv, totalItemsTv, amountTv, addressTv, writeReviewBtn ;
+    private ImageButton editBtn, mapBtn;
+    private TextView orderIdTv, dateTv, orderStatusTv, emailTv, phoneTv, totalItemsTv, amountTv, addressTv;
     private RecyclerView itemsRv;
     ImageView backBtn;
 
+    String orderId, orderBy;
+
+    String sourceLatitude, sourceLongitude, destinationLatitude, destinationLongitude;
+
     private FirebaseAuth firebaseAuth;
-    String mUID = "uid";
-    private ProgressDialog pd;
 
     private ArrayList<ModelOrderedItem> orderedItemArrayList;
     private AdapterOrderedItem adapterOrderedItem;
@@ -50,68 +55,90 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_details_user);
+        setContentView(R.layout.activity_order_details_seller);
 
+        backBtn = findViewById(R.id.backBtn);
+//        editBtn = findViewById(R.id.editBtn);
+//        mapBtn = findViewById(R.id.mapBtn);
         orderIdTv = findViewById(R.id.orderIdTv);
         dateTv = findViewById(R.id.dateTv);
         orderStatusTv = findViewById(R.id.orderStatusTv);
-        shopNameTv = findViewById(R.id.shopNameTv);
+        emailTv = findViewById(R.id.emailTv);
+        phoneTv = findViewById(R.id.phoneTv);
         totalItemsTv = findViewById(R.id.totalItemsTv);
         amountTv = findViewById(R.id.amountTv);
         addressTv = findViewById(R.id.addressTv);
         itemsRv = findViewById(R.id.itemsRv);
-        writeReviewBtn = findViewById(R.id.writeReviewBtn);
-        backBtn = findViewById(R.id.backBtn);
 
-        Intent intent = getIntent();
-        orderTo = intent.getStringExtra("orderTo");
-        orderId = intent.getStringExtra("orderId");
-        pId = intent.getStringExtra("pId");
+        orderId = getIntent().getStringExtra("orderId");
+        orderBy = getIntent().getStringExtra("orderBy");
 
         firebaseAuth = FirebaseAuth.getInstance();
+        loadMyInfo();
+        loadBuyerInfo();
+        loadOrderDetails();
+        loadOrderedItems();
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+
             }
         });
 
-        writeReviewBtn.setOnClickListener(new View.OnClickListener() {
+        mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(OrderDetailsUserActivity.this, WriteReviewActivity.class);
-                intent1.putExtra("shopUid", orderTo);
-                startActivity(intent1);
+                OpenMap();
             }
         });
 
-        checkUserStatus();
-
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editOrderStatusDialog();
+            }
+        });
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //Show Ordered Details to User//
-
-    private void loadShopInfo() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(orderTo)
-                .addValueEventListener(new ValueEventListener() {
+    private void editOrderStatusDialog() {
+        final String[] options = {"In Progress", "Completed", "Cancelled"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Edit Order Status")
+                .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String shopName = ""+snapshot.child("shopName").getValue();
-                        shopNameTv.setText(shopName);
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String selectedOption = options[i];
+                        editOrderStatus(selectedOption);
                     }
+                }).show();
+    }
 
+    private void editOrderStatus(final String selectedOption) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("orderStatus",""+selectedOption);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("Orders").child(orderId)
+                .updateChildren(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(OrderDetailsSellerActivity.this, "Order is now "+selectedOption, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(OrderDetailsSellerActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     private void loadOrderDetails() {
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(orderTo).child("Orders").child(orderId)
+        ref.child(firebaseAuth.getUid()).child("Orders").child(orderId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -143,7 +170,6 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
                         dateTv.setText(formatedDate);
 
                         findAddress(latitude, longitude);
-
                     }
 
                     @Override
@@ -151,6 +177,7 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
 
                     }
                 });
+
     }
 
     private void findAddress(String latitude, String longitude) {
@@ -167,16 +194,60 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
             String address = addresses.get(0).getAddressLine(0);
             addressTv.setText(address);
         }catch (Exception e){
-
+            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
 
+    private void OpenMap() {
+        String address = "https://maps.google.com/maps?saar=" + sourceLatitude + "," + sourceLongitude + "&daddr=" + destinationLatitude + "," + destinationLongitude;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(address));
+        startActivity(intent);
+    }
+
+    private void loadMyInfo() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        sourceLatitude = ""+snapshot.child("latitude").getValue();
+                        sourceLongitude = ""+snapshot.child("longitude").getValue();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    private void loadBuyerInfo() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(orderBy)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        destinationLatitude = ""+snapshot.child("latitude").getValue();
+                        destinationLongitude = ""+snapshot.child("longitude").getValue();
+                        String email = ""+snapshot.child("email").getValue();
+                        String phone = ""+snapshot.child("phone").getValue();
+
+                        emailTv.setText(email);
+                        phoneTv.setText(phone);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void loadOrderedItems() {
         orderedItemArrayList = new ArrayList<>();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(orderTo).child("Orders").child(orderId).child("Items")
+        ref.child(firebaseAuth.getUid()).child("Orders").child(orderId).child("Items")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -187,7 +258,7 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
                             orderedItemArrayList.add(modelOrderedItem);
                         }
 
-                        adapterOrderedItem = new AdapterOrderedItem(OrderDetailsUserActivity.this, orderedItemArrayList, orderTo);
+                        adapterOrderedItem = new AdapterOrderedItem(OrderDetailsSellerActivity.this, orderedItemArrayList, firebaseAuth.getUid());
                         itemsRv.setAdapter(adapterOrderedItem);
 
                         totalItemsTv.setText(""+snapshot.getChildrenCount());
@@ -199,23 +270,4 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void checkUserStatus() {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            mUID = user.getUid();
-            loadShopInfo();
-            loadOrderDetails();
-            loadOrderedItems();
-
-
-        } else {
-            startActivity(new Intent(OrderDetailsUserActivity.this, LoginActivity.class));
-            OrderDetailsUserActivity.this.finish();
-        }
-    }
-
-
 }

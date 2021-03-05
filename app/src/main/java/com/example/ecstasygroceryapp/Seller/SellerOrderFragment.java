@@ -1,14 +1,34 @@
 package com.example.ecstasygroceryapp.Seller;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
+import com.example.ecstasygroceryapp.Models.ModelOrderShop;
+import com.example.ecstasygroceryapp.Models.ModelProduct;
 import com.example.ecstasygroceryapp.R;
+import com.example.ecstasygroceryapp.Seller.Adapter.AdapterOrderShop;
+import com.example.ecstasygroceryapp.Seller.Adapter.AdapterProductSeller;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +77,78 @@ public class SellerOrderFragment extends Fragment {
         }
     }
 
+    TextView filteredOrdersTv;
+    ImageButton filterOrderBtn;
+    RecyclerView ordersRv;
+
+    private ProgressDialog pd;
+
+    private ArrayList<ModelProduct> productList;
+    private AdapterProductSeller adapterProductSeller;
+
+    private ArrayList<ModelOrderShop> orderShopArrayList;
+    private AdapterOrderShop adapterOrderShop;
+
+    //Firebase Variables
+    private FirebaseAuth firebaseAuth;
+    String mUID = "uid";
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_seller_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_seller_order, container, false);
+
+        filteredOrdersTv = view.findViewById(R.id.filteredOrdersTv);
+        filterOrderBtn = view.findViewById(R.id.filterOrderBtn);
+        ordersRv = view.findViewById(R.id.ordersRv);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        pd = new ProgressDialog(getActivity());
+        pd.setTitle("Please Title");
+        pd.setCanceledOnTouchOutside(false);
+
+
+        checkUserStatus();
+        return (view);
+    }
+
+    private void loadAllOrders() {
+        orderShopArrayList = new ArrayList<>();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("Orders")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        orderShopArrayList.clear();
+                        for (DataSnapshot ds: snapshot.getChildren()){
+                            ModelOrderShop modelOrderShop = ds.getValue(ModelOrderShop.class);
+                            orderShopArrayList.add(modelOrderShop);
+                        }
+
+                        adapterOrderShop = new AdapterOrderShop(getActivity(), orderShopArrayList);
+                        ordersRv.setAdapter(adapterOrderShop);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    private void checkUserStatus() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            mUID = user.getUid();
+            loadAllOrders();
+
+        } else {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+        }
     }
 }

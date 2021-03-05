@@ -5,25 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".User.Activities.OrderDetailsUserActivity">
-
+    tools:context=".Seller.OrderDetailsSellerActivity">
 
     <RelativeLayout
         android:id="@+id/shopRl"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="3dp"
-        android:background="@drawable/drawer_gradient_header">
+        android:background="@drawable/drawer_gradient_header"
+        android:elevation="3dp">
 
         <ImageView
+            android:id="@+id/backBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/backBtn"
-            android:src="@drawable/ic_back_white"
-            android:padding="7dp"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
-            android:layout_alignParentStart="true"/>
+            android:padding="7dp"
+            android:src="@drawable/ic_back_white" />
 
         <TextView
             android:id="@+id/toolbarTextView"
@@ -41,21 +40,20 @@
             android:id="@+id/writeReviewBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="2dp"
-            android:layout_marginEnd="5dp"
             android:layout_alignParentEnd="true"
-            android:textColor="@color/black"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
             android:background="@drawable/textview_shape"
             android:fontFamily="@font/poppins_medium"
             android:gravity="end"
+            android:paddingStart="10dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="5dp"
             android:text="Write a Review"
+            android:textColor="@color/black"
             android:textSize="10sp" />
 
     </RelativeLayout>
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -65,8 +63,7 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_height="wrap_content">
 
             <TableRow>
 
@@ -75,22 +72,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="OrderID"
+                    android:text="OrderId"
                     android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/orderIdTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="12121212"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:text="1212121212"
+                    android:textColor="@color/colorBlack" />
 
 
             </TableRow>
@@ -100,23 +93,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
                     android:text="Date"
                     android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/dateTv"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="11/13/2020"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:text="dd/MM/yyyy"
+                    android:textColor="@color/colorBlack" />
 
 
             </TableRow>
@@ -126,23 +116,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
                     android:text="Order Status"
                     android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/orderStatusTv"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
                     android:text="In Progress"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="10sp" />
+                    android:textColor="@color/colorBlack" />
 
 
             </TableRow>
@@ -152,24 +139,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Shop Name"
+                    android:text="Buyer Email"
                     android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/shopNameTv"
+                    android:id="@+id/emailTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="ABC Shop"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
+                    android:text="Email"
+                    android:textColor="@color/colorBlack" />
 
             </TableRow>
 
@@ -178,24 +161,43 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
+                    android:text="Buyer Phone"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/phoneTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:autoLink="all"
+                    android:text="923232313"
+                    android:textColor="@color/colorBlack" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
                     android:text="Items"
                     android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/totalItemsTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="8"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
+                    android:text="12"
+                    android:textColor="@color/colorBlack" />
 
             </TableRow>
 
@@ -204,23 +206,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
                     android:text="Amount"
                     android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/amountTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="$100"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:text="$12"
+                    android:textColor="@color/colorBlack" />
 
             </TableRow>
 
@@ -229,23 +228,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
                     android:text="Delivery Address"
                     android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/addressTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="ABC City dyz"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
+                    android:text="The Address"
+                    android:textColor="@color/colorBlack" />
 
             </TableRow>
 
@@ -284,7 +280,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_ordereditems"
-        />
+        tools:listitem="@layout/row_ordereditems" />
 
 </LinearLayout>
