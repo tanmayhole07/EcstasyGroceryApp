@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcstasyGroceryApp">
         <activity
+            android:name=".User.Activities.ShopReviewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".User.Activities.WriteReviewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

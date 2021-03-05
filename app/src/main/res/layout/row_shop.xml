@@ -138,12 +138,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:isIndicator="true"
-                    android:paddingStart="5dp"
                     android:max="5"
                     android:numStars="5"
+                    android:paddingStart="5dp"
                     android:rating="3.5"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
+                    android:scaleX=".9"
+                    android:scaleY=".9"
                     android:transformPivotX="30dp"
                     android:transformPivotY="0dp" />
 

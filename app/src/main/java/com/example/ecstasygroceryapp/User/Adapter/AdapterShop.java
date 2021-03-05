@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ecstasygroceryapp.Models.ModelShop;
 import com.example.ecstasygroceryapp.R;
 import com.example.ecstasygroceryapp.User.Activities.ShopDetailsActivity;
+import com.example.ecstasygroceryapp.User.Activities.ShopReviewActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -95,6 +96,15 @@ public class AdapterShop extends RecyclerView.Adapter<AdapterShop.HolderShop>{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ShopDetailsActivity.class);
+                intent.putExtra("shopUid", uid);
+                context.startActivity(intent);
+            }
+        });
+
+        holder.ratingBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ShopReviewActivity.class);
                 intent.putExtra("shopUid", uid);
                 context.startActivity(intent);
             }

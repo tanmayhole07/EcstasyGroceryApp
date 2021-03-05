@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -68,6 +69,15 @@ public class ShopInfoActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+
+        reviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShopInfoActivity.this, ShopReviewActivity.class);
+                intent.putExtra("shopUid", shopUid);
+                startActivity(intent);
+            }
+        });
 
         shopUid = getIntent().getStringExtra("shopUid");
         firebaseAuth = FirebaseAuth.getInstance();
