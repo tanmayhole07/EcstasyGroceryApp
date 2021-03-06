@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
@@ -38,6 +39,9 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
     private TextView orderIdTv, dateTv, orderStatusTv, shopNameTv, totalItemsTv, amountTv, addressTv, writeReviewBtn ;
     private RecyclerView itemsRv;
     ImageView backBtn;
+
+    TextView tabOrderDetailsTv, tabOrderedProductsTv;
+    RelativeLayout orderDetailsRv, orderedProductsRv;
 
     private FirebaseAuth firebaseAuth;
     String mUID = "uid";
@@ -84,7 +88,49 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
             }
         });
 
+        tabOrderDetailsTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOrderDetailsUI();
+            }
+        });
+
+        tabOrderedProductsTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOrderedItemsUI();
+            }
+        });
+
         checkUserStatus();
+
+    }
+
+
+    private void showOrderedItemsUI() {
+
+        orderDetailsRv.setVisibility(View.GONE);
+        orderedProductsRv.setVisibility(View.VISIBLE);
+
+        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorWhite));
+        tabOrderDetailsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorBlack));
+        tabOrderedProductsTv.setBackgroundResource(R.drawable.shape_rect04);
+
+    }
+
+    private void showOrderDetailsUI() {
+
+        orderDetailsRv.setVisibility(View.VISIBLE);
+        orderedProductsRv.setVisibility(View.GONE);
+
+
+        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorBlack));
+        tabOrderDetailsTv.setBackgroundResource(R.drawable.shape_rect04);
+
+        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorWhite));
+        tabOrderedProductsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
     }
 
@@ -208,6 +254,7 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
             loadShopInfo();
             loadOrderDetails();
             loadOrderedItems();
+            showOrderDetailsUI();
 
 
         } else {

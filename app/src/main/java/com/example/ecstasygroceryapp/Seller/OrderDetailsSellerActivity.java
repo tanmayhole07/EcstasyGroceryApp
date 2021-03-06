@@ -15,6 +15,7 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,14 +39,18 @@ import java.util.Locale;
 
 public class OrderDetailsSellerActivity extends AppCompatActivity {
 
-    private ImageButton editBtn, mapBtn;
-    private TextView orderIdTv, dateTv, orderStatusTv, emailTv, phoneTv, totalItemsTv, amountTv, addressTv;
+    private ImageButton  mapBtn;
+    private TextView editBtn, orderIdTv, dateTv, orderStatusTv, emailTv, phoneTv, totalItemsTv, amountTv, addressTv;
     private RecyclerView itemsRv;
     ImageView backBtn;
 
     String orderId, orderBy;
 
     String sourceLatitude, sourceLongitude, destinationLatitude, destinationLongitude;
+
+    TextView tabOrderDetailsTv, tabOrderedProductsTv;
+    RelativeLayout orderDetailsRv, orderedProductsRv, editBtnTextRv;
+
 
     private FirebaseAuth firebaseAuth;
 
@@ -58,7 +63,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_details_seller);
 
         backBtn = findViewById(R.id.backBtn);
-//        editBtn = findViewById(R.id.editBtn);
+        editBtn = findViewById(R.id.editBtn);
 //        mapBtn = findViewById(R.id.mapBtn);
         orderIdTv = findViewById(R.id.orderIdTv);
         dateTv = findViewById(R.id.dateTv);
@@ -69,6 +74,12 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         amountTv = findViewById(R.id.amountTv);
         addressTv = findViewById(R.id.addressTv);
         itemsRv = findViewById(R.id.itemsRv);
+
+        tabOrderDetailsTv = findViewById(R.id.tabOrderDetailsTv);
+        tabOrderedProductsTv = findViewById(R.id.tabOrderedProductsTv);
+        orderDetailsRv = findViewById(R.id.orderDetailsRv);
+        orderedProductsRv = findViewById(R.id.orderedProductsRv);
+        editBtnTextRv = findViewById(R.id.editBtnTextRv);
 
         orderId = getIntent().getStringExtra("orderId");
         orderBy = getIntent().getStringExtra("orderBy");
@@ -82,23 +93,67 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                onBackPressed();
             }
         });
 
-        mapBtn.setOnClickListener(new View.OnClickListener() {
+
+
+        tabOrderDetailsTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OpenMap();
+                showOrderDetailsUI();
             }
         });
 
+        tabOrderedProductsTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOrderedItemsUI();
+            }
+        });
+
+//        mapBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                OpenMap();
+//            }
+//        });
+//
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editOrderStatusDialog();
             }
         });
+    }
+
+    private void showOrderedItemsUI() {
+
+        orderDetailsRv.setVisibility(View.GONE);
+        orderedProductsRv.setVisibility(View.VISIBLE);
+        editBtnTextRv.setVisibility(View.GONE);
+
+        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorWhite));
+        tabOrderDetailsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorBlack));
+        tabOrderedProductsTv.setBackgroundResource(R.drawable.shape_rect04);
+
+    }
+
+    private void showOrderDetailsUI() {
+
+        orderDetailsRv.setVisibility(View.VISIBLE);
+        orderedProductsRv.setVisibility(View.GONE);
+
+
+        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorBlack));
+        tabOrderDetailsTv.setBackgroundResource(R.drawable.shape_rect04);
+
+        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorWhite));
+        tabOrderedProductsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
     }
 
     private void editOrderStatusDialog() {

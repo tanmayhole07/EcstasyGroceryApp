@@ -1,6 +1,8 @@
 package com.example.ecstasygroceryapp.Seller;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -109,6 +111,29 @@ public class SellerOrderFragment extends Fragment {
         pd.setTitle("Please Title");
         pd.setCanceledOnTouchOutside(false);
 
+
+        filterOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String[] options = {"All","In Progress", "Completed", "Canceled"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Filter Orders:")
+                        .setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (i==0){
+                                    filteredOrdersTv.setText("Showing All Orders");
+                                    loadAllOrders();
+                                }else {
+                                    String optionClicked = options[i];
+                                    filteredOrdersTv.setText("Showing "+optionClicked +" Orders");
+                                    adapterOrderShop.getFilter().filter(optionClicked);
+                                }
+                            }
+                        }).show();
+            }
+        });
 
         checkUserStatus();
         return (view);

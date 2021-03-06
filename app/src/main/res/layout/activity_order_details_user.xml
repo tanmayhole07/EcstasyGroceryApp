@@ -56,235 +56,293 @@
 
     </RelativeLayout>
 
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="3dp"
-        app:contentPadding="5dp">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="OrderID"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/orderIdTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="12121212"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Date"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/dateTv"
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="11/13/2020"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Order Status"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/orderStatusTv"
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="In Progress"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="10sp" />
-
-
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Shop Name"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/shopNameTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="ABC Shop"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Items"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/totalItemsTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="8"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Amount"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/amountTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="$100"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Delivery Address"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/addressTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="ABC City dyz"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp" />
-
-            </TableRow>
-
-        </TableLayout>
-
-    </androidx.cardview.widget.CardView>
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/drawer_gradient_header"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+        android:layout_height="?attr/actionBarSize"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/drawer_gradient_header">
 
-        <TextView
-            android:id="@+id/continueBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/textview_shape"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="center_horizontal"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="5dp"
-            android:text="Ordered Items"
-            android:textColor="@color/black"
-            android:textSize="10sp" />
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/purple_700"
+            android:background="@drawable/shape_rect03"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tabOrderDetailsTv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/shape_rect04"
+                android:gravity="center"
+                android:text="Order Details"
+                android:textColor="@color/colorBlack"/>
+
+            <TextView
+                android:id="@+id/tabOrderedProductsTv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Ordered Items"
+                android:textColor="@color/colorBlack"/>
+        </LinearLayout>
 
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/itemsRv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_ordereditems"
-        />
+        android:id="@+id/orderDetailsRv"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="3dp"
+            app:contentPadding="5dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="OrderID"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/orderIdTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="12121212"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Date"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/dateTv"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="11/13/2020"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Order Status"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/orderStatusTv"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="In Progress"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="10sp" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shop Name"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/shopNameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="ABC Shop"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Items"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/totalItemsTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="8"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Amount"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/amountTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="$100"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Delivery Address"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/addressTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="ABC City dyz"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="10sp" />
+
+                </TableRow>
+
+            </TableLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/orderedProductsRv"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            android:background="@drawable/drawer_gradient_header"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/continueBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/textview_shape"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center_horizontal"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:text="Ordered Items"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemsRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_ordereditems"
+            />
+
+    </RelativeLayout>
+
+
+
+
 
 </LinearLayout>

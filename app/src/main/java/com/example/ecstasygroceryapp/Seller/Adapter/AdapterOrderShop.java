@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ecstasygroceryapp.FilterOrderShop;
 import com.example.ecstasygroceryapp.Models.ModelOrderShop;
 import com.example.ecstasygroceryapp.R;
+import com.example.ecstasygroceryapp.Seller.OrderDetailsSellerActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,7 +60,6 @@ public class AdapterOrderShop extends RecyclerView.Adapter<AdapterOrderShop.Hold
 
         holder.amountTv.setText("Amount: $" + orderCost);
         holder.statusTv.setText(orderStatus);
-        holder.orderIdTv.setText("OrderId:"+orderId);
 
 
         if (orderStatus.equals("In Progress")){
@@ -79,10 +79,10 @@ public class AdapterOrderShop extends RecyclerView.Adapter<AdapterOrderShop.Hold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(context, OrderDetailsSellerActivity.class);
-//                intent.putExtra("orderId", orderId);
-//                intent.putExtra("orderBy", orderBy);
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, OrderDetailsSellerActivity.class);
+                intent.putExtra("orderId", orderId);
+                intent.putExtra("orderBy", orderBy);
+                context.startActivity(intent);
             }
         });
 
@@ -96,7 +96,14 @@ public class AdapterOrderShop extends RecyclerView.Adapter<AdapterOrderShop.Hold
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String email = ""+snapshot.child("email").getValue();
-                        holder.emailTv.setText(email);
+                        String personName = ""+snapshot.child("name").getValue();
+                        String city = ""+snapshot.child("city").getValue();
+                        String postalCode = ""+snapshot.child("postalCode").getValue();
+
+
+//                        holder.emailTv.setText(email);
+                        holder.personNameTv.setText(personName);
+                        holder.deliverAtTv.setText("Deliver at "+city +", "+ postalCode);
                     }
 
                     @Override
@@ -122,15 +129,17 @@ public class AdapterOrderShop extends RecyclerView.Adapter<AdapterOrderShop.Hold
 
     class HolderOrderShop extends RecyclerView.ViewHolder{
 
-        private TextView orderIdTv, orderDateTv, emailTv, amountTv, statusTv;
+        private TextView  orderDateTv,  amountTv, statusTv, personNameTv, deliverAtTv;
         public HolderOrderShop(@NonNull View itemView) {
             super(itemView);
 
-            orderIdTv = itemView.findViewById(R.id.orderIdTv);
+//            orderIdTv = itemView.findViewById(R.id.orderIdTv);
+
             orderDateTv = itemView.findViewById(R.id.orderDateTv);
-            emailTv = itemView.findViewById(R.id.emailTv);
             amountTv = itemView.findViewById(R.id.amountTv);
             statusTv = itemView.findViewById(R.id.statusTv);
+            deliverAtTv = itemView.findViewById(R.id.deliverAtTv);
+            personNameTv = itemView.findViewById(R.id.personNameTv);
 
 
 

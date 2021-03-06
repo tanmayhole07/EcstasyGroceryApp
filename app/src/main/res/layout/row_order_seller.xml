@@ -1,68 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="2dp"
+    app:cardBackgroundColor="@color/colorWhite"
     app:cardElevation="3dp"
-    app:contentPadding="5dp"
-    app:cardBackgroundColor="@color/colorWhite">
+    app:contentPadding="5dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="130dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/orderIdTv"
-            android:text="Order: 121212"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/orderDateTv"
-            android:text="dd/MM/yyyy"
-            android:layout_toStartOf="@+id/nextIv"
-            android:textColor="@color/colorGrey02"/>
+            <TextView
+                android:id="@+id/personNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Tanmay Hole"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/emailTv"
-            android:text="Email"
-            android:layout_below="@+id/orderIdTv"
-            android:textColor="@color/colorGrey02"/>
+            <TextView
+                android:id="@+id/deliverAtTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/personNameTv"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="tanmayhole99@gmail.com"
+                android:textColor="@color/colorGrey02"
+                android:textSize="10sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/amountTv"
-            android:text="Total Amount: $32.33"
-            android:layout_below="@+id/emailTv"
-            android:textColor="@color/colorGrey02"/>
+            <TextView
+                android:id="@+id/amountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/deliverAtTv"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/textview_shape"
+                android:fontFamily="@font/poppins_light"
+                android:paddingStart="5dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="5dp"
+                android:text="Amount"
+                android:textColor="@color/colorGrey02"
+                android:textSize="10sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/statusTv"
-            android:layout_below="@+id/emailTv"
-            android:layout_marginTop="5dp"
-            android:layout_toStartOf="@+id/nextIv"
-            android:text="In Progress"
-            android:textColor="@color/colorGreen"/>
+        </RelativeLayout>
+
+        <!--        <RelativeLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:orientation="vertical">-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/empty"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/poppins_light"-->
+        <!--                android:text=""-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textSize="10sp" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/deliveryText"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_below="@+id/empty"-->
+        <!--                android:layout_centerHorizontal="true"-->
+        <!--                android:layout_marginTop="5dp"-->
+        <!--                android:fontFamily="@font/poppins_light"-->
+        <!--                android:text="Deliver at"-->
+        <!--                android:textColor="@color/colorGrey02"-->
+        <!--                android:textSize="10sp" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/deliverAtTv"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_below="@+id/deliveryText"-->
+        <!--                android:layout_centerHorizontal="true"-->
+        <!--                android:layout_marginTop="5dp"-->
+        <!--                android:fontFamily="@font/poppins_light"-->
+        <!--                android:text="Ghatkopar 400075"-->
+        <!--                android:textColor="@color/colorGrey02"-->
+        <!--                android:textSize="10sp" />-->
+
+        <!--        </RelativeLayout>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/orderDateTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/nextIv"
+                android:fontFamily="@font/poppins_light"
+                android:text="Date"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/emptyTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/orderDateTv"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/statusTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emptyTv"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/nextIv"
+                android:fontFamily="@font/poppins_light"
+                android:text="In Progress"
+                android:textColor="@color/colorGrey02"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:id="@+id/nextIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_next_blue" />
 
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nextIv"
-            android:src="@drawable/ic_next_grey"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
-    </RelativeLayout>
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
