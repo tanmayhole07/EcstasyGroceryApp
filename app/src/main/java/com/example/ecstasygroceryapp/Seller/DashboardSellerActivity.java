@@ -76,15 +76,14 @@ public class DashboardSellerActivity extends AppCompatActivity {
             drawer.addDrawerListener(toggle);
             toggle.syncState();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
-            Toast.makeText(this, ""+ e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 //            Intent intent = getIntent();
 //            finish();
 //            startActivity(intent);
 
         }
-
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreProductsFragment()).commit();
@@ -113,6 +112,11 @@ public class DashboardSellerActivity extends AppCompatActivity {
                         break;
                     case R.id.loginUser:
                         startActivity(new Intent(DashboardSellerActivity.this, LoginActivity.class));
+                        break;
+
+                    case R.id.notificationSetting:
+                        fragment = new NotificationSettingSellerFragment();
+                        loadFragment(fragment);
                         break;
 
                     case R.id.aboutUs:
@@ -166,7 +170,7 @@ public class DashboardSellerActivity extends AppCompatActivity {
 
                             try {
                                 Picasso.get().load(profileImage).placeholder(R.drawable.logo1).into(navProfileImage);
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 navProfileImage.setImageResource(R.drawable.logo1);
                             }
 

@@ -40,8 +40,6 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
     private RecyclerView itemsRv;
     ImageView backBtn;
 
-    TextView tabOrderDetailsTv, tabOrderedProductsTv;
-    RelativeLayout orderDetailsRv, orderedProductsRv;
 
     private FirebaseAuth firebaseAuth;
     String mUID = "uid";
@@ -49,6 +47,9 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
 
     private ArrayList<ModelOrderedItem> orderedItemArrayList;
     private AdapterOrderedItem adapterOrderedItem;
+
+    TextView tabOrderDetailsTv, tabOrderedProductsTv;
+    RelativeLayout orderDetailsRv, orderedProductsRv, editBtnTextRv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +67,16 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
         writeReviewBtn = findViewById(R.id.writeReviewBtn);
         backBtn = findViewById(R.id.backBtn);
 
+        tabOrderDetailsTv = findViewById(R.id.tabOrderDetailsTv);
+        tabOrderedProductsTv = findViewById(R.id.tabOrderedProductsTv);
+        orderDetailsRv = findViewById(R.id.orderDetailsRv);
+        orderedProductsRv = findViewById(R.id.orderedProductsRv);
+
         Intent intent = getIntent();
         orderTo = intent.getStringExtra("orderTo");
         orderId = intent.getStringExtra("orderId");
+
+
         pId = intent.getStringExtra("pId");
 
         firebaseAuth = FirebaseAuth.getInstance();

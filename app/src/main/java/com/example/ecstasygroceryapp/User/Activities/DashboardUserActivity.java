@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
 import com.example.ecstasygroceryapp.CommonActivities.AboutUsFragment;
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.User.BuyAgainActivityFragment;
+import com.example.ecstasygroceryapp.User.NotificationSettingFragment;
 import com.example.ecstasygroceryapp.User.ShopsNearbyFragment;
 import com.example.ecstasygroceryapp.User.UserAccountkFragment;
 import com.example.ecstasygroceryapp.User.UserOrdersFragment;
@@ -112,8 +112,8 @@ public class DashboardUserActivity extends AppCompatActivity {
                         fragment = new UserOrdersFragment();
                         loadFragment(fragment);
                         break;
-                    case R.id.buyAgainActivity:
-                        fragment = new BuyAgainActivityFragment();
+                    case R.id.notificationSetting:
+                        fragment = new NotificationSettingFragment();
                         loadFragment(fragment);
                         break;
                     case R.id.sellOnEcstasy:

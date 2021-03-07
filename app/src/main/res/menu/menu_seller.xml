@@ -28,6 +28,11 @@
             android:icon="@drawable/ic_sell_white"
             android:title="Login as User" />
 
+        <item
+            android:id="@+id/notificationSetting"
+            android:icon="@drawable/ic_notification_white"
+            android:title="Notification Setting" />
+
     </group>
     <item android:title="">
         <menu>

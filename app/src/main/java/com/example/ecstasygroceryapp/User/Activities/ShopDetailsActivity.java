@@ -22,6 +22,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ecstasygroceryapp.Constants;
 import com.example.ecstasygroceryapp.Models.ModelCartItem;
 import com.example.ecstasygroceryapp.Models.ModelProduct;
@@ -40,8 +45,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import p32929.androideasysql_library.Column;
 import p32929.androideasysql_library.EasyDB;
@@ -392,11 +401,9 @@ public class ShopDetailsActivity extends AppCompatActivity {
                         pd.dismiss();
                         Toast.makeText(ShopDetailsActivity.this, "Order Placed successfully", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(ShopDetailsActivity.this, OrderDetailsUserActivity.class);
-                        intent.putExtra("orderTo", shopUid);
-                        intent.putExtra("orderId", timestamp);
-                        // intent.putExtra("pId", productId);
-                        startActivity(intent);
+                        prepareNotificationMessage(timestamp);
+
+
 
                     }
                 })
@@ -524,5 +531,70 @@ public class ShopDetailsActivity extends AppCompatActivity {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void prepareNotificationMessage(String orderId){
+
+        String NOTIFICATION_TOPIC = "/topics/" + Constants.FCM_TOPIC;
+        String NOTIFICATION_TITLE = "New Order " + orderId;
+        String NOTIFICATION_MESSAGE = "Congratulations...! You have new order";
+        String NOTIFICATION_TYPE = "NewOrder";
+
+        JSONObject notificationJo = new JSONObject();
+        JSONObject notificationBodyJo = new JSONObject();
+        try {
+            notificationBodyJo.put("notificationType", NOTIFICATION_TYPE);
+            notificationBodyJo.put("buyerUid", firebaseAuth.getUid());
+            notificationBodyJo.put("sellerUid", shopUid);
+            notificationBodyJo.put("orderId", orderId);
+            notificationBodyJo.put("notificationTitle", NOTIFICATION_TITLE);
+            notificationBodyJo.put("notificationMessage", NOTIFICATION_MESSAGE);
+
+            notificationJo.put("to", NOTIFICATION_TOPIC);
+            notificationJo.put("data", notificationBodyJo);
+
+        } catch (JSONException e) {
+            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        sendFcmNotification(notificationJo, orderId);
+    }
+
+    private void sendFcmNotification(JSONObject notificationJo, String orderId) {
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", notificationJo, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Intent intent = new Intent(ShopDetailsActivity.this, OrderDetailsUserActivity.class);
+                intent.putExtra("orderTo", shopUid);
+                intent.putExtra("orderId", orderId);
+                // intent.putExtra("pId", productId);
+                startActivity(intent);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Intent intent = new Intent(ShopDetailsActivity.this, OrderDetailsUserActivity.class);
+                intent.putExtra("orderTo", shopUid);
+                intent.putExtra("orderId", orderId);
+                // intent.putExtra("pId", productId);
+                startActivity(intent);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map <String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "key="+Constants.FCM_KEY);
+
+                return headers;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
+    }
 
 }

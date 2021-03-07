@@ -19,9 +19,9 @@
             android:title="Your Orders" />
 
         <item
-            android:id="@+id/buyAgainActivity"
-            android:icon="@drawable/ic_buy_again_white"
-            android:title="Buy Again" />
+            android:id="@+id/notificationSetting"
+            android:icon="@drawable/ic_notification_white"
+            android:title="Notification Setting" />
 
         <item
             android:id="@+id/sellOnEcstasy"

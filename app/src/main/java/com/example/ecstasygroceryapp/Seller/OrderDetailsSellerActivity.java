@@ -19,8 +19,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.ecstasygroceryapp.Constants;
 import com.example.ecstasygroceryapp.Models.ModelOrderedItem;
 import com.example.ecstasygroceryapp.R;
+import com.example.ecstasygroceryapp.User.Activities.OrderDetailsUserActivity;
+import com.example.ecstasygroceryapp.User.Activities.ShopDetailsActivity;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterOrderedItem;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,11 +39,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class OrderDetailsSellerActivity extends AppCompatActivity {
 
@@ -146,6 +158,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
 
         orderDetailsRv.setVisibility(View.VISIBLE);
         orderedProductsRv.setVisibility(View.GONE);
+        editBtnTextRv.setVisibility(View.VISIBLE);
 
 
         tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorBlack));
@@ -179,7 +192,9 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(OrderDetailsSellerActivity.this, "Order is now "+selectedOption, Toast.LENGTH_SHORT).show();
+                        String message = "Order is now "+selectedOption;
+                        Toast.makeText(OrderDetailsSellerActivity.this, message, Toast.LENGTH_SHORT).show();
+                        prepareNotificationMessage(orderId, message);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -325,4 +340,62 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+    private void prepareNotificationMessage(String orderId, String message){
+
+        String NOTIFICATION_TOPIC = "/topics/" + Constants.FCM_TOPIC;
+        String NOTIFICATION_TITLE = "Your Order " + orderId;
+        String NOTIFICATION_MESSAGE = ""+message;
+        String NOTIFICATION_TYPE = "OrderStatusChanged";
+
+        JSONObject notificationJo = new JSONObject();
+        JSONObject notificationBodyJo = new JSONObject();
+        try {
+            notificationBodyJo.put("notificationType", NOTIFICATION_TYPE);
+            notificationBodyJo.put("buyerUid", orderBy );
+            notificationBodyJo.put("sellerUid", firebaseAuth.getUid());
+            notificationBodyJo.put("orderId", orderId);
+            notificationBodyJo.put("notificationTitle", NOTIFICATION_TITLE);
+            notificationBodyJo.put("notificationMessage", NOTIFICATION_MESSAGE);
+
+            notificationJo.put("to", NOTIFICATION_TOPIC);
+            notificationJo.put("data", notificationBodyJo);
+
+        } catch (JSONException e) {
+            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        sendFcmNotification(notificationJo);
+    }
+
+    private void sendFcmNotification(JSONObject notificationJo) {
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", notificationJo, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map <String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "key="+Constants.FCM_KEY);
+
+                return super.getHeaders();
+            }
+        };
+
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
+    }
+
 }
