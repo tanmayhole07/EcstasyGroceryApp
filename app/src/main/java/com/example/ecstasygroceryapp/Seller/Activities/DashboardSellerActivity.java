@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Seller;
+package com.example.ecstasygroceryapp.Seller.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -25,6 +25,11 @@ import android.widget.Toast;
 import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
 import com.example.ecstasygroceryapp.CommonActivities.AboutUsFragment;
 import com.example.ecstasygroceryapp.R;
+import com.example.ecstasygroceryapp.Seller.NotificationSettingSellerFragment;
+import com.example.ecstasygroceryapp.Seller.SellerAccountkFragment;
+import com.example.ecstasygroceryapp.Seller.SellerAddProductFragment;
+import com.example.ecstasygroceryapp.Seller.SellerOrderFragment;
+import com.example.ecstasygroceryapp.Seller.StoreProductsFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -238,9 +243,21 @@ public class DashboardSellerActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            finishAndRemoveTask();
-            super.onBackPressed();
+            int count = getSupportFragmentManager().getBackStackEntryCount();
+
+            if (count == 0) {
+                super.onBackPressed();
+                finishAndRemoveTask();
+                //additional code
+            } else {
+                getSupportFragmentManager().popBackStack();
+            }
+
+//            finishAndRemoveTask();
+//            super.onBackPressed();
         }
     }
+
+
 
 }

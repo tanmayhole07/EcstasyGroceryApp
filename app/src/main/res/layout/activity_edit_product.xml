@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:noHistory="true"
-    tools:context=".Seller.EditProductActivity">
+    tools:context=".Seller.Activities.EditProductActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

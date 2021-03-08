@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Seller;
+package com.example.ecstasygroceryapp.Seller.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,8 +27,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.ecstasygroceryapp.Constants;
 import com.example.ecstasygroceryapp.Models.ModelOrderedItem;
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.User.Activities.OrderDetailsUserActivity;
-import com.example.ecstasygroceryapp.User.Activities.ShopDetailsActivity;
 import com.example.ecstasygroceryapp.User.Adapter.AdapterOrderedItem;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

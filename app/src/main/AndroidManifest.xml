@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcstasyGroceryApp">
         <activity
-            android:name=".Seller.OrderDetailsSellerActivity"
+            android:name=".Seller.Activities.OrderDetailsSellerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".User.Activities.ShopReviewActivity"
@@ -34,10 +34,10 @@
             android:name=".User.Activities.ShopDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Seller.EditProductActivity"
+            android:name=".Seller.Activities.EditProductActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Seller.DashboardSellerActivity"
+            android:name=".Seller.Activities.DashboardSellerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".User.Activities.SellOnEcstasyActivity"

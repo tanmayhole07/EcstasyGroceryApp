@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ecstasygroceryapp.FilterOrderShop;
 import com.example.ecstasygroceryapp.Models.ModelOrderShop;
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.Seller.OrderDetailsSellerActivity;
+import com.example.ecstasygroceryapp.Seller.Activities.OrderDetailsSellerActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

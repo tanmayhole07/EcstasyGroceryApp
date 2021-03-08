@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Seller.OrderDetailsSellerActivity">
+    tools:context=".Seller.Activities.OrderDetailsSellerActivity">
 
     <RelativeLayout
         android:id="@+id/shopRl"

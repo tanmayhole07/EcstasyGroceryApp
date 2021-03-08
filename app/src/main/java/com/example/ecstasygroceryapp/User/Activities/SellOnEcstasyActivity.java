@@ -33,7 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
-import com.example.ecstasygroceryapp.Seller.DashboardSellerActivity;
+import com.example.ecstasygroceryapp.Seller.Activities.DashboardSellerActivity;
 import com.example.ecstasygroceryapp.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

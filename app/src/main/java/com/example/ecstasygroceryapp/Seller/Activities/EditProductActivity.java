@@ -1,4 +1,4 @@
-package com.example.ecstasygroceryapp.Seller;
+package com.example.ecstasygroceryapp.Seller.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

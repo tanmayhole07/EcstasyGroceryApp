@@ -244,8 +244,18 @@ public class DashboardUserActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            finishAndRemoveTask();
-            super.onBackPressed();
+            int count = getSupportFragmentManager().getBackStackEntryCount();
+
+            if (count == 0) {
+                super.onBackPressed();
+                finishAndRemoveTask();
+                //additional code
+            } else {
+                getSupportFragmentManager().popBackStack();
+            }
+
+//            finishAndRemoveTask();
+//            super.onBackPressed();
         }
     }
 }

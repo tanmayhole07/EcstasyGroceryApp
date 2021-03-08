@@ -10,7 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.Seller.DashboardSellerActivity;
+import com.example.ecstasygroceryapp.Seller.Activities.DashboardSellerActivity;
 import com.example.ecstasygroceryapp.User.Activities.DashboardUserActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

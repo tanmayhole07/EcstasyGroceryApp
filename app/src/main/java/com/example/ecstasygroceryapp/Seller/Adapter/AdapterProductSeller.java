@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ecstasygroceryapp.FilterProduct;
 import com.example.ecstasygroceryapp.Models.ModelProduct;
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.Seller.EditProductActivity;
+import com.example.ecstasygroceryapp.Seller.Activities.EditProductActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;

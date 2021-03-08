@@ -1,7 +1,6 @@
 package com.example.ecstasygroceryapp;
 
 import android.app.Application;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -18,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.example.ecstasygroceryapp.Seller.OrderDetailsSellerActivity;
+import com.example.ecstasygroceryapp.Seller.Activities.OrderDetailsSellerActivity;
 import com.example.ecstasygroceryapp.User.Activities.OrderDetailsUserActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
