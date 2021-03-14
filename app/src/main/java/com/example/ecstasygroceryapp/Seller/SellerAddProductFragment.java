@@ -152,6 +152,9 @@ public class SellerAddProductFragment extends Fragment {
         textInputDiscountPriceEt = view.findViewById(R.id.textInputDiscountPriceEt);
         textInputDiscountNoteEt = view.findViewById(R.id.textInputDiscountNoteEt);
 
+        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
         layout_add_product_1 = view.findViewById(R.id.layout_add_product_1);
         layout_add_product_2 = view.findViewById(R.id.layout_add_product_2);
 
