@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
 import com.example.ecstasygroceryapp.CommonActivities.AboutUsFragment;
 import com.example.ecstasygroceryapp.R;
+import com.example.ecstasygroceryapp.Seller.PromotionCodeFragment;
 import com.example.ecstasygroceryapp.Seller.SellerAccountkFragment;
 import com.example.ecstasygroceryapp.Seller.SellerAddProductFragment;
 import com.example.ecstasygroceryapp.Seller.SellerOrderFragment;

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Seller.Activities.PromotionCodeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Seller.PromotionCodeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -12,9 +13,44 @@
         android:layout_height="match_parent"
         android:padding="10dp">
 
+        <TextView
+            android:id="@+id/filteredCodeTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="50dp"
+            android:layout_toStartOf="@+id/filterProductBtn"
+            android:background="@drawable/shape_rect02"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/poppins_light"
+            android:text="Showing All Promo Codes"
+            android:padding="5dp"
+            android:textSize="12sp" />
+
+        <ImageButton
+            android:id="@+id/filterCodeBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_category_black" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/promoRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/filterCodeBtn"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_promotion_shop" />
+
         <Button
             android:id="@+id/addPromoBtn"
-            style="@style/loginButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

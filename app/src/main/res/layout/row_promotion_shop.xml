@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="6dp"
+    android:layout_marginTop="2dp"
+    app:cardElevation="6dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/promoCodeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Promotion Code"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/promoPriceLabelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/promoCodeTv"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="Promotion Price : $"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/promoPriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/promoCodeTv"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/promoPriceLabelTv"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="1.4"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/minimumOrderLabelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/promoPriceLabelTv"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="Min Order Price : $"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/minimumOrderPriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/promoPriceTv"
+                    android:layout_toEndOf="@+id/minimumOrderLabelTv"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="50"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/descriptionTv"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/minimumOrderLabelTv"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="This is description of the promotion code"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/expireDateTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="12/12/1212"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_next_blue"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
