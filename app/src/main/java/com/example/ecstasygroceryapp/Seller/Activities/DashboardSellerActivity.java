@@ -119,7 +119,7 @@ public class DashboardSellerActivity extends AppCompatActivity {
                         break;
 
                     case R.id.addPromotionCode:
-                        fragment = new AddPromotionCodeFragment();
+                        fragment = new PromotionCodeFragment();
                         loadFragment(fragment);
                         break;
 

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Seller.Activities.AddPromotionCodeActivity">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/drawer_gradient_header"
+        android:elevation="3dp">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:padding="7dp"
+            android:src="@drawable/ic_back_white" />
+
+        <TextView
+            android:id="@+id/toolbarTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Add Promotion Code"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageIv"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/textview_shape_transparent"
+            android:src="@drawable/add_product_image" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputPromotionCodeEt"
+            style="@style/parent"
+            android:layout_below="@+id/imageIv"
+            android:layout_marginTop="10dp"
+            android:alpha=".6">
+
+            <EditText
+                android:id="@+id/promoCodeEt"
+                style="@style/modifiedEditText"
+                android:fontFamily="@font/poppins_light"
+                android:hint="Enter Promotion Code"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputPromotionDescEt"
+            style="@style/parent"
+            android:layout_below="@+id/textInputPromotionCodeEt"
+            android:layout_marginTop="10dp"
+            android:alpha=".6">
+
+            <EditText
+                android:id="@+id/promoDescriptionEt"
+                style="@style/modifiedEditText"
+                android:fontFamily="@font/poppins_light"
+                android:hint="Enter Code Description"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="1"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputPromotionPriceEt"
+            style="@style/parent"
+            android:layout_below="@+id/textInputPromotionDescEt"
+            android:layout_marginTop="10dp"
+            android:alpha=".6">
+
+            <EditText
+                android:id="@+id/promoPriceEt"
+                style="@style/modifiedEditText"
+                android:fontFamily="@font/poppins_light"
+                android:hint="Enter Code Price"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="1"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputMinimumOrderPriceEt"
+            style="@style/parent"
+            android:layout_below="@+id/textInputPromotionPriceEt"
+            android:layout_marginTop="10dp"
+            android:alpha=".6">
+
+            <EditText
+                android:id="@+id/minimumOrderPriceEt"
+                style="@style/modifiedEditText"
+                android:fontFamily="@font/poppins_light"
+                android:hint="Minimum Order Price"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputExpireDateTv"
+            style="@style/parent"
+            android:layout_below="@+id/textInputMinimumOrderPriceEt"
+            android:layout_marginTop="10dp"
+            android:alpha=".6">
+
+            <EditText
+                android:id="@+id/expireDateTv"
+                style="@style/modifiedEditText"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:focusable="false"
+                android:fontFamily="@font/poppins_light"
+                android:hint="Expire Date"
+                android:inputType="datetime"
+                android:maxLines="1"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/addBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Add" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
