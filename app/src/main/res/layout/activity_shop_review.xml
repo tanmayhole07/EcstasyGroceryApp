@@ -92,7 +92,6 @@
             android:layout_below="@+id/ratingBar"
             android:layout_marginStart="140dp"
             android:fontFamily="@font/poppins_light"
-
             android:layout_toEndOf="@+id/shopNameTv"
             android:text="3.4"
             android:textColor="@color/black"

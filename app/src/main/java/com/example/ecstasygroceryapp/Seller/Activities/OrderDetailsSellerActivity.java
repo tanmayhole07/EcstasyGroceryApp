@@ -49,7 +49,7 @@ import java.util.Map;
 
 public class OrderDetailsSellerActivity extends AppCompatActivity {
 
-    private ImageButton  mapBtn;
+    private ImageButton mapBtn;
     private TextView editBtn, orderIdTv, dateTv, orderStatusTv, emailTv, phoneTv, totalItemsTv, amountTv, addressTv;
     private RecyclerView itemsRv;
     ImageView backBtn;
@@ -61,6 +61,8 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
     TextView tabOrderDetailsTv, tabOrderedProductsTv;
     RelativeLayout orderDetailsRv, orderedProductsRv, editBtnTextRv;
 
+    RelativeLayout tabDetailsRv, tabItemsRv, detailsBorderRv, itemsBorderRv;
+    TextView detailsText, itemsText;
 
     private FirebaseAuth firebaseAuth;
 
@@ -85,10 +87,17 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         addressTv = findViewById(R.id.addressTv);
         itemsRv = findViewById(R.id.itemsRv);
 
-        tabOrderDetailsTv = findViewById(R.id.tabOrderDetailsTv);
-        tabOrderedProductsTv = findViewById(R.id.tabOrderedProductsTv);
+        tabDetailsRv = findViewById(R.id.tabDetailsRv);
+        tabItemsRv = findViewById(R.id.tabItemsRv);
+
+        detailsBorderRv = findViewById(R.id.detailsBorderRv);
+        itemsBorderRv = findViewById(R.id.itemsBorderRv);
+        detailsText = findViewById(R.id.detailsText);
+        itemsText = findViewById(R.id.itemsText);
+
         orderDetailsRv = findViewById(R.id.orderDetailsRv);
         orderedProductsRv = findViewById(R.id.orderedProductsRv);
+
         editBtnTextRv = findViewById(R.id.editBtnTextRv);
 
         orderId = getIntent().getStringExtra("orderId");
@@ -99,6 +108,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         loadBuyerInfo();
         loadOrderDetails();
         loadOrderedItems();
+        showOrderDetailsUI();
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,15 +118,14 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         });
 
 
-
-        tabOrderDetailsTv.setOnClickListener(new View.OnClickListener() {
+        tabDetailsRv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showOrderDetailsUI();
             }
         });
 
-        tabOrderedProductsTv.setOnClickListener(new View.OnClickListener() {
+        tabItemsRv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showOrderedItemsUI();
@@ -144,11 +153,18 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         orderedProductsRv.setVisibility(View.VISIBLE);
         editBtnTextRv.setVisibility(View.GONE);
 
-        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorWhite));
-        tabOrderDetailsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        detailsBorderRv.setVisibility(View.INVISIBLE);
+        itemsBorderRv.setVisibility(View.VISIBLE);
 
-        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorBlack));
-        tabOrderedProductsTv.setBackgroundResource(R.drawable.shape_rect04);
+        detailsText.setTextColor(getResources().getColor(R.color.white));
+        itemsText.setTextColor(getResources().getColor(R.color.primaryTextColor));
+
+
+//        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorWhite));
+//        tabOrderDetailsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+//
+//        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorBlack));
+        detailsText.setBackgroundResource(R.drawable.shape_rect04);
 
     }
 
@@ -158,12 +174,17 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         orderedProductsRv.setVisibility(View.GONE);
         editBtnTextRv.setVisibility(View.VISIBLE);
 
+        detailsBorderRv.setVisibility(View.VISIBLE);
+        itemsBorderRv.setVisibility(View.INVISIBLE);
 
-        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorBlack));
-        tabOrderDetailsTv.setBackgroundResource(R.drawable.shape_rect04);
+        itemsText.setTextColor(getResources().getColor(R.color.white));
+        detailsText.setTextColor(getResources().getColor(R.color.primaryTextColor));
 
-        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorWhite));
-        tabOrderedProductsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+//        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorBlack));
+        itemsText.setBackgroundResource(R.drawable.shape_rect04);
+//
+//        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorWhite));
+//        tabOrderedProductsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
     }
 
@@ -182,7 +203,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
 
     private void editOrderStatus(final String selectedOption) {
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("orderStatus",""+selectedOption);
+        hashMap.put("orderStatus", "" + selectedOption);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.child(firebaseAuth.getUid()).child("Orders").child(orderId)
@@ -190,7 +211,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        String message = "Order is now "+selectedOption;
+                        String message = "Order is now " + selectedOption;
                         Toast.makeText(OrderDetailsSellerActivity.this, message, Toast.LENGTH_SHORT).show();
                         prepareNotificationMessage(orderId, message);
                     }
@@ -198,7 +219,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(OrderDetailsSellerActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderDetailsSellerActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -210,31 +231,31 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String orderBy = ""+snapshot.child("orderBy").getValue();
-                        String orderCost = ""+snapshot.child("orderCost").getValue();
-                        String orderId = ""+snapshot.child("orderId").getValue();
-                        String orderStatus = ""+snapshot.child("orderStatus").getValue();
-                        String orderTime = ""+snapshot.child("orderTime").getValue();
-                        String orderTo = ""+snapshot.child("orderTo").getValue();
-                        String deliveryFee = ""+snapshot.child("deliveryFee").getValue();
-                        String latitude = ""+snapshot.child("latitude").getValue();
-                        String longitude = ""+snapshot.child("longitude").getValue();
+                        String orderBy = "" + snapshot.child("orderBy").getValue();
+                        String orderCost = "" + snapshot.child("orderCost").getValue();
+                        String orderId = "" + snapshot.child("orderId").getValue();
+                        String orderStatus = "" + snapshot.child("orderStatus").getValue();
+                        String orderTime = "" + snapshot.child("orderTime").getValue();
+                        String orderTo = "" + snapshot.child("orderTo").getValue();
+                        String deliveryFee = "" + snapshot.child("deliveryFee").getValue();
+                        String latitude = "" + snapshot.child("latitude").getValue();
+                        String longitude = "" + snapshot.child("longitude").getValue();
 
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(orderTime));
                         String formatedDate = DateFormat.format("dd/MM/yyyy hh:mm a", calendar).toString();
 
-                        if (orderStatus.equals("In Progress")){
+                        if (orderStatus.equals("In Progress")) {
                             orderStatusTv.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        }else if (orderStatus.equals("Completed")){
+                        } else if (orderStatus.equals("Completed")) {
                             orderStatusTv.setTextColor(getResources().getColor(R.color.colorGreen));
-                        }else if (orderStatus.equals("Cancelled")){
+                        } else if (orderStatus.equals("Cancelled")) {
                             orderStatusTv.setTextColor(getResources().getColor(R.color.colorRed));
                         }
 
                         orderIdTv.setText(orderId);
                         orderStatusTv.setText(orderStatus);
-                        amountTv.setText("$" + orderCost + "[Including delivery fee $"+ deliveryFee +"]");
+                        amountTv.setText("$" + orderCost + "[Including delivery fee $" + deliveryFee + "]");
                         dateTv.setText(formatedDate);
 
                         findAddress(latitude, longitude);
@@ -258,11 +279,11 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         geocoder = new Geocoder(this, Locale.getDefault());
 
         try {
-            addresses = geocoder.getFromLocation(lat,lon,1);
+            addresses = geocoder.getFromLocation(lat, lon, 1);
             String address = addresses.get(0).getAddressLine(0);
             addressTv.setText(address);
-        }catch (Exception e){
-            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -278,8 +299,8 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        sourceLatitude = ""+snapshot.child("latitude").getValue();
-                        sourceLongitude = ""+snapshot.child("longitude").getValue();
+                        sourceLatitude = "" + snapshot.child("latitude").getValue();
+                        sourceLongitude = "" + snapshot.child("longitude").getValue();
                     }
 
                     @Override
@@ -295,10 +316,10 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        destinationLatitude = ""+snapshot.child("latitude").getValue();
-                        destinationLongitude = ""+snapshot.child("longitude").getValue();
-                        String email = ""+snapshot.child("email").getValue();
-                        String phone = ""+snapshot.child("phone").getValue();
+                        destinationLatitude = "" + snapshot.child("latitude").getValue();
+                        destinationLongitude = "" + snapshot.child("longitude").getValue();
+                        String email = "" + snapshot.child("email").getValue();
+                        String phone = "" + snapshot.child("phone").getValue();
 
                         emailTv.setText(email);
                         phoneTv.setText(phone);
@@ -321,7 +342,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         orderedItemArrayList.clear();
-                        for (DataSnapshot ds : snapshot.getChildren()){
+                        for (DataSnapshot ds : snapshot.getChildren()) {
                             ModelOrderedItem modelOrderedItem = ds.getValue(ModelOrderedItem.class);
                             orderedItemArrayList.add(modelOrderedItem);
                         }
@@ -329,7 +350,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
                         adapterOrderedItem = new AdapterOrderedItem(OrderDetailsSellerActivity.this, orderedItemArrayList, firebaseAuth.getUid());
                         itemsRv.setAdapter(adapterOrderedItem);
 
-                        totalItemsTv.setText(""+snapshot.getChildrenCount());
+                        totalItemsTv.setText("" + snapshot.getChildrenCount());
                     }
 
                     @Override
@@ -340,18 +361,18 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
     }
 
 
-    private void prepareNotificationMessage(String orderId, String message){
+    private void prepareNotificationMessage(String orderId, String message) {
 
         String NOTIFICATION_TOPIC = "/topics/" + Constants.FCM_TOPIC;
         String NOTIFICATION_TITLE = "Your Order " + orderId;
-        String NOTIFICATION_MESSAGE = ""+message;
+        String NOTIFICATION_MESSAGE = "" + message;
         String NOTIFICATION_TYPE = "OrderStatusChanged";
 
         JSONObject notificationJo = new JSONObject();
         JSONObject notificationBodyJo = new JSONObject();
         try {
             notificationBodyJo.put("notificationType", NOTIFICATION_TYPE);
-            notificationBodyJo.put("buyerUid", orderBy );
+            notificationBodyJo.put("buyerUid", orderBy);
             notificationBodyJo.put("sellerUid", firebaseAuth.getUid());
             notificationBodyJo.put("orderId", orderId);
             notificationBodyJo.put("notificationTitle", NOTIFICATION_TITLE);
@@ -361,7 +382,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
             notificationJo.put("data", notificationBodyJo);
 
         } catch (JSONException e) {
-            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         sendFcmNotification(notificationJo);
@@ -381,13 +402,13 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
 
-                Map <String, String> headers = new HashMap<>();
+                Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "key="+Constants.FCM_KEY);
+                headers.put("Authorization", "key=" + Constants.FCM_KEY);
 
                 return super.getHeaders();
             }
