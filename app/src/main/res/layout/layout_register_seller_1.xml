@@ -25,15 +25,15 @@
         android:textSize="20sp" />
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:layout_width="150dp"
         android:id="@+id/profileIv"
         android:layout_height="150dp"
         android:src="@drawable/ic_store_grey"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        app:civ_border_width="2dp"
-        app:civ_border_color="@color/colorRed"/>
+        android:background="@drawable/textview_shape_transparent"
+        android:padding="1dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputShopName"

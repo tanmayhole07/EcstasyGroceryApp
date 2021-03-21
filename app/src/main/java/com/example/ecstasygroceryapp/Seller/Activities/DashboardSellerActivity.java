@@ -25,7 +25,6 @@ import android.widget.Toast;
 import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
 import com.example.ecstasygroceryapp.CommonActivities.AboutUsFragment;
 import com.example.ecstasygroceryapp.R;
-import com.example.ecstasygroceryapp.Seller.NotificationSettingSellerFragment;
 import com.example.ecstasygroceryapp.Seller.SellerAccountkFragment;
 import com.example.ecstasygroceryapp.Seller.SellerAddProductFragment;
 import com.example.ecstasygroceryapp.Seller.SellerOrderFragment;
@@ -119,8 +118,8 @@ public class DashboardSellerActivity extends AppCompatActivity {
                         startActivity(new Intent(DashboardSellerActivity.this, LoginActivity.class));
                         break;
 
-                    case R.id.notificationSetting:
-                        fragment = new NotificationSettingSellerFragment();
+                    case R.id.addPromotionCode:
+                        fragment = new AddPromotionCodeFragment();
                         loadFragment(fragment);
                         break;
 

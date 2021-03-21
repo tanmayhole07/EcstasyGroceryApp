@@ -54,6 +54,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -436,15 +438,24 @@ public class UserAccountkFragment extends Fragment {
     }
 
     private void pickFromCamera() {
-        ContentValues cv = new ContentValues();
-        cv.put(MediaStore.Images.Media.TITLE, "Temp_Image Title");
-        cv.put(MediaStore.Images.Media.DESCRIPTION, "Temp_Image Description");
+//        ContentValues cv = new ContentValues();
+//        cv.put(MediaStore.Images.Media.TITLE, "Temp_Image Title");
+//        cv.put(MediaStore.Images.Media.DESCRIPTION, "Temp_Image Description");
+//
+//        image_uri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
+//
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+//        startActivityForResult(intent, IMAGE_PICK_CAMERA_CODE);
 
-        image_uri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
-
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
-        startActivityForResult(intent, IMAGE_PICK_CAMERA_CODE);
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setCropShape(CropImageView.CropShape.OVAL)
+//                .setAspectRatio(100, 100)
+                .setActivityTitle("Crop Image")
+                .setFixAspectRatio(true)
+                .setCropMenuCropButtonTitle("Done")
+                .start(getContext(), this);
     }
 
     private void pickFromGallery() {
@@ -517,13 +528,50 @@ public class UserAccountkFragment extends Fragment {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+//                image_uri = data.getData();
+//                eventPicIv.setImageURI(image_uri);
+
                 image_uri = data.getData();
-                //profileIv.setImageURI(image_uri);
-                uploadProfileCoverPhoto(image_uri);
-            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
-                //profileIv.setImageURI(image_uri);
-                uploadProfileCoverPhoto(image_uri);
+                CropImage.activity(image_uri)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setCropShape(CropImageView.CropShape.OVAL)
+//                        .setAspectRatio(100, 100)
+                        .setActivityTitle("Crop Image")
+                        .setFixAspectRatio(true)
+                        .setCropMenuCropButtonTitle("Done")
+                        .start(getContext(), this);
+
+
             }
+//            else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+//                eventPicIv.setImageURI(image_uri);
+//            }
+        }
+
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                image_uri = result.getUri();
+                uploadProfileCoverPhoto(image_uri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception e = result.getError();
+                Toast.makeText(getActivity(), "" + e, Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                uploadProfileCoverPhoto(resultUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+                Toast.makeText(getActivity(), "" + error, Toast.LENGTH_SHORT).show();
+            }
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

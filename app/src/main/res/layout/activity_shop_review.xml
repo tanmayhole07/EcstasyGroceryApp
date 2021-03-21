@@ -53,7 +53,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/textview_shape"
             android:elevation="3dp"
-            android:padding="2dp" />
+            android:padding="1dp" />
 
         <TextView
             android:id="@+id/shopNameTv"

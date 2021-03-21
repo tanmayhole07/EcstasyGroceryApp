@@ -44,8 +44,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/drawer_gradient_header"
         android:paddingLeft="5dp"
-        android:visibility="gone"
-        android:paddingRight="5dp">
+        android:paddingRight="5dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,8 +98,8 @@
             <TextView
                 android:id="@+id/detailsText"
                 android:layout_width="match_parent"
-                android:background="@drawable/shape_rect04"
                 android:layout_height="match_parent"
+                android:background="@drawable/shape_rect04"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:text="Order Details"
@@ -136,11 +136,11 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/detailsBorderRv"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:visibility="invisible"
             android:layout_weight="1"
-            android:id="@+id/detailsBorderRv">
+            android:visibility="invisible">
 
             <View
                 android:layout_width="match_parent"
@@ -150,10 +150,10 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/itemsBorderRv"
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:layout_weight="1"
-            android:id="@+id/itemsBorderRv">
+            android:layout_weight="1">
 
             <View
                 android:layout_width="match_parent"
@@ -172,37 +172,28 @@
         android:layout_height="match_parent"
         android:visibility="visible">
 
-        <RelativeLayout
-            android:id="@+id/editBtnTextRv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                android:id="@+id/editBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/textview_shape"
-                android:fontFamily="@font/poppins_medium"
-                android:gravity="center_horizontal"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-                android:text="Edit Order Status"
-                android:textColor="@color/black"
-                android:textSize="10sp" />
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/editBtnTextTv"
+            style="@style/TextAppearance.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/textview_shape"
+            android:fontFamily="@font/poppins_light"
+            android:paddingStart="10dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="4dp"
+            android:text="Edit Order Status"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editBtnTextRv"
+            android:layout_below="@+id/editBtnTextTv"
             app:cardElevation="3dp"
             app:contentPadding="5dp">
 

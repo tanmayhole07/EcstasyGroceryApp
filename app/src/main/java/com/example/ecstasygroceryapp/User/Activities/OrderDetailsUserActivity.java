@@ -40,6 +40,8 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
     private RecyclerView itemsRv;
     ImageView backBtn;
 
+    RelativeLayout tabDetailsRv, tabItemsRv, detailsBorderRv, itemsBorderRv;
+    TextView detailsText, itemsText;
 
     private FirebaseAuth firebaseAuth;
     String mUID = "uid";
@@ -48,8 +50,8 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
     private ArrayList<ModelOrderedItem> orderedItemArrayList;
     private AdapterOrderedItem adapterOrderedItem;
 
-    TextView tabOrderDetailsTv, tabOrderedProductsTv;
-    RelativeLayout orderDetailsRv, orderedProductsRv, editBtnTextRv;
+    TextView tabOrderDetailsTv, tabOrderedProductsTv, editBtnTextRv;
+    RelativeLayout orderDetailsRv, orderedProductsRv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,14 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
         itemsRv = findViewById(R.id.itemsRv);
         writeReviewBtn = findViewById(R.id.writeReviewBtn);
         backBtn = findViewById(R.id.backBtn);
+
+        tabDetailsRv = findViewById(R.id.tabDetailsRv);
+        tabItemsRv = findViewById(R.id.tabItemsRv);
+
+        detailsBorderRv = findViewById(R.id.detailsBorderRv);
+        itemsBorderRv = findViewById(R.id.itemsBorderRv);
+        detailsText = findViewById(R.id.detailsText);
+        itemsText = findViewById(R.id.itemsText);
 
         tabOrderDetailsTv = findViewById(R.id.tabOrderDetailsTv);
         tabOrderedProductsTv = findViewById(R.id.tabOrderedProductsTv);
@@ -96,14 +106,14 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
             }
         });
 
-        tabOrderDetailsTv.setOnClickListener(new View.OnClickListener() {
+        tabDetailsRv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showOrderDetailsUI();
             }
         });
 
-        tabOrderedProductsTv.setOnClickListener(new View.OnClickListener() {
+        tabItemsRv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showOrderedItemsUI();
@@ -120,11 +130,18 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
         orderDetailsRv.setVisibility(View.GONE);
         orderedProductsRv.setVisibility(View.VISIBLE);
 
-        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorWhite));
-        tabOrderDetailsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        detailsBorderRv.setVisibility(View.INVISIBLE);
+        itemsBorderRv.setVisibility(View.VISIBLE);
 
-        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorBlack));
-        tabOrderedProductsTv.setBackgroundResource(R.drawable.shape_rect04);
+        detailsText.setTextColor(getResources().getColor(R.color.white));
+        itemsText.setTextColor(getResources().getColor(R.color.primaryTextColor));
+
+
+//        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorWhite));
+//        tabOrderDetailsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+//
+//        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorBlack));
+        detailsText.setBackgroundResource(R.drawable.shape_rect04);
 
     }
 
@@ -133,12 +150,17 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
         orderDetailsRv.setVisibility(View.VISIBLE);
         orderedProductsRv.setVisibility(View.GONE);
 
+        detailsBorderRv.setVisibility(View.VISIBLE);
+        itemsBorderRv.setVisibility(View.INVISIBLE);
 
-        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorBlack));
-        tabOrderDetailsTv.setBackgroundResource(R.drawable.shape_rect04);
+        itemsText.setTextColor(getResources().getColor(R.color.white));
+        detailsText.setTextColor(getResources().getColor(R.color.primaryTextColor));
 
-        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorWhite));
-        tabOrderedProductsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+//        tabOrderDetailsTv.setTextColor(getResources().getColor(R.color.colorBlack));
+        itemsText.setBackgroundResource(R.drawable.shape_rect04);
+//
+//        tabOrderedProductsTv.setTextColor(getResources().getColor(R.color.colorWhite));
+//        tabOrderedProductsTv.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
     }
 
@@ -263,6 +285,7 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
             loadOrderDetails();
             loadOrderedItems();
             showOrderDetailsUI();
+
 
 
         } else {

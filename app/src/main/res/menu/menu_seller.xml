@@ -33,10 +33,6 @@
             android:icon="@drawable/promo"
             android:title="Add Promotion Code" />
 
-        <item
-            android:id="@+id/notificationSetting"
-            android:icon="@drawable/ic_notification_white"
-            android:title="Notification Setting" />
 
     </group>
     <item android:title="">

@@ -12,18 +12,18 @@
         android:id="@+id/shopRl"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="3dp"
-        android:background="@drawable/drawer_gradient_header">
+        android:background="@drawable/drawer_gradient_header"
+        android:elevation="3dp">
 
         <ImageView
+            android:id="@+id/backBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/backBtn"
-            android:src="@drawable/ic_back_white"
-            android:padding="7dp"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
-            android:layout_alignParentStart="true"/>
+            android:padding="7dp"
+            android:src="@drawable/ic_back_white" />
 
         <TextView
             android:id="@+id/toolbarTextView"
@@ -41,63 +41,110 @@
             android:id="@+id/writeReviewBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="2dp"
-            android:layout_marginEnd="5dp"
             android:layout_alignParentEnd="true"
-            android:textColor="@color/black"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
             android:background="@drawable/textview_shape"
             android:fontFamily="@font/poppins_medium"
             android:gravity="end"
+            android:paddingStart="10dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="5dp"
             android:text="Write a Review"
+            android:textColor="@color/black"
             android:textSize="10sp" />
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/tabMode"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:background="@drawable/drawer_gradient_header">
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_rect03"
+        android:backgroundTint="@color/purple_500"
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/tabDetailsRv"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/purple_700"
-            android:background="@drawable/shape_rect03"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
             <TextView
-                android:id="@+id/tabOrderDetailsTv"
-                android:layout_width="wrap_content"
+                android:id="@+id/detailsText"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:background="@drawable/shape_rect04"
+                android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:text="Order Details"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tabItemsRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
             <TextView
-                android:id="@+id/tabOrderedProductsTv"
-                android:layout_width="wrap_content"
+                android:id="@+id/itemsText"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:text="Ordered Items"
-                android:textColor="@color/colorBlack"/>
-        </LinearLayout>
+                android:textColor="@color/primaryTextColor"
+                android:textSize="12sp" />
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tabMode"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/detailsBorderRv"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:visibility="invisible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/primaryTextColor" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/itemsBorderRv"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/primaryTextColor" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/orderDetailsRv"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
@@ -195,9 +242,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Shop Name"
                         android:layout_marginEnd="5dp"
                         android:fontFamily="@font/poppins_medium"
+                        android:text="Shop Name"
                         android:textColor="@color/colorBlack"
                         android:textSize="10sp" />
 
@@ -299,18 +346,18 @@
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/orderedProductsRv"
-        android:visibility="gone"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:visibility="gone"
             android:background="@drawable/drawer_gradient_header"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:paddingBottom="5dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/continueBtn"
@@ -336,13 +383,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_ordereditems"
-            />
+            tools:listitem="@layout/row_ordereditems" />
 
     </RelativeLayout>
-
-
-
 
 
 </LinearLayout>

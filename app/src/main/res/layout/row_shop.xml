@@ -33,7 +33,7 @@
                     android:layout_marginEnd="5dp"
                     android:adjustViewBounds="true"
                     android:background="@drawable/textview_shape"
-                    android:padding="5dp"
+                    android:padding="1dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_person_grey" />
 

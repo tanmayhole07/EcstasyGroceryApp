@@ -47,6 +47,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
@@ -453,15 +455,24 @@ public class EditProductActivity extends AppCompatActivity {
     }
 
     private void pickFromCamera(){
-        ContentValues cv = new ContentValues();
-        cv.put(MediaStore.Images.Media.TITLE,"Temp_Image Title");
-        cv.put(MediaStore.Images.Media.DESCRIPTION,"Temp_Image Description");
+//        ContentValues cv = new ContentValues();
+//        cv.put(MediaStore.Images.Media.TITLE,"Temp_Image Title");
+//        cv.put(MediaStore.Images.Media.DESCRIPTION,"Temp_Image Description");
+//
+//        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
+//
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+//        startActivityForResult(intent, IMAGE_PICK_CAMERA_CODE);
 
-        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
-
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
-        startActivityForResult(intent, IMAGE_PICK_CAMERA_CODE);
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+//                .setCropShape(CropImageView.CropShape.RECTANGLE)
+                .setAspectRatio(90, 90)
+                .setActivityTitle("Crop Image")
+                .setFixAspectRatio(true)
+                .setCropMenuCropButtonTitle("Done")
+                .start(this);
     }
 
     private void pickFromGallery(){
@@ -533,12 +544,50 @@ public class EditProductActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        if (resultCode==RESULT_OK){
-            if (requestCode == IMAGE_PICK_GALLERY_CODE){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+//                image_uri = data.getData();
+//                eventPicIv.setImageURI(image_uri);
+
                 image_uri = data.getData();
+                CropImage.activity(image_uri)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+//                        .setCropShape(CropImageView.CropShape.RECTANGLE)
+                        .setAspectRatio(100, 100)
+                        .setActivityTitle("Crop Image")
+                        .setFixAspectRatio(true)
+                        .setCropMenuCropButtonTitle("Done")
+                        .start( this);
+
+
+            }
+//            else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+//                eventPicIv.setImageURI(image_uri);
+//            }
+        }
+
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                image_uri = result.getUri();
                 productIconIv.setImageURI(image_uri);
-            }else if (requestCode == IMAGE_PICK_CAMERA_CODE){
-                productIconIv.setImageURI(image_uri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception e = result.getError();
+                Toast.makeText(this, "" + e, Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                productIconIv.setImageURI(resultUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+                Toast.makeText(this, "" + error, Toast.LENGTH_SHORT).show();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

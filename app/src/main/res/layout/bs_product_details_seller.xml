@@ -24,7 +24,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/textview_shape"
+                android:background="@drawable/textview_shape_transparent"
                 android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_person_grey" />

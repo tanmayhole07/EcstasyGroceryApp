@@ -16,15 +16,15 @@
     app:layout_constraintTop_toTopOf="parent">
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/productIconIv"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
+        android:background="@drawable/textview_shape_transparent"
+        android:padding="1dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/add_product_image"
-        app:civ_border_color="@color/colorRed"
-        app:civ_border_width="2dp" />
+        android:src="@drawable/add_product_image" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputProductName"

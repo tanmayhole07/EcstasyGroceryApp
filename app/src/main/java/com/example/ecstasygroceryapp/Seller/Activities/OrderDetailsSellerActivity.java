@@ -62,7 +62,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
     RelativeLayout orderDetailsRv, orderedProductsRv, editBtnTextRv;
 
     RelativeLayout tabDetailsRv, tabItemsRv, detailsBorderRv, itemsBorderRv;
-    TextView detailsText, itemsText;
+    TextView detailsText, itemsText, editBtnTextTv;
 
     private FirebaseAuth firebaseAuth;
 
@@ -75,7 +75,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_details_seller);
 
         backBtn = findViewById(R.id.backBtn);
-        editBtn = findViewById(R.id.editBtn);
+        editBtnTextTv = findViewById(R.id.editBtnTextTv);
 //        mapBtn = findViewById(R.id.mapBtn);
         orderIdTv = findViewById(R.id.orderIdTv);
         dateTv = findViewById(R.id.dateTv);
@@ -97,8 +97,6 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
 
         orderDetailsRv = findViewById(R.id.orderDetailsRv);
         orderedProductsRv = findViewById(R.id.orderedProductsRv);
-
-        editBtnTextRv = findViewById(R.id.editBtnTextRv);
 
         orderId = getIntent().getStringExtra("orderId");
         orderBy = getIntent().getStringExtra("orderBy");
@@ -139,7 +137,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
 //            }
 //        });
 //
-        editBtn.setOnClickListener(new View.OnClickListener() {
+        editBtnTextTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editOrderStatusDialog();
@@ -151,7 +149,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
 
         orderDetailsRv.setVisibility(View.GONE);
         orderedProductsRv.setVisibility(View.VISIBLE);
-        editBtnTextRv.setVisibility(View.GONE);
+        editBtnTextTv.setVisibility(View.GONE);
 
         detailsBorderRv.setVisibility(View.INVISIBLE);
         itemsBorderRv.setVisibility(View.VISIBLE);
@@ -172,7 +170,7 @@ public class OrderDetailsSellerActivity extends AppCompatActivity {
 
         orderDetailsRv.setVisibility(View.VISIBLE);
         orderedProductsRv.setVisibility(View.GONE);
-        editBtnTextRv.setVisibility(View.VISIBLE);
+        editBtnTextTv.setVisibility(View.VISIBLE);
 
         detailsBorderRv.setVisibility(View.VISIBLE);
         itemsBorderRv.setVisibility(View.INVISIBLE);

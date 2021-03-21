@@ -18,10 +18,6 @@
             android:icon="@drawable/ic_orders_white"
             android:title="Your Orders" />
 
-        <item
-            android:id="@+id/notificationSetting"
-            android:icon="@drawable/ic_notification_white"
-            android:title="Notification Setting" />
 
         <item
             android:id="@+id/sellOnEcstasy"
