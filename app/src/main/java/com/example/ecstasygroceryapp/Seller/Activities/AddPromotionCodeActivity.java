@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,8 +22,11 @@ import com.example.ecstasygroceryapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -30,13 +34,15 @@ import java.util.HashMap;
 
 public class AddPromotionCodeActivity extends AppCompatActivity {
 
-    private ImageView backBtn, imageIv;
-    private EditText promoCodeEt, promoDescriptionEt, promoPriceEt, minimumOrderPriceEt;
-    private TextView expireDateTv;
-    private Button addBtn;
-
     FirebaseAuth firebaseAuth;
     ProgressDialog pd;
+    private ImageView backBtn, imageIv;
+    private EditText promoCodeEt, promoDescriptionEt, promoPriceEt, minimumOrderPriceEt;
+    private TextView expireDateTv, toolbarTextView;
+    private Button addBtn;
+    private String promoId;
+    private boolean isUpdating = false;
+    private String description, promoCode, promoPrice, minimumOrderPrice, expireDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +57,28 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
         minimumOrderPriceEt = findViewById(R.id.minimumOrderPriceEt);
         expireDateTv = findViewById(R.id.expireDateTv);
         addBtn = findViewById(R.id.addBtn);
+        toolbarTextView = findViewById(R.id.toolbarTextView);
 
         firebaseAuth = FirebaseAuth.getInstance();
         pd = new ProgressDialog(this);
         pd.setTitle("Please Wait");
         pd.setCanceledOnTouchOutside(false);
+
+        Intent intent = getIntent();
+        if (intent.getStringExtra("promoId") != null) {
+            promoId = intent.getStringExtra("promoId");
+
+            toolbarTextView.setText("Update Promotion Code");
+            addBtn.setText("Update");
+            isUpdating = true;
+            loadPromoInfo();
+        } else {
+
+
+            toolbarTextView.setText("Add Promotion Code");
+            addBtn.setText("Add");
+            isUpdating = false;
+        }
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +99,36 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
                 inputData();
             }
         });
+    }
+
+    private void loadPromoInfo() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("Promotions").child(promoId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String id = "" + snapshot.child("id").getValue();
+                        String timestamp = "" + snapshot.child("timeStamp").getValue();
+                        String description = "" + snapshot.child("description").getValue();
+                        String promoCode = "" + snapshot.child("promoCode").getValue();
+                        String promoPrice = "" + snapshot.child("promoPrice").getValue();
+                        String minimumOrderPrice = "" + snapshot.child("minimumOrderPrice").getValue();
+                        String expireDate = "" + snapshot.child("expireDate").getValue();
+
+                        promoCodeEt.setText(promoCode);
+                        promoDescriptionEt.setText(description);
+                        promoPriceEt.setText(promoPrice);
+                        minimumOrderPriceEt.setText(minimumOrderPrice);
+                        expireDateTv.setText(expireDate);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void pickDateDialog() {
@@ -103,8 +156,6 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
         datePickerDialog.show();
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
     }
-
-    private String description, promoCode, promoPrice, minimumOrderPrice, expireDate;
 
     private void inputData() {
 
@@ -139,7 +190,46 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
             return;
         }
 
-        addToDb();
+        if (isUpdating) {
+            updateDataToDb();
+        } else {
+            addToDb();
+        }
+
+    }
+
+    private void updateDataToDb() {
+
+        pd.setMessage("Updating Promotion Code");
+        pd.show();
+
+        HashMap<String, Object> hashmap = new HashMap<>();
+        hashmap.put("description", description + "");
+        hashmap.put("promoCode", promoCode + "");
+        hashmap.put("promoPrice", promoPrice + "");
+        hashmap.put("minimumOrderPrice", minimumOrderPrice + "");
+        hashmap.put("expireDate", expireDate + "");
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("Promotions").child(promoId)
+                .updateChildren(hashmap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        pd.dismiss();
+                        Toast.makeText(AddPromotionCodeActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(AddPromotionCodeActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
     }
 
     private void addToDb() {
