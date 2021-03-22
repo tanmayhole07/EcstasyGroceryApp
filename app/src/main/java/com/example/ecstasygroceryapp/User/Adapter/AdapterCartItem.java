@@ -85,13 +85,51 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.Holder
                 notifyItemChanged(position);
                 notifyDataSetChanged();
 
-                double tx = Double.parseDouble((((ShopDetailsActivity)context).allTotalPriceTv.getText().toString().trim().replace("$","")));
-                double totalPrice = tx - Double.parseDouble(cost.replace("$",""));
-                double deliveryFee = Double.parseDouble((((ShopDetailsActivity)context).deliveryFee.replace("$","")));
-                double sTotalPrice = Double.parseDouble(String.format("%.2f", totalPrice))- Double.parseDouble(String.format("%.2f", deliveryFee));
-                ((ShopDetailsActivity)context).allTotalPrice=0.00;
-                ((ShopDetailsActivity)context).sTotalTv.setText("$"+String.format("%.2f", sTotalPrice));
-                ((ShopDetailsActivity)context).allTotalPriceTv.setText("$"+String.format("%.2f", Double.parseDouble(String.format("%.2f", totalPrice))));
+                double subTotalWithoutDiscount = ((ShopDetailsActivity)context).allTotalPrice;
+                double subTotalAfterProductRemove = subTotalWithoutDiscount = Double.parseDouble(cost.replace("$", ""));
+                ((ShopDetailsActivity)context).allTotalPrice = subTotalAfterProductRemove;
+                ((ShopDetailsActivity)context).sTotalTv.setText("$" + String.format("%.2f",((ShopDetailsActivity)context).allTotalPrice));
+
+                double promoPrice = Double.parseDouble(((ShopDetailsActivity)context).promoPrice);
+                double deliveryFee = Double.parseDouble(((ShopDetailsActivity)context).deliveryFee.replace("$",""));
+
+                if(((ShopDetailsActivity)context).isPromoCodeApplied){
+
+                    if (subTotalAfterProductRemove < Double.parseDouble(((ShopDetailsActivity)context).promoMinimumOrderPrice)){
+                        Toast.makeText(context, "This code is valid for minimum order : $" + ((ShopDetailsActivity)context).promoMinimumOrderPrice, Toast.LENGTH_SHORT).show();
+                        ((ShopDetailsActivity)context).applyBtn.setVisibility(View.GONE);
+                        ((ShopDetailsActivity)context).promoDescriptionTv.setVisibility(View.GONE);
+                        ((ShopDetailsActivity)context).discountTv.setVisibility(View.GONE);
+                        ((ShopDetailsActivity)context).promoDescriptionTv.setText("");
+                        ((ShopDetailsActivity)context).isPromoCodeApplied = false;
+
+                        ((ShopDetailsActivity)context).allTotalPriceTv.setText("$" + String.format("%.2f", Double.parseDouble(String.format("%.2f", subTotalAfterProductRemove + deliveryFee))));
+
+                    }else{
+                        ((ShopDetailsActivity)context).applyBtn.setVisibility(View.VISIBLE);
+                        ((ShopDetailsActivity)context).promoDescriptionTv.setVisibility(View.VISIBLE);
+                        ((ShopDetailsActivity)context).promoDescriptionTv.setText(((ShopDetailsActivity)context).promoDescription);
+
+                        ((ShopDetailsActivity)context).isPromoCodeApplied = true;
+                        ((ShopDetailsActivity)context).allTotalPriceTv.setText("$"+String.format("%.2f", Double.parseDouble(String.format("%.2f", subTotalAfterProductRemove + deliveryFee - promoPrice))));
+
+                    }
+
+                }else{
+
+                    ((ShopDetailsActivity)context).allTotalPriceTv.setText("$" + String.format("%.2f", Double.parseDouble(String.format("%.2f", subTotalAfterProductRemove + deliveryFee ))));
+
+
+                }
+
+
+//                double tx = Double.parseDouble((((ShopDetailsActivity)context).allTotalPriceTv.getText().toString().trim().replace("$","")));
+//                double totalPrice = tx - Double.parseDouble(cost.replace("$",""));
+//                double deliveryFee = Double.parseDouble((((ShopDetailsActivity)context).deliveryFee.replace("$","")));
+//                double sTotalPrice = Double.parseDouble(String.format("%.2f", totalPrice))- Double.parseDouble(String.format("%.2f", deliveryFee));
+//                ((ShopDetailsActivity)context).allTotalPrice=0.00;
+//                ((ShopDetailsActivity)context).sTotalTv.setText("$"+String.format("%.2f", sTotalPrice));
+//                ((ShopDetailsActivity)context).allTotalPriceTv.setText("$"+String.format("%.2f", Double.parseDouble(String.format("%.2f", totalPrice))));
 
                 ((ShopDetailsActivity)context).cartCount();
 
