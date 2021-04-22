@@ -120,7 +120,7 @@ public class SellOnEcstasyActivity extends AppCompatActivity {
 
 
         pd = new ProgressDialog(this);
-        pd.setTitle("Please Title");
+        pd.setTitle("Please Wait");
         pd.setCanceledOnTouchOutside(false);
         firebaseAuth = FirebaseAuth.getInstance();
 

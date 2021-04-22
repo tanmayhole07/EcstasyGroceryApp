@@ -32,6 +32,12 @@
                     android:id="@+id/aboutUs"
                     android:icon="@drawable/ic_about_us_white"
                     android:title="About Us" />
+
+                <item
+                    android:id="@+id/contactUs"
+                    android:icon="@drawable/ic_about_us_white"
+                    android:title="Contact Us" />
+
                 <item
                     android:id="@+id/logout"
                     android:icon="@drawable/ic_logout_white"

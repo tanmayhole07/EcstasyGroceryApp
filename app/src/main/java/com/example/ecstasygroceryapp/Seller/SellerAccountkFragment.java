@@ -149,7 +149,7 @@ public class SellerAccountkFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_seller_accountk, container, false);
 
         pd = new ProgressDialog(getActivity());
-        pd.setTitle("Please Title");
+        pd.setTitle("Please Wait");
         pd.setCanceledOnTouchOutside(false);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();

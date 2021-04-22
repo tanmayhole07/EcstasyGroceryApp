@@ -124,7 +124,6 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
 
     }
 
-
     private void showOrderedItemsUI() {
 
         orderDetailsRv.setVisibility(View.GONE);
@@ -293,6 +292,4 @@ public class OrderDetailsUserActivity extends AppCompatActivity {
             OrderDetailsUserActivity.this.finish();
         }
     }
-
-
 }

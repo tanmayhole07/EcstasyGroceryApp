@@ -108,7 +108,7 @@ public class SellerOrderFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         pd = new ProgressDialog(getActivity());
-        pd.setTitle("Please Title");
+        pd.setTitle("Please Wait");
         pd.setCanceledOnTouchOutside(false);
 
 

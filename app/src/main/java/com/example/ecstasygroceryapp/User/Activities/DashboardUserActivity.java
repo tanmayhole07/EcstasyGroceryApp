@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ecstasygroceryapp.CommonActivities.ContactUsFragment;
 import com.example.ecstasygroceryapp.CommonActivities.LoginActivity;
 import com.example.ecstasygroceryapp.CommonActivities.AboutUsFragment;
 import com.example.ecstasygroceryapp.R;
@@ -59,7 +60,7 @@ public class DashboardUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard_user);
 
         pd = new ProgressDialog(this);
-        pd.setTitle("Please Title");
+        pd.setTitle("Please Wait");
         pd.setCanceledOnTouchOutside(false);
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -117,6 +118,11 @@ public class DashboardUserActivity extends AppCompatActivity {
 
                     case R.id.aboutUs:
                         fragment = new AboutUsFragment();
+                        loadFragment(fragment);
+                        break;
+
+                    case R.id.contactUs:
+                        fragment = new ContactUsFragment();
                         loadFragment(fragment);
                         break;
 

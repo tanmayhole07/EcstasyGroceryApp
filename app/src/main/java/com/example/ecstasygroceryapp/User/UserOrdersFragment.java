@@ -109,7 +109,7 @@ public class UserOrdersFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         pd = new ProgressDialog(getActivity());
-        pd.setTitle("Please Title");
+        pd.setTitle("Please Wait");
         pd.setCanceledOnTouchOutside(false);
 
         checkUserStatus();

@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         pd = new ProgressDialog(this);
-        pd.setTitle("Please Title");
+        pd.setTitle("Please wait");
         pd.setCanceledOnTouchOutside(false);
 
         //////////////////////////////////////////////////////////////

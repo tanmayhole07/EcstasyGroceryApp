@@ -68,7 +68,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
     private ImageView shopIv, shopInfoIv;
     private TextView shopNameTv, phoneTv, emailTv, openCloseTv,
             deliveryFeeTv, addressTv, filteredProductTv, cartCountTv;
-    private ImageButton callBtn, mapBtn, cartBtn, backBtn, filterProductBtn, reviewBtn;
+    private ImageButton callBtn, mapBtn, cartBtn, filterProductBtn, reviewBtn;
     private EditText searchProductEt;
     private RecyclerView productsRv;
     private RatingBar ratingBar;
@@ -93,7 +93,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
 
     private ProgressDialog pd;
 
-
+    ImageView backBtn;
 
     private EasyDB easyDB;
 
@@ -122,7 +122,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         shopInfoIv = findViewById(R.id.shopInfoIv);
 
-
+        backBtn = findViewById(R.id.backBtn);
 
         pd = new ProgressDialog(this);
         pd.setTitle("Please Wait");
@@ -131,6 +131,13 @@ public class ShopDetailsActivity extends AppCompatActivity {
         shopUid = getIntent().getStringExtra("shopUid");
         firebaseAuth = FirebaseAuth.getInstance();
 
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         loadMyInfo();
         loadShopInfo();

@@ -2,13 +2,117 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorAccent"
     android:layout_height="match_parent"
     tools:context=".CommonActivities.AboutUsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/header1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="About Us"
+                android:textColor="@color/purple_500"
+                android:textSize="22sp" />
+
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/header1"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="In this project we will see a Multivendor Grocery App.
+In this app there will be two types of users a User panel, wherein user can buy grocery and other items from a particular shop and a Seller panel where an owner of shop can create their account in app and sell their products across platform.
+."
+                android:textColor="@color/colorRed"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text1"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="User : \t When user first time registers in the app he will be registered as the user. In this section user can see various number os shops that are available. User can order items from this shops, see  the shop details and user ratings of the particular shop. User can order the products from any shop and user will get a details of the order in order section"
+                android:textColor="@color/colorRed"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text2"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Seller : \t Any User can become a seller theprocess is simple. User will have to create a seller account where they can add products and sell them to users. User can also add promotion codes ."
+                android:textColor="@color/colorRed"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/text4"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text3"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="We also take an input of time, date, severity, number of vehicles involved, So we can run the important queries like in which particular time the most of the accident occurs, average severity of accidents in one month etc.
+We can also take the reasons of accident from users to deduce the reason for that area to be accident prone and we can also inform the respective authorities so that necessary steps should be taken."
+                android:textColor="@color/colorRed"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text4"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/admin_person_bg" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="This App was made as a project of TYBSC CS in final year by \n \n Tanmay Hole"
+                        android:textColor="@color/colorRed"
+                        android:textSize="18dp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </FrameLayout>
